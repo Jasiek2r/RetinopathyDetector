@@ -85,7 +85,12 @@ class ResearchProjectDataset(Dataset):
         valid_rows = []
         for _, row in df.iterrows():
             file_id = str(row["id_code"])
-            img_path = os.path.join(images_dir, file_id + ".png")
+
+            # Obsługa rozszerzeń
+            if "." in file_id:
+                img_path = os.path.join(images_dir, file_id)
+            else:
+                img_path = os.path.join(images_dir, file_id + ".png")
             if os.path.exists(img_path):
                 valid_rows.append(row)
 
@@ -120,7 +125,10 @@ class ResearchProjectDataset(Dataset):
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
         file_id = str(row["id_code"])
-        img_path = os.path.join(self.images_dir, file_id + ".png")
+        if "." in file_id:
+            img_path = os.path.join(self.images_dir, file_id)
+        else:
+            img_path = os.path.join(self.images_dir, file_id + ".png")
 
         img = Image.open(img_path).convert("RGB")
         img = self.transform(img)
