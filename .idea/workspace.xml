@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: EfficientNet-B4">
-      <change beforePath="$PROJECT_DIR$/.idea/RetinopathyDetector.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RetinopathyDetector.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix image loading">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774282480414</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix: fix image loading">
+      <option name="closed" value="true" />
+      <created>1774286381790</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1774286381790</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -246,6 +252,7 @@
     <MESSAGE value="change to full data" />
     <MESSAGE value="fix: fix augumentations" />
     <MESSAGE value="feat: EfficientNet-B4" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: EfficientNet-B4" />
+    <MESSAGE value="fix: fix image loading" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fix image loading" />
   </component>
 </project>

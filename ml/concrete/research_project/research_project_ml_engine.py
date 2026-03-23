@@ -27,9 +27,11 @@ class ResearchProjectMLEngine(MLEngine):
         if val_dataset is not None:
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
+        loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+
         for epoch in range(epochs):
             print(f"\n===== EPOKA {epoch + 1} / {epochs} =====")
-            loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+
             running_loss = 0.0
 
             for batch_idx, (images, labels) in enumerate(loader):
