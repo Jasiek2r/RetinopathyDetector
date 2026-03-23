@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: replace efficientnet b4 to b0">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: remove hughcircles">
+      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774287104748</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="chore: remove hughcircles">
+      <option name="closed" value="true" />
+      <created>1774287418663</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1774287418663</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -271,6 +278,7 @@
     <MESSAGE value="fix: fix image loading" />
     <MESSAGE value="fix: take dataloader out of epoch loop" />
     <MESSAGE value="chore: replace efficientnet b4 to b0" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: replace efficientnet b4 to b0" />
+    <MESSAGE value="chore: remove hughcircles" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: remove hughcircles" />
   </component>
 </project>

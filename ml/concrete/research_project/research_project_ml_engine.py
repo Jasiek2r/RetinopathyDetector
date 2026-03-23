@@ -16,7 +16,7 @@ class ResearchProjectMLEngine(MLEngine):
         #self.model = ResearchProjectNet().to(self.device)
         self.model = self.create_model().to(self.device)
 
-    def train(self, train_dataset, val_dataset, batch_size=8, epochs=50):
+    def train(self, train_dataset, val_dataset, batch_size=32, epochs=50):
 
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(self.model.parameters(), lr=0.0005, weight_decay=1e-4)
