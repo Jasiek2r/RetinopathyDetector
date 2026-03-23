@@ -99,9 +99,7 @@ class ResearchProjectDataset(Dataset):
 
         self.transform = transforms.Compose([
             CLAHETransform(),
-            CenterCropCircle(),
             transforms.Resize((380, 380)),
-
             # delikatne augmentacje
             transforms.RandomRotation(10),
             transforms.ColorJitter(

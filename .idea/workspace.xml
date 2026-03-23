@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: take dataloader out of epoch loop">
-      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: replace efficientnet b4 to b0">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +248,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774286921822</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="chore: replace efficientnet b4 to b0">
+      <option name="closed" value="true" />
+      <created>1774287104748</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1774287104748</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -261,6 +270,7 @@
     <MESSAGE value="feat: EfficientNet-B4" />
     <MESSAGE value="fix: fix image loading" />
     <MESSAGE value="fix: take dataloader out of epoch loop" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: take dataloader out of epoch loop" />
+    <MESSAGE value="chore: replace efficientnet b4 to b0" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: replace efficientnet b4 to b0" />
   </component>
 </project>
