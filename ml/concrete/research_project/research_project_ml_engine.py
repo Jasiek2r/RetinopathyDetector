@@ -98,7 +98,7 @@ class ResearchProjectMLEngine(MLEngine):
 
     def create_model(self, num_classes=5):
         model = timm.create_model(
-            "efficientnet_b4",
+            "efficientnet_b0",
             pretrained=True,
             num_classes=num_classes
         )
