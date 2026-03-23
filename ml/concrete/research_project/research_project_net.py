@@ -1,34 +1,34 @@
 import torch.nn as nn
+import torch
+
+from ml.concrete.research_project.residual_block import ResidualBlock
 
 
 class ResearchProjectNet(nn.Module):
     def __init__(self):
         super().__init__()
-        self.features = nn.Sequential(
-            nn.Conv2d(3, 16, kernel_size=3, padding=1),  # 3x64x64 -> 16x64x64
-            nn.BatchNorm2d(16),
-            nn.ReLU(),
-            nn.MaxPool2d(2),  # 16x32x32
 
-            nn.Conv2d(16, 32, kernel_size=3, padding=1),  # 32x32x32
+        self.layer1 = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm2d(32),
-            nn.ReLU(),
-            nn.MaxPool2d(2),  # 32x16x16
-
-            nn.Conv2d(32, 64, kernel_size=3, padding=1),  # 64x16x16
-            nn.BatchNorm2d(64),
-            nn.ReLU(),
-            nn.MaxPool2d(2),  # 64x8x8
+            nn.ReLU(inplace=True)
         )
 
-        self.classifier = nn.Sequential(
-            nn.Flatten(),  # 64*8*8 = 4096
-            nn.Linear(64 * 8 * 8, 128),
-            nn.ReLU(),
-            nn.Linear(128, 5)  # 5 klas APTOS
-        )
+        self.layer2 = ResidualBlock(32, 64, stride=2)
+        self.layer3 = ResidualBlock(64, 128, stride=2)
+        self.layer4 = ResidualBlock(128, 256, stride=2)
+        self.layer5 = ResidualBlock(256, 256, stride=2)
+
+        self.gap = nn.AdaptiveAvgPool2d(1)
+
+        self.fc = nn.Linear(256, 5)
 
     def forward(self, x):
-        x = self.features(x)
-        x = self.classifier(x)
-        return x
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        x = self.layer4(x)
+        x = self.layer5(x)
+        x = self.gap(x)
+        x = torch.flatten(x, 1)
+        return self.fc(x)

@@ -1,46 +1,104 @@
+import traceback
+
 import torch
-
-from ml.abstractions.ml_engine import MLEngine
-
 import torch.nn as nn
 import torch.optim as optim
+from torch.optim.lr_scheduler import StepLR
+from torch.utils.data import DataLoader
+from torchvision.models import resnet18, ResNet18_Weights
 
+
+from ml.abstractions.ml_engine import MLEngine
 from ml.concrete.research_project.research_project_net import ResearchProjectNet
-from utility.formatted_date import get_formatted_date
 
 
 class ResearchProjectMLEngine(MLEngine):
-    def __init__(self):
-        self.__model__ = ResearchProjectNet()
+    def __init__(self, device=None):
+        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        #self.model = ResearchProjectNet().to(self.device)
+        self.model = self.create_model()
 
-    def train(self, x: torch.Tensor, y: torch.Tensor):
+    def train(self, train_dataset, val_dataset, batch_size=8, epochs=50):
+
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(self.__model__.parameters(), lr=0.001)
+        optimizer = optim.Adam(self.model.parameters(), lr=0.0005, weight_decay=1e-4)
+        scheduler = StepLR(optimizer, step_size=10, gamma=0.5)
+        self.model.train()
 
-        for epoch in range(400):
-            optimizer.zero_grad()
-            outputs = self.__model__(x)
-            loss = criterion(outputs, y)
-            loss.backward()
-            optimizer.step()
+        val_loader = None
+        if val_dataset is not None:
+            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
-            if epoch % 20 == 0:
-                print(f"Epoch {epoch}, loss = {loss.item():.4f}")
-            if(epoch % 100 == 0):
-                formatted_date = get_formatted_date()
-                print(f"{formatted_date} PLEASE DO NOT TURN OFF THE PROGRAM")
+        for epoch in range(epochs):
+            print(f"\n===== EPOKA {epoch + 1} / {epochs} =====")
+            loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+            running_loss = 0.0
 
-    def test(self, x: torch.Tensor, y: torch.Tensor):
-        self.__model__.eval()
+            for batch_idx, (images, labels) in enumerate(loader):
+                #print(f"Batch {batch_idx + 1} / {len(loader)}")
+                try:
+                    images = images.to(self.device)
+                    labels = labels.to(self.device)
+
+                    optimizer.zero_grad()
+                    outputs = self.model(images)
+                    loss = criterion(outputs, labels)
+                    loss.backward()
+                    optimizer.step()
+
+                    running_loss += loss.item()
+                except Exception as e:
+                    print(f"\n*** ERROR in batch {batch_idx} ***")
+                    print("Exception:", e)
+                    traceback.print_exc()
+                    raise
+            scheduler.step()
+            print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(loader):.4f}")
+            if val_dataset is not None:
+                acc = self._validate(val_loader)
+                print(f"Validation accuracy: {acc:.2f}%")
+
+    def _validate(self, loader):
+        self.model.eval()
         correct = 0
         total = 0
 
         with torch.no_grad():
-            outputs = self.__model__(x)
-            _, predicted = torch.max(outputs, 1)
+            for images, labels in loader:
+                images, labels = images.to(self.device), labels.to(self.device)
+                outputs = self.model(images)
+                _, predicted = torch.max(outputs, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
 
-            total = y.size(0)
-            correct = (predicted == y).sum().item()
+        self.model.train()
+        return 100 * correct / total
+
+    def test(self, dataset, batch_size=8):
+        loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+
+        self.model.eval()
+        correct = 0
+        total = 0
+
+        with torch.no_grad():
+            for images, labels in loader:
+                images = images.to(self.device)
+                labels = labels.to(self.device)
+
+                outputs = self.model(images)
+                _, predicted = torch.max(outputs, 1)
+
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
 
         accuracy = correct / total * 100
         print(f"Test accuracy: {accuracy:.2f}%")
+        torch.save(self.model.state_dict(), "model_weights.pth")
+        return accuracy
+
+    def create_model(self, num_classes=5):
+        weights = ResNet18_Weights.IMAGENET1K_V1
+        model = resnet18(weights=weights)
+        model.fc = nn.Linear(model.fc.in_features, num_classes)
+        return model
