@@ -1,15 +1,13 @@
 import traceback
 
+import timm
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
-from torchvision.models import resnet18, ResNet18_Weights
-
 
 from ml.abstractions.ml_engine import MLEngine
-from ml.concrete.research_project.research_project_net import ResearchProjectNet
 
 
 class ResearchProjectMLEngine(MLEngine):
@@ -35,7 +33,6 @@ class ResearchProjectMLEngine(MLEngine):
             running_loss = 0.0
 
             for batch_idx, (images, labels) in enumerate(loader):
-                #print(f"Batch {batch_idx + 1} / {len(loader)}")
                 try:
                     images = images.to(self.device)
                     labels = labels.to(self.device)
@@ -98,7 +95,9 @@ class ResearchProjectMLEngine(MLEngine):
         return accuracy
 
     def create_model(self, num_classes=5):
-        weights = ResNet18_Weights.IMAGENET1K_V1
-        model = resnet18(weights=weights)
-        model.fc = nn.Linear(model.fc.in_features, num_classes)
+        model = timm.create_model(
+            "efficientnet_b4",
+            pretrained=True,
+            num_classes=num_classes
+        )
         return model
