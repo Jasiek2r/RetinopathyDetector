@@ -1,0 +1,15 @@
+# Ignore dataset
+aptos2019-blindness-detection/
+*.csv
+
+# Ignore model weights
+*.pth
+*.pt
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore virtual environments
+venv/
+.env/

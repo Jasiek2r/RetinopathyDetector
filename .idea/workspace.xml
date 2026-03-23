@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="retinopathy detection ResNet18">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: move model to gpu if possible">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_ml_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,12 +185,21 @@
       <option name="project" value="LOCAL" />
       <updated>1774268041337</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix: move model to gpu if possible">
+      <option name="closed" value="true" />
+      <created>1774269374809</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1774269374809</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="retinopathy detection CNN" />
     <MESSAGE value="retinopathy detection ResNet18" />
-    <option name="LAST_COMMIT_MESSAGE" value="retinopathy detection ResNet18" />
+    <MESSAGE value="fix: move model to gpu if possible" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: move model to gpu if possible" />
   </component>
 </project>

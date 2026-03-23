@@ -12,7 +12,7 @@ class Startup:
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
         sample_limit = 1000  # use None for no limit
-        path = "C:\\Users\\janek\\Desktop\\STUDIA\\magisterskie\\semestr 1\\szum\\projekt\\aptos2019-blindness-detection"
+        path = "./aptos2019-blindness-detection"
         dev = True  # uses developer version for testing
 
         # configure the dependencies used by application here
