@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change size of image to 224x224">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change dataset path">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,9 +147,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.start" />
       <item itemvalue="Python.exclude files" />
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>
@@ -293,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774288068926</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="chore: change dataset path">
+      <option name="closed" value="true" />
+      <created>1774775498658</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1774775498658</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -312,6 +320,7 @@
     <MESSAGE value="chore: change batch size to 32" />
     <MESSAGE value="chore: change batch size to 16" />
     <MESSAGE value="chore: change size of image to 224x224" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: change size of image to 224x224" />
+    <MESSAGE value="chore: change dataset path" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: change dataset path" />
   </component>
 </project>
