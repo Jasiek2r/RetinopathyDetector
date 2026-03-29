@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change batch size to 16">
-      <change beforePath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/research_project/research_project_dataset.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change size of image to 224x224">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="szum-master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -54,7 +60,7 @@
     &quot;Python.start.executor&quot;: &quot;Run&quot;,
     &quot;Python.user_query.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;rp-master&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/janek/PycharmProjects/RetinopathyDetector/services/concrete/SzUM&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
@@ -141,9 +147,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.start" />
       <item itemvalue="Python.exclude files" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>
@@ -279,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774287872550</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="chore: change size of image to 224x224">
+      <option name="closed" value="true" />
+      <created>1774288068926</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1774288068926</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -297,6 +311,7 @@
     <MESSAGE value="chore: remove hughcircles" />
     <MESSAGE value="chore: change batch size to 32" />
     <MESSAGE value="chore: change batch size to 16" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: change batch size to 16" />
+    <MESSAGE value="chore: change size of image to 224x224" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: change size of image to 224x224" />
   </component>
 </project>
