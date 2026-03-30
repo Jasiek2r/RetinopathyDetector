@@ -5,8 +5,6 @@ import numpy as np
 import cv2
 from PIL import Image
 
-from ml.concrete.retinopathy_dataset import RetinopathyDataset
-
 
 class CLAHETransform:
     def __call__(self, img):
@@ -113,20 +111,15 @@ class RetinopathyPipeline(DataPipeline):
             [train_size, val_size, test_size]
         )
 
-        train_dataset = Subset(
-            RetinopathyDataset(dir_path, transform=train_transform),
-            train_subset.indices
-        )
+        dataset.transform = train_transform
+        train_dataset = Subset(dataset, train_subset.indices)
 
-        val_dataset = Subset(
-            RetinopathyDataset(dir_path, transform=val_transform),
-            val_subset.indices
-        )
+        dataset.transform = val_transform
+        val_dataset = Subset(dataset, val_subset.indices)
 
-        test_dataset = Subset(
-            RetinopathyDataset(dir_path, transform=test_transform),
-            test_subset.indices
-        )
+        dataset.transform = test_transform
+        test_dataset = Subset(dataset, val_subset.indices)
+
         return train_dataset, val_dataset, test_dataset
     def run(self, dataset, dir_path):
         train, val, test = self.__augument__(dataset, dir_path)

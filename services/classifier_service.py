@@ -1,6 +1,5 @@
 from ml.abstractions.data_pipeline import DataPipeline
 from ml.abstractions.ml_engine import MLEngine
-from ml.concrete.retinopathy_dataset import RetinopathyDataset
 from services.abstractions.loader_service import LoaderService
 from utility.decorated_print import print_decorated
 from utility.formatted_date import get_formatted_date
@@ -23,7 +22,8 @@ class ClassifierService:
 
         train_dataset, val_dataset, test_dataset = self.__pipeline__.run(
             data=dataset,
-            path=dir_path
+            path=dir_path,
+            sample_limit=self.sample_limit
         )
 
         print("Images have been loaded successfully")
