@@ -5,6 +5,8 @@ import numpy as np
 import cv2
 from PIL import Image
 
+from ml.concrete.retinopathy_dataset import RetinopathyDataset
+
 
 class CLAHETransform:
     def __call__(self, img):
@@ -66,10 +68,16 @@ class RetinopathyPipeline(DataPipeline):
         val_size = int(0.15 * len(dataset))
         train_size = len(dataset) - test_size - val_size
 
+        train_subset, val_subset, test_subset = random_split(
+            dataset,
+            [train_size, val_size, test_size]
+        )
+
+        # --- TRANSFORMACJE ---
         train_transform = transforms.Compose([
-            CenterCropCircle(),  # preprocessing
+            CenterCropCircle(),
             transforms.Resize((256, 256)),
-            CLAHETransform(),  # tylko w treningu
+            CLAHETransform(),
             transforms.RandomResizedCrop(224, scale=(0.8, 1.0)),
             transforms.RandomRotation(10),
             transforms.ColorJitter(
@@ -87,7 +95,7 @@ class RetinopathyPipeline(DataPipeline):
         ])
 
         val_transform = transforms.Compose([
-            CenterCropCircle(),  # jeśli zdjęcia są surowe
+            CenterCropCircle(),
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
             transforms.Normalize(
@@ -106,21 +114,23 @@ class RetinopathyPipeline(DataPipeline):
             )
         ])
 
-        train_subset, val_subset, test_subset = random_split(
-            dataset,
-            [train_size, val_size, test_size]
+        # --- TRZY NIEZALEŻNE DATASETY, ALE Z TYM SAMYM ŹRÓDŁEM ---
+        train_dataset = Subset(
+            RetinopathyDataset(dir_path, transform=train_transform, max_images=len(dataset)),
+            train_subset.indices
         )
 
-        dataset.transform = train_transform
-        train_dataset = Subset(dataset, train_subset.indices)
+        val_dataset = Subset(
+            RetinopathyDataset(dir_path, transform=val_transform, max_images=len(dataset)),
+            val_subset.indices
+        )
 
-        dataset.transform = val_transform
-        val_dataset = Subset(dataset, val_subset.indices)
-
-        dataset.transform = test_transform
-        test_dataset = Subset(dataset, val_subset.indices)
+        test_dataset = Subset(
+            RetinopathyDataset(dir_path, transform=test_transform, max_images=len(dataset)),
+            test_subset.indices
+        )
 
         return train_dataset, val_dataset, test_dataset
+
     def run(self, dataset, dir_path):
-        train, val, test = self.__augument__(dataset, dir_path)
-        return train, val, test
+        return self.__augument__(dataset, dir_path)

@@ -21,9 +21,8 @@ class ClassifierService:
         print("Dataset size:", len(dataset))
 
         train_dataset, val_dataset, test_dataset = self.__pipeline__.run(
-            data=dataset,
-            path=dir_path,
-            sample_limit=self.sample_limit
+            dataset=dataset,
+            dir_path=dir_path
         )
 
         print("Images have been loaded successfully")
