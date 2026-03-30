@@ -2,10 +2,11 @@ import traceback
 
 import timm
 import torch
+import numpy as np
 import torch.nn as nn
 import torch.optim as optim
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from ml.abstractions.ml_engine import MLEngine
 
@@ -30,7 +31,32 @@ class RetinopathyMLEngine(MLEngine):
         if val_dataset is not None:
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
-        loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+        # --- Pobieranie etykiet dla WeightedRandomSampler ---
+        if hasattr(train_dataset, "indices"):
+            # train_dataset jest Subsetem
+            labels = train_dataset.dataset.df.iloc[train_dataset.indices]["diagnosis"].values
+        else:
+            # train_dataset jest zwykłym datasetem
+            labels = train_dataset.df["diagnosis"].values
+
+        class_counts = np.bincount(labels)
+
+        class_weights = 1.0 / class_counts
+        sample_weights = class_weights[labels]
+
+        sampler = WeightedRandomSampler(
+            weights=sample_weights,
+            num_samples=len(sample_weights),
+            replacement=True
+        )
+
+        # --- TRAIN LOADER Z SAMPLEREM ---
+        loader = DataLoader(
+            train_dataset,
+            batch_size=batch_size,
+            sampler=sampler,
+            num_workers=4
+        )
 
         for epoch in range(epochs):
             print(f"\n===== EPOKA {epoch + 1} / {epochs} =====")

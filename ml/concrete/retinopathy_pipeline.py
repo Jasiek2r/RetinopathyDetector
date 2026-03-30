@@ -128,7 +128,6 @@ class RetinopathyPipeline(DataPipeline):
             test_subset.indices
         )
         return train_dataset, val_dataset, test_dataset
-
     def run(self, dataset, dir_path):
         train, val, test = self.__augument__(dataset, dir_path)
         return train, val, test

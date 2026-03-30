@@ -1,7 +1,7 @@
 from core.retinopathy_application import RetinopathyApplication
 from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
 from services.classifier_service import ClassifierService
-from services.concrete.research_project.research_project_loader_service import ResearchProjectLoaderService
+from services.concrete.research_project.retinopathy_loader_service import ResearchProjectLoaderService
 from services.file_service import FileService
 
 from ml.concrete.retinopathy_ml_engine import RetinopathyMLEngine
