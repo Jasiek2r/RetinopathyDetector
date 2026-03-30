@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: enable sampler">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: efficientnet-b2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -382,11 +380,18 @@
       <option name="project" value="LOCAL" />
       <updated>1774887580086</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="feat: efficientnet-b2">
+      <option name="closed" value="true" />
+      <created>1774888310160</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1774888310160</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="retinopathy detection ResNet18" />
     <MESSAGE value="fix: move model to gpu if possible" />
     <MESSAGE value="add gitignore" />
     <MESSAGE value="change to 5000 images" />
@@ -411,6 +416,7 @@
     <MESSAGE value="feat: remove shitty augumentations" />
     <MESSAGE value="chore: change path" />
     <MESSAGE value="chore: enable sampler" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: enable sampler" />
+    <MESSAGE value="feat: efficientnet-b2" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: efficientnet-b2" />
   </component>
 </project>
