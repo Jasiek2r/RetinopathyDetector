@@ -49,7 +49,7 @@ class RetinopathyMLEngine(MLEngine):
         train_loader = DataLoader(
             train_dataset,
             batch_size=batch_size,
-            shuffle=True,
+            sampler=sampler,
             num_workers=4
         )
 
