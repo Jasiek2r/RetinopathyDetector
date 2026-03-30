@@ -4,13 +4,13 @@ import timm
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.utils.data import DataLoader
 
 from ml.abstractions.ml_engine import MLEngine
 
 
-class ResearchProjectMLEngine(MLEngine):
+class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         #self.model = ResearchProjectNet().to(self.device)
@@ -19,8 +19,11 @@ class ResearchProjectMLEngine(MLEngine):
     def train(self, train_dataset, val_dataset, batch_size=16, epochs=50):
 
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(self.model.parameters(), lr=0.0005, weight_decay=1e-4)
-        scheduler = StepLR(optimizer, step_size=10, gamma=0.5)
+        optimizer = optim.AdamW(self.model.parameters(), lr=0.0005, weight_decay=1e-4)
+        scheduler = CosineAnnealingLR(
+            optimizer, T_max=epochs
+        )
+
         self.model.train()
 
         val_loader = None

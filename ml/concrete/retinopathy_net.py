@@ -1,10 +1,10 @@
 import torch.nn as nn
 import torch
 
-from ml.concrete.research_project.residual_block import ResidualBlock
+from ml.concrete.residual_block import ResidualBlock
 
 
-class ResearchProjectNet(nn.Module):
+class RetinopathyNet(nn.Module):
     def __init__(self):
         super().__init__()
 
