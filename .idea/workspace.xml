@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: sample limits fix attempt 2" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change sample limit to 200 atm">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -338,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774878467265</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="chore: change sample limit to 200 atm">
+      <option name="closed" value="true" />
+      <created>1774878560085</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1774878560085</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -363,6 +373,7 @@
     <MESSAGE value="fix: change weighting" />
     <MESSAGE value="fix: sample limits" />
     <MESSAGE value="fix: sample limits fix attempt 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: sample limits fix attempt 2" />
+    <MESSAGE value="chore: change sample limit to 200 atm" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: change sample limit to 200 atm" />
   </component>
 </project>
