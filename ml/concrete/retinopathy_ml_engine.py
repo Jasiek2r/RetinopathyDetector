@@ -5,10 +5,11 @@ import torch
 import numpy as np
 import torch.nn as nn
 import torch.optim as optim
-from torch.optim.lr_scheduler import CosineAnnealingLR
+from torch.optim.lr_scheduler import CosineAnnealingLR, CyclicLR
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from ml.abstractions.ml_engine import MLEngine
+import matplotlib.pyplot as plt
 
 
 class RetinopathyMLEngine(MLEngine):
@@ -20,10 +21,7 @@ class RetinopathyMLEngine(MLEngine):
     def train(self, train_dataset, val_dataset, batch_size=16, epochs=50):
 
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.AdamW(self.model.parameters(), lr=0.0005, weight_decay=1e-4)
-        scheduler = CosineAnnealingLR(
-            optimizer, T_max=epochs
-        )
+        optimizer = optim.AdamW(self.model.parameters(), lr=1e-5, weight_decay=1e-4)
 
         self.model.train()
 
@@ -33,14 +31,11 @@ class RetinopathyMLEngine(MLEngine):
 
         # --- Pobieranie etykiet dla WeightedRandomSampler ---
         if hasattr(train_dataset, "indices"):
-            # train_dataset jest Subsetem
             labels = train_dataset.dataset.df.iloc[train_dataset.indices]["diagnosis"].values
         else:
-            # train_dataset jest zwykłym datasetem
             labels = train_dataset.df["diagnosis"].values
 
         class_counts = np.bincount(labels)
-
         class_weights = 1.0 / class_counts
         sample_weights = class_weights[labels]
 
@@ -50,20 +45,31 @@ class RetinopathyMLEngine(MLEngine):
             replacement=True
         )
 
-        # --- TRAIN LOADER Z SAMPLEREM ---
-        loader = DataLoader(
+        # --- TRAIN LOADER ---
+        train_loader = DataLoader(
             train_dataset,
             batch_size=batch_size,
-            sampler=sampler,
+            shuffle=True,
             num_workers=4
         )
+
+        # --- Cyclical Learning Rate (CLR) ---
+        # scheduler = CyclicLR(
+        #     optimizer,
+        #     base_lr=1e-6,
+        #     max_lr=3e-4,
+        #     step_size_up=len(train_loader) * 2,
+        #     mode="triangular2",
+        #     cycle_momentum=False
+        # )
+
 
         for epoch in range(epochs):
             print(f"\n===== EPOKA {epoch + 1} / {epochs} =====")
 
             running_loss = 0.0
 
-            for batch_idx, (images, labels) in enumerate(loader):
+            for batch_idx, (images, labels) in enumerate(train_loader):
                 try:
                     images = images.to(self.device)
                     labels = labels.to(self.device)
@@ -74,14 +80,19 @@ class RetinopathyMLEngine(MLEngine):
                     loss.backward()
                     optimizer.step()
 
+                    # 🔥 CLR aktualizowany co batch
+                    #scheduler.step()
+
                     running_loss += loss.item()
+
                 except Exception as e:
                     print(f"\n*** ERROR in batch {batch_idx} ***")
                     print("Exception:", e)
                     traceback.print_exc()
                     raise
-            scheduler.step()
-            print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(loader):.4f}")
+
+            print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(train_loader):.4f}")
+
             if val_dataset is not None:
                 acc = self._validate(val_loader)
                 print(f"Validation accuracy: {acc:.2f}%")

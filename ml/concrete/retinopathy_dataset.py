@@ -3,17 +3,22 @@ from PIL import Image
 from torch.utils.data import Dataset
 import os
 import pandas as pd
-
+from torchvision import transforms
 
 
 class RetinopathyDataset(Dataset):
     def __init__(self, dataset_dir: str, transform, max_images=None, balanced_subset_per_class=None):
 
-        self.transform = transform
+        self.transform = transform or transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor()
+        ])
+
         csv_path = os.path.join(dataset_dir, "train.csv")
         images_dir = os.path.join(dataset_dir, "train_images")
 
         df = pd.read_csv(csv_path)
+        df["diagnosis"] = df["diagnosis"].astype(int)
 
         if balanced_subset_per_class is not None:
             df = df.groupby("diagnosis").apply(
@@ -64,8 +69,9 @@ class RetinopathyDataset(Dataset):
         if img_path is None:
             raise FileNotFoundError(file_id)
 
-        img = Image.open(img_path).convert("RGB")
+        img = Image.open(img_path)
         img = self.transform(img)
+
 
         label = torch.tensor(row["diagnosis"], dtype=torch.long)
         return img, label

@@ -73,64 +73,8 @@ class RetinopathyPipeline(DataPipeline):
             [train_size, val_size, test_size]
         )
 
-        # --- TRANSFORMACJE ---
-        train_transform = transforms.Compose([
-            CenterCropCircle(),
-            transforms.Resize((256, 256)),
-            CLAHETransform(),
-            transforms.RandomResizedCrop(224, scale=(0.8, 1.0)),
-            transforms.RandomRotation(10),
-            transforms.ColorJitter(
-                brightness=0.2,
-                contrast=0.2,
-                saturation=0.1,
-                hue=0.05
-            ),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )
-        ])
 
-        val_transform = transforms.Compose([
-            CenterCropCircle(),
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )
-        ])
-
-        test_transform = transforms.Compose([
-            CenterCropCircle(),
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )
-        ])
-
-        # --- TRZY NIEZALEŻNE DATASETY, ALE Z TYM SAMYM ŹRÓDŁEM ---
-        train_dataset = Subset(
-            RetinopathyDataset(dir_path, transform=train_transform, max_images=len(dataset)),
-            train_subset.indices
-        )
-
-        val_dataset = Subset(
-            RetinopathyDataset(dir_path, transform=val_transform, max_images=len(dataset)),
-            val_subset.indices
-        )
-
-        test_dataset = Subset(
-            RetinopathyDataset(dir_path, transform=test_transform, max_images=len(dataset)),
-            test_subset.indices
-        )
-
-        return train_dataset, val_dataset, test_dataset
+        return train_subset, val_subset, test_subset
 
     def run(self, dataset, dir_path):
         return self.__augument__(dataset, dir_path)
