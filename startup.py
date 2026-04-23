@@ -1,9 +1,10 @@
 from core.retinopathy_application import RetinopathyApplication
+from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
 from services.classifier_service import ClassifierService
-from services.concrete.research_project.research_project_loader_service import ResearchProjectLoaderService
+from services.concrete.research_project.retinopathy_loader_service import ResearchProjectLoaderService
 from services.file_service import FileService
 
-from ml.concrete.research_project.research_project_ml_engine import ResearchProjectMLEngine
+from ml.concrete.retinopathy_ml_engine import RetinopathyMLEngine
 
 class Startup:
     def __init__(self):
@@ -12,15 +13,17 @@ class Startup:
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
         sample_limit = None  # use None for no limit
-        path = "./aptos2019-blindness-detection"
+        path = "./research-project-dataset"
         dev = True  # uses developer version for testing
 
         # configure the dependencies used by application here
-        engine = ResearchProjectMLEngine()
+        engine = RetinopathyMLEngine()
         loader_service = ResearchProjectLoaderService()
+        pipeline = RetinopathyPipeline()
         classifier = ClassifierService(
             engine=engine,
-            loader_service=loader_service
+            loader_service=loader_service,
+            pipeline=pipeline
         )
         classifier.set_sample_limit(sample_limit)
         file_service = FileService(
