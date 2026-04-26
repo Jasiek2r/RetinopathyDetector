@@ -49,9 +49,15 @@ class RetinopathyPipeline(DataPipeline):
 
         train_ds, val_ds, test_ds = random_split(dataset, [train_size, val_size, test_size])
 
+        # UWAGA: random_split zwraca subsety, ale każdy subset ma referencję do datasetu
+        # więc ustawiamy transformację na dataset, ale osobno dla każdego subsetu
         train_ds.dataset.transform = train_transform
         val_ds.dataset.transform = val_test_transform
         test_ds.dataset.transform = val_test_transform
 
         return train_ds, val_ds, test_ds
+
+    def run(self, dataset, dir_path):
+        return self.__augument__(dataset, dir_path)
+
 
