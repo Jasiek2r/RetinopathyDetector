@@ -1,11 +1,30 @@
 from ml.abstractions.data_pipeline import DataPipeline
 from torch.utils.data import random_split
 from torchvision import transforms
+import numpy as np
+import cv2
+from PIL import Image
+
+
+class CLAHETransform:
+    def __call__(self, img):
+        np_img = np.array(img)
+        lab = cv2.cvtColor(np_img, cv2.COLOR_RGB2LAB)
+        l, a, b = cv2.split(lab)
+
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+        cl = clahe.apply(l)
+
+        limg = cv2.merge((cl, a, b))
+        final = cv2.cvtColor(limg, cv2.COLOR_LAB2RGB)
+        return Image.fromarray(final)
+
 
 class RetinopathyPipeline(DataPipeline):
     def __augument__(self, dataset, dir_path):
 
         transform = transforms.Compose([
+            CLAHETransform(),
             transforms.Resize((512, 512)),
             transforms.ToTensor(),
             transforms.Normalize(

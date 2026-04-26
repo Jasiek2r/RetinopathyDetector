@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: set sample limit to 200 images">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: implement norm">
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="rp-no-normalization" />
+        <entry key="$PROJECT_DIR$" value="rp-normalization" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,7 +59,7 @@
     "Python.start.executor": "Run",
     "Python.user_query.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "rp-normalization",
+    "git-widget-placeholder": "rp-simple-augument",
     "last_opened_file_path": "C:/Users/janek/PycharmProjects/RetinopathyDetector/services/concrete/SzUM",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -405,11 +404,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777193091341</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="feat: implement norm">
+      <option name="closed" value="true" />
+      <created>1777193338116</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1777193338116</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change to 5000 images" />
     <MESSAGE value="change to full data" />
     <MESSAGE value="fix: fix augumentations" />
     <MESSAGE value="feat: EfficientNet-B4" />
@@ -434,6 +440,7 @@
     <MESSAGE value="feat: efficientnet-b2" />
     <MESSAGE value="feat: convnext-tiny" />
     <MESSAGE value="chore: set sample limit to 200 images" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: set sample limit to 200 images" />
+    <MESSAGE value="feat: implement norm" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement norm" />
   </component>
 </project>
