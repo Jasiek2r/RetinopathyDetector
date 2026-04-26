@@ -9,7 +9,6 @@ from ml.concrete.retinopathy_dataset import RetinopathyDataset
 class RetinopathyPipeline(DataPipeline):
 
     def __init__(self):
-        # --- AUGMENTACJE TRENINGOWE ---
         self.train_tf = transforms.Compose([
             transforms.Resize((384, 384)),
             transforms.RandomResizedCrop(384, scale=(0.9, 1.0)),
@@ -23,7 +22,6 @@ class RetinopathyPipeline(DataPipeline):
             )
         ])
 
-        # --- AUGMENTACJE WALIDACYJNE / TESTOWE ---
         self.eval_tf = transforms.Compose([
             transforms.Resize((384, 384)),
             transforms.CenterCrop(384),
@@ -46,18 +44,24 @@ class RetinopathyPipeline(DataPipeline):
             generator=torch.Generator().manual_seed(42)
         )
 
-        # --- TWORZENIE TRZECH OSOBNYCH DATASETÓW ---
+        # --- TWORZENIE TRZECH KOPII DATASETU ---
         train_ds = RetinopathyDataset(
             dir_path,
-            transform=self.train_tf
+            transform=self.train_tf,
+            max_images=dataset.max_images,
+            balanced_subset_per_class=dataset.balanced_subset_per_class
         )
         val_ds = RetinopathyDataset(
             dir_path,
-            transform=self.eval_tf
+            transform=self.eval_tf,
+            max_images=dataset.max_images,
+            balanced_subset_per_class=dataset.balanced_subset_per_class
         )
         test_ds = RetinopathyDataset(
             dir_path,
-            transform=self.eval_tf
+            transform=self.eval_tf,
+            max_images=dataset.max_images,
+            balanced_subset_per_class=dataset.balanced_subset_per_class
         )
 
         # --- PODMIANA DF NA ODPOWIEDNIE PODZBIORY ---
