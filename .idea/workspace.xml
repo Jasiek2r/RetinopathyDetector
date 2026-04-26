@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: convnext-tiny">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,9 +146,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.start" />
       <item itemvalue="Python.exclude files" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>

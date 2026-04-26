@@ -12,7 +12,7 @@ class Startup:
 
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
-        sample_limit = None  # use None for no limit
+        sample_limit = 200  # use None for no limit
         path = "./research-project-dataset"
         dev = True  # uses developer version for testing
 
