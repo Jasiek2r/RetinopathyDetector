@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix pipeline from dataset hell">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix pipeline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -445,11 +445,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777221674056</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="fix: fix pipeline">
+      <option name="closed" value="true" />
+      <created>1777221946755</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1777221946755</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: take dataloader out of epoch loop" />
     <MESSAGE value="chore: replace efficientnet b4 to b0" />
     <MESSAGE value="chore: remove hughcircles" />
     <MESSAGE value="chore: change batch size to 32" />
@@ -474,6 +481,7 @@
     <MESSAGE value="chore: set image count to 200" />
     <MESSAGE value="feat: convnext base" />
     <MESSAGE value="fix: fix pipeline from dataset hell" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix pipeline from dataset hell" />
+    <MESSAGE value="fix: fix pipeline" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fix pipeline" />
   </component>
 </project>
