@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: convnext-tiny">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: change augumentations to lightweight">
+      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -398,11 +396,18 @@
       <option name="project" value="LOCAL" />
       <updated>1774891295747</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="feat: change augumentations to lightweight">
+      <option name="closed" value="true" />
+      <created>1777219476922</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1777219476922</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add gitignore" />
     <MESSAGE value="change to 5000 images" />
     <MESSAGE value="change to full data" />
     <MESSAGE value="fix: fix augumentations" />
@@ -427,6 +432,7 @@
     <MESSAGE value="chore: enable sampler" />
     <MESSAGE value="feat: efficientnet-b2" />
     <MESSAGE value="feat: convnext-tiny" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: convnext-tiny" />
+    <MESSAGE value="feat: change augumentations to lightweight" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: change augumentations to lightweight" />
   </component>
 </project>
