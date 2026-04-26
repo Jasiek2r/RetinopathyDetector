@@ -18,10 +18,10 @@ class RetinopathyMLEngine(MLEngine):
         #self.model = ResearchProjectNet().to(self.device)
         self.model = self.create_model().to(self.device)
 
-    def train(self, train_dataset, val_dataset, batch_size=16, epochs=50):
+    def train(self, train_dataset, val_dataset, batch_size=4, epochs=50):
 
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.AdamW(self.model.parameters(), lr=1e-5, weight_decay=1e-4)
+        optimizer = optim.AdamW(self.model.parameters(), lr=3e-4, weight_decay=1e-4)
 
         self.model.train()
 
@@ -138,7 +138,7 @@ class RetinopathyMLEngine(MLEngine):
 
     def create_model(self, num_classes=5):
         model = timm.create_model(
-            "convnext_tiny",
+            "convnext_large",
             pretrained=True,
             num_classes=num_classes
         )

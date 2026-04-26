@@ -8,8 +8,8 @@ class RetinopathyPipeline(DataPipeline):
     def __init__(self):
         # --- AUGMENTACJE TRENINGOWE ---
         self.train_tf = transforms.Compose([
-            transforms.Resize((256, 256)),
-            transforms.RandomResizedCrop(224, scale=(0.9, 1.0)),
+            transforms.Resize((384, 384)),
+            transforms.RandomResizedCrop(384, scale=(0.9, 1.0)),
             transforms.RandomHorizontalFlip(p=0.5),
             transforms.RandomRotation(15),
             transforms.ColorJitter(
