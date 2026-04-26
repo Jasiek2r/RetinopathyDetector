@@ -23,7 +23,7 @@ class CLAHETransform:
 class RetinopathyPipeline(DataPipeline):
     def __augument__(self, dataset, dir_path):
 
-        transform = transforms.Compose([
+        train_transform = transforms.Compose([
             CLAHETransform(),
             transforms.Resize((512, 512)),
             transforms.ToTensor(),
@@ -33,13 +33,25 @@ class RetinopathyPipeline(DataPipeline):
             )
         ])
 
-        dataset.transform = transform
+        val_test_transform = transforms.Compose([
+            CLAHETransform(),
+            transforms.Resize((512, 512)),
+            transforms.ToTensor(),
+            transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            )
+        ])
 
         test_size = int(0.15 * len(dataset))
         val_size = int(0.15 * len(dataset))
         train_size = len(dataset) - test_size - val_size
 
-        return random_split(dataset, [train_size, val_size, test_size])
+        train_ds, val_ds, test_ds = random_split(dataset, [train_size, val_size, test_size])
 
-    def run(self, dataset, dir_path):
-        return self.__augument__(dataset, dir_path)
+        train_ds.dataset.transform = train_transform
+        val_ds.dataset.transform = val_test_transform
+        test_ds.dataset.transform = val_test_transform
+
+        return train_ds, val_ds, test_ds
+
