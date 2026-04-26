@@ -138,7 +138,7 @@ class RetinopathyMLEngine(MLEngine):
 
     def create_model(self, num_classes=5):
         model = timm.create_model(
-            "convnext_tiny",
+            "efficientnet_b0",
             pretrained=True,
             num_classes=num_classes
         )
