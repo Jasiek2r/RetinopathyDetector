@@ -2,21 +2,21 @@ from ml.abstractions.data_pipeline import DataPipeline
 from torch.utils.data import random_split
 from torchvision import transforms
 
+from ml.abstractions.data_pipeline import DataPipeline
+from torch.utils.data import random_split
+from torchvision import transforms
+
 
 class RetinopathyPipeline(DataPipeline):
 
     def __init__(self):
-        # --- AUGMENTACJE TRENINGOWE ---
+        # --- AUGMENTACJE TRENINGOWE (SOTA-lite, ale lekkie) ---
         self.train_tf = transforms.Compose([
             transforms.Resize((384, 384)),
             transforms.RandomResizedCrop(384, scale=(0.9, 1.0)),
             transforms.RandomHorizontalFlip(p=0.5),
             transforms.RandomRotation(15),
-            transforms.ColorJitter(
-                brightness=0.2,
-                contrast=0.2,
-                saturation=0.2
-            ),
+            transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.0)),
             transforms.ToTensor(),
             transforms.Normalize(
                 mean=[0.485, 0.456, 0.406],
@@ -24,9 +24,10 @@ class RetinopathyPipeline(DataPipeline):
             )
         ])
 
-        # --- AUGMENTACJE WALIDACYJNE / TESTOWE ---
+        # --- AUGMENTACJE WALIDACYJNE / TESTOWE (spójne z train) ---
         self.eval_tf = transforms.Compose([
-            transforms.Resize((224, 224)),
+            transforms.Resize((384, 384)),
+            transforms.CenterCrop(384),
             transforms.ToTensor(),
             transforms.Normalize(
                 mean=[0.485, 0.456, 0.406],
