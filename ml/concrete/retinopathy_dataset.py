@@ -62,8 +62,15 @@ class RetinopathyDataset(Dataset):
     def build_image_path(self, images_dir, file_id):
         for ext in [".jpg", ".jpeg", ".png"]:
             path = os.path.join(images_dir, file_id + ext)
+
+            # DEBUG — pokaż co sprawdzamy
+            print(f"Sprawdzam: {path}")
+
             if os.path.exists(path):
+                print(f"ZNALEZIONO: {path}")
                 return path
+
+        print(f"NIE ZNALEZIONO dla ID: {file_id}")
         return None
 
     def __getitem__(self, idx):
