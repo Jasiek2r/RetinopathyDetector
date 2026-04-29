@@ -6,7 +6,7 @@ import pandas as pd
 
 class RetinopathyDataset(Dataset):
     def __init__(self, dataset_dir: str, split: str, transform=None,
-                 max_images=None, balanced_subset_per_class=None):
+                 max_images=None):
 
         assert split in ["train", "val", "test"], "split must be train/val/test"
 
@@ -29,15 +29,6 @@ class RetinopathyDataset(Dataset):
         if "diagnosis" in df.columns:
             df["diagnosis"] = df["diagnosis"].astype(int)
 
-        # Balansowanie klas tylko dla train
-        if split == "train" and balanced_subset_per_class is not None:
-            df = df.groupby("diagnosis").apply(
-                lambda x: x.sample(
-                    n=min(len(x), balanced_subset_per_class),
-                    replace=False,
-                    random_state=42
-                )
-            ).reset_index(drop=True)
 
         self.images_dir = images_dir
 
@@ -62,15 +53,8 @@ class RetinopathyDataset(Dataset):
     def build_image_path(self, images_dir, file_id):
         for ext in [".jpg", ".jpeg", ".png"]:
             path = os.path.join(images_dir, file_id + ext)
-
-            # DEBUG — pokaż co sprawdzamy
-            print(f"Sprawdzam: {path}")
-
             if os.path.exists(path):
-                print(f"ZNALEZIONO: {path}")
                 return path
-
-        print(f"NIE ZNALEZIONO dla ID: {file_id}")
         return None
 
     def __getitem__(self, idx):
