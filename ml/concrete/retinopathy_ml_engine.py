@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from ml.concrete.CORALLoss import CORALLoss
 from ml.concrete.simple_cnn import SimpleCNN
-
+import matplotlib.pyplot as plt
 
 class RetinopathyMLEngine:
     def __init__(self, device=None):
@@ -67,6 +67,30 @@ class RetinopathyMLEngine:
                 mae, qoe = self._validate(val_loader, criterion)
                 val_metrics.append((mae, qoe))
                 print(f"Val MAE: {mae:.4f} | QOE: {qoe:.4f}")
+
+        val_mae = [x[0] for x in val_metrics] if val_metrics else []
+        val_qoe = [x[1] for x in val_metrics] if val_metrics else []
+
+        plt.figure(figsize=(10, 6))
+
+        plt.plot(train_losses, label="Train Loss")
+
+        if val_qoe:
+            plt.plot(val_qoe, label="Validation Loss (QOE)")
+
+        if val_mae:
+            plt.plot(val_mae, label="Validation MAE")
+
+        plt.xlabel("Epoch")
+        plt.ylabel("Metric Value")
+        plt.title("Training Progress")
+        plt.legend()
+        plt.grid(True)
+
+        plt.savefig("training_plot.png", bbox_inches="tight")
+        plt.show()
+
+        print("Training plot saved as training_plot.png")
 
         return train_losses, val_metrics
 
