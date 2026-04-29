@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: path fix" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: add resizing">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -530,11 +533,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777472745325</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="fix: add resizing">
+      <option name="closed" value="true" />
+      <created>1777472890551</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1777472890551</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: sample limits fix attempt 2" />
     <MESSAGE value="chore: change sample limit to 200 atm" />
     <MESSAGE value="chore: change sample limit to 2000 atm" />
     <MESSAGE value="feat: remove shitty augumentations" />
@@ -559,6 +569,7 @@
     <MESSAGE value="fix: remove balancing of train data" />
     <MESSAGE value="fix: remove balanced subset per class parameter" />
     <MESSAGE value="fix: path fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: path fix" />
+    <MESSAGE value="fix: add resizing" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: add resizing" />
   </component>
 </project>

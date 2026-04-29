@@ -8,6 +8,8 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from ml.abstractions.ml_engine import MLEngine
 from ml.concrete.simple_cnn import SimpleCNN
+import matplotlib.pyplot as plt
+
 
 
 class RetinopathyMLEngine(MLEngine):
@@ -17,6 +19,9 @@ class RetinopathyMLEngine(MLEngine):
         # self.model = self.create_model().to(self.device)
 
     def train(self, train_dataset, val_dataset, batch_size=4, epochs=50):
+
+        train_losses = []
+        val_losses = []
 
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.AdamW(self.model.parameters(), lr=3e-4, weight_decay=1e-4)
@@ -78,27 +83,41 @@ class RetinopathyMLEngine(MLEngine):
                     traceback.print_exc()
                     raise
 
+            epoch_loss = running_loss / len(train_loader)
             print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(train_loader):.4f}")
+            train_losses.append(epoch_loss)
 
             if val_loader is not None:
-                acc = self._validate(val_loader)
+                val_loss, acc = self._validate(val_loader)
                 print(f"Validation accuracy: {acc:.2f}%")
+                val_losses.append(val_loss)
 
-    def _validate(self, loader):
+    def _validate(self, loader, criterion):
         self.model.eval()
+
+        total_loss = 0.0
         correct = 0
         total = 0
 
         with torch.no_grad():
             for images, labels in loader:
                 images, labels = images.to(self.device), labels.to(self.device)
+
                 outputs = self.model(images)
+                loss = criterion(outputs, labels)
+
+                total_loss += loss.item()
+
                 _, predicted = torch.max(outputs, 1)
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
 
         self.model.train()
-        return 100 * correct / total
+
+        avg_loss = total_loss / len(loader)
+        accuracy = 100 * correct / total
+
+        return avg_loss, accuracy
 
     def test(self, dataset, batch_size=8):
         loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
@@ -124,6 +143,28 @@ class RetinopathyMLEngine(MLEngine):
         print(f"Test accuracy: {accuracy:.2f}%")
         torch.save(self.model.state_dict(), "model_weights.pth")
         return accuracy
+
+    def plot_training(self, train_losses, val_losses, save_path="training_plot.png"):
+        import matplotlib.pyplot as plt
+
+        epochs = range(1, len(train_losses) + 1)
+
+        plt.figure()
+
+        plt.plot(epochs, train_losses, label="Train Loss")
+        plt.plot(epochs, val_losses, label="Val Loss")
+
+        plt.xlabel("Epoch")
+        plt.ylabel("Loss")
+        plt.title("Training vs Validation Loss")
+
+        plt.legend()
+        plt.grid(True)
+
+        plt.savefig(save_path)
+        plt.close()
+
+        print(f"📊 Wykres zapisany do: {save_path}")
 
     def create_model(self, num_classes=5):
         model = timm.create_model(
