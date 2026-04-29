@@ -4,12 +4,17 @@ from torch.utils.data import Dataset
 import os
 import pandas as pd
 
-
 class RetinopathyDataset(Dataset):
     def __init__(self, dataset_dir: str, split: str, transform=None,
                  max_images=None, balanced_subset_per_class=None):
 
         assert split in ["train", "val", "test"], "split must be train/val/test"
+
+        if transform is None:
+            from torchvision import transforms
+            transform = transforms.Compose([
+                transforms.ToTensor()
+            ])
 
         self.transform = transform
         self.max_images = max_images
@@ -55,7 +60,7 @@ class RetinopathyDataset(Dataset):
         return len(self.df)
 
     def build_image_path(self, images_dir, file_id):
-        for ext in [".png", ".jpeg", ".jpg"]:
+        for ext in [".jpg", ".jpeg", ".png"]:
             path = os.path.join(images_dir, file_id + ext)
             if os.path.exists(path):
                 return path

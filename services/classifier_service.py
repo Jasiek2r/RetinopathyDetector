@@ -2,7 +2,7 @@ from ml.abstractions.ml_engine import MLEngine
 from services.abstractions.loader_service import LoaderService
 from utility.decorated_print import print_decorated
 from utility.formatted_date import get_formatted_date
-
+from torchvision import transforms
 
 class ClassifierService:
     def __init__(self, engine: MLEngine, loader_service: LoaderService):
