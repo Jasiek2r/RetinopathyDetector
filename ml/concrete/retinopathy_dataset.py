@@ -15,7 +15,7 @@ class RetinopathyDataset(Dataset):
         self.max_images = max_images
         self.balanced_subset_per_class = balanced_subset_per_class
 
-        csv_path = os.path.join(dataset_dir, split, "train.csv")
+        csv_path = os.path.join(dataset_dir, "train.csv")
         images_dir = os.path.join(dataset_dir, split)
 
         df = pd.read_csv(csv_path)
