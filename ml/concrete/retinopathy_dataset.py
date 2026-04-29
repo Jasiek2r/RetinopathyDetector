@@ -50,10 +50,19 @@ class RetinopathyDataset(Dataset):
         return len(self.df)
 
     def build_image_path(self, images_dir, file_id):
-        for ext in [".jpg", ".jpeg", ".png"]:
+        file_id = str(file_id).strip()
+
+        # jeśli CSV już zawiera rozszerzenie
+        direct_path = os.path.join(images_dir, file_id)
+        if os.path.exists(direct_path):
+            return direct_path
+
+        # jeśli rozszerzenia nie ma
+        for ext in [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"]:
             path = os.path.join(images_dir, file_id + ext)
             if os.path.exists(path):
                 return path
+
         return None
 
     def __getitem__(self, idx):
