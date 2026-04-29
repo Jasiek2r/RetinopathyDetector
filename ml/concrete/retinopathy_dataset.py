@@ -6,19 +6,26 @@ import pandas as pd
 
 
 class RetinopathyDataset(Dataset):
-    def __init__(self, dataset_dir: str, transform=None, max_images=None, balanced_subset_per_class=None):
+    def __init__(self, dataset_dir: str, split: str, transform=None,
+                 max_images=None, balanced_subset_per_class=None):
+
+        assert split in ["train", "val", "test"], "split must be train/val/test"
 
         self.transform = transform
         self.max_images = max_images
         self.balanced_subset_per_class = balanced_subset_per_class
 
-        csv_path = os.path.join(dataset_dir, "train.csv")
-        images_dir = os.path.join(dataset_dir, "train_images")
+        csv_path = os.path.join(dataset_dir, split, "train.csv")
+        images_dir = os.path.join(dataset_dir, split)
 
         df = pd.read_csv(csv_path)
-        df["diagnosis"] = df["diagnosis"].astype(int)
 
-        if balanced_subset_per_class is not None:
+        # Test set może nie mieć etykiet — obsługujemy oba przypadki
+        if "diagnosis" in df.columns:
+            df["diagnosis"] = df["diagnosis"].astype(int)
+
+        # Balansowanie klas tylko dla train
+        if split == "train" and balanced_subset_per_class is not None:
             df = df.groupby("diagnosis").apply(
                 lambda x: x.sample(
                     n=min(len(x), balanced_subset_per_class),
@@ -29,9 +36,11 @@ class RetinopathyDataset(Dataset):
 
         self.images_dir = images_dir
 
+        # Ograniczenie liczby obrazów
         if max_images is not None:
             df = df.sample(n=max_images, random_state=42).reset_index(drop=True)
 
+        # Sprawdzamy, które obrazy faktycznie istnieją
         valid_rows = []
         for _, row in df.iterrows():
             file_id = str(row["id_code"])
@@ -40,7 +49,7 @@ class RetinopathyDataset(Dataset):
                 valid_rows.append(row)
 
         self.df = pd.DataFrame(valid_rows).reset_index(drop=True)
-        print(f"Załadowano {len(self.df)} poprawnych obrazów.")
+        print(f"[{split}] Załadowano {len(self.df)} poprawnych obrazów.")
 
     def __len__(self):
         return len(self.df)
@@ -62,5 +71,10 @@ class RetinopathyDataset(Dataset):
         if self.transform:
             img = self.transform(img)
 
-        label = torch.tensor(row["diagnosis"], dtype=torch.long)
+        # Test set może nie mieć etykiet
+        if "diagnosis" in row:
+            label = torch.tensor(row["diagnosis"], dtype=torch.long)
+        else:
+            label = -1  # placeholder
+
         return img, label

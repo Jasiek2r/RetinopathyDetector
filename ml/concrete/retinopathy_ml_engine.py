@@ -1,5 +1,4 @@
 import traceback
-
 import timm
 import torch
 import numpy as np
@@ -15,7 +14,7 @@ class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = SimpleCNN().to(self.device)
-        #self.model = self.create_model().to(self.device)
+        # self.model = self.create_model().to(self.device)
 
     def train(self, train_dataset, val_dataset, batch_size=4, epochs=50):
 
@@ -24,16 +23,18 @@ class RetinopathyMLEngine(MLEngine):
 
         self.model.train()
 
+        # --- VALIDATION LOADER ---
         val_loader = None
         if val_dataset is not None:
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
+            val_loader = DataLoader(
+                val_dataset,
+                batch_size=batch_size,
+                shuffle=False,
+                num_workers=0
+            )
 
-        # --- Pobieranie etykiet dla WeightedRandomSampler ---
-        if hasattr(train_dataset, "indices"):
-            labels = train_dataset.dataset.df.iloc[train_dataset.indices]["diagnosis"].values
-        else:
-            labels = train_dataset.df["diagnosis"].values
-
+        # --- WEIGHTED SAMPLER (tylko dla train) ---
+        labels = train_dataset.df["diagnosis"].values
         class_counts = np.bincount(labels)
         class_weights = 1.0 / class_counts
         sample_weights = class_weights[labels]
@@ -49,9 +50,10 @@ class RetinopathyMLEngine(MLEngine):
             train_dataset,
             batch_size=batch_size,
             sampler=sampler,
-            num_workers=4
+            num_workers=0
         )
 
+        # --- TRAINING LOOP ---
         for epoch in range(epochs):
             print(f"\n===== EPOKA {epoch + 1} / {epochs} =====")
 
@@ -68,7 +70,6 @@ class RetinopathyMLEngine(MLEngine):
                     loss.backward()
                     optimizer.step()
 
-
                     running_loss += loss.item()
 
                 except Exception as e:
@@ -79,7 +80,7 @@ class RetinopathyMLEngine(MLEngine):
 
             print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(train_loader):.4f}")
 
-            if val_dataset is not None:
+            if val_loader is not None:
                 acc = self._validate(val_loader)
                 print(f"Validation accuracy: {acc:.2f}%")
 
@@ -114,10 +115,12 @@ class RetinopathyMLEngine(MLEngine):
                 outputs = self.model(images)
                 _, predicted = torch.max(outputs, 1)
 
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
+                # test set może mieć label = -1
+                mask = labels >= 0
+                total += mask.sum().item()
+                correct += ((predicted == labels) & mask).sum().item()
 
-        accuracy = correct / total * 100
+        accuracy = correct / total * 100 if total > 0 else 0
         print(f"Test accuracy: {accuracy:.2f}%")
         torch.save(self.model.state_dict(), "model_weights.pth")
         return accuracy

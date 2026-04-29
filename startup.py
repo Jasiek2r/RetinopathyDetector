@@ -1,5 +1,4 @@
 from core.retinopathy_application import RetinopathyApplication
-from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
 from services.classifier_service import ClassifierService
 from services.concrete.research_project.retinopathy_loader_service import ResearchProjectLoaderService
 from services.file_service import FileService
@@ -19,11 +18,9 @@ class Startup:
         # configure the dependencies used by application here
         engine = RetinopathyMLEngine()
         loader_service = ResearchProjectLoaderService()
-        pipeline = RetinopathyPipeline()
         classifier = ClassifierService(
             engine=engine,
             loader_service=loader_service,
-            pipeline=pipeline
         )
         classifier.set_sample_limit(sample_limit)
         file_service = FileService(
