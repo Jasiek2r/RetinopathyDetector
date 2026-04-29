@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: remove balanced subset per class parameter" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: path fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -522,11 +522,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777472486787</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="fix: path fix">
+      <option name="closed" value="true" />
+      <created>1777472745325</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1777472745325</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: sample limits" />
     <MESSAGE value="fix: sample limits fix attempt 2" />
     <MESSAGE value="chore: change sample limit to 200 atm" />
     <MESSAGE value="chore: change sample limit to 2000 atm" />
@@ -551,6 +558,7 @@
     <MESSAGE value="chore: debugging image file names" />
     <MESSAGE value="fix: remove balancing of train data" />
     <MESSAGE value="fix: remove balanced subset per class parameter" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: remove balanced subset per class parameter" />
+    <MESSAGE value="fix: path fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: path fix" />
   </component>
 </project>

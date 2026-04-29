@@ -13,6 +13,7 @@ class RetinopathyDataset(Dataset):
         if transform is None:
             from torchvision import transforms
             transform = transforms.Compose([
+                transforms.Resize((224, 224)),
                 transforms.ToTensor()
             ])
 
