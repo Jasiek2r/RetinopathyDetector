@@ -88,7 +88,7 @@ class RetinopathyMLEngine(MLEngine):
             train_losses.append(epoch_loss)
 
             if val_loader is not None:
-                val_loss, acc = self._validate(val_loader)
+                val_loss, acc = self._validate(val_loader, criterion)
                 print(f"Validation accuracy: {acc:.2f}%")
                 val_losses.append(val_loss)
 
