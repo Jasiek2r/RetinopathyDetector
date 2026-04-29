@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: initially set the image set size to 200">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: ensure that criterion is passed to the _validate method">
+      <change afterPath="$PROJECT_DIR$/ml/concrete/CORALLoss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/simple_cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/simple_cnn.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -556,11 +559,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777474081454</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="fix: ensure that criterion is passed to the _validate method">
+      <option name="closed" value="true" />
+      <created>1777474207570</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1777474207570</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: remove shitty augumentations" />
     <MESSAGE value="chore: change path" />
     <MESSAGE value="chore: enable sampler" />
     <MESSAGE value="feat: efficientnet-b2" />
@@ -585,6 +595,7 @@
     <MESSAGE value="fix: add resizing" />
     <MESSAGE value="feat: enable plotting" />
     <MESSAGE value="chore: initially set the image set size to 200" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: initially set the image set size to 200" />
+    <MESSAGE value="fix: ensure that criterion is passed to the _validate method" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: ensure that criterion is passed to the _validate method" />
   </component>
 </project>
