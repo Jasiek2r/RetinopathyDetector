@@ -41,6 +41,8 @@ class RetinopathyMLEngine:
         train_losses = []
         val_metrics = []
 
+        best_mae = float("inf")  # <-- tu śledzimy najlepszy wynik
+
         for epoch in range(epochs):
             self.model.train()
             running_loss = 0.0
@@ -60,7 +62,7 @@ class RetinopathyMLEngine:
             train_loss = running_loss / len(train_loader)
             train_losses.append(train_loss)
 
-            print(f"\nEpoch {epoch+1}")
+            print(f"\nEpoch {epoch + 1}")
             print(f"Train loss: {train_loss:.4f}")
 
             if val_loader:
@@ -68,18 +70,21 @@ class RetinopathyMLEngine:
                 val_metrics.append((mae, qoe))
                 print(f"Val MAE: {mae:.4f} | QOE: {qoe:.4f}")
 
+                # -------- SAVE BEST MODEL --------
+                if mae < best_mae:
+                    best_mae = mae
+                    torch.save(self.model.state_dict(), "best_model.pth")
+                    print(f"🔥 New best model saved! MAE improved to {best_mae:.4f}")
+
+        # --- plotting ---
         val_mae = [x[0] for x in val_metrics] if val_metrics else []
         val_qoe = [x[1] for x in val_metrics] if val_metrics else []
 
         plt.figure(figsize=(10, 6))
-
         plt.plot(train_losses, label="Train Loss")
 
         if val_qoe:
             plt.plot(val_qoe, label="Validation Loss (QOE)")
-
-        if val_mae:
-            plt.plot(val_mae, label="Validation MAE")
 
         plt.xlabel("Epoch")
         plt.ylabel("Metric Value")
