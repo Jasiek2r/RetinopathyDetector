@@ -1,41 +1,21 @@
 import os
 
+from sklearn.model_selection import train_test_split
 from torch.utils.data import random_split
 import torch
 import pandas as pd
 
+from ml.abstractions.data_pipeline import DataPipeline
 
-class RetinopathyPipeline:
-    def run(self, dataset_dir, dataset_class, train_tf, eval_tf):
 
-        csv_path = f"{dataset_dir}/train.csv"
-        images_dir = f"{dataset_dir}/train_images"
+class RetinopathyPipeline(DataPipeline):
 
-        df = pd.read_csv(csv_path)
-        df["diagnosis"] = df["diagnosis"].astype(int)
+    def run(self, dataset, dir_path):
 
-        # 🔥 STEP 1: REMOVE INVALID FILES FIRST
-        def exists(row):
-            file_id = str(row["id_code"])
-            for ext in [".png", ".jpg", ".jpeg"]:
-                if os.path.exists(f"{images_dir}/{file_id}{ext}"):
-                    return True
-            return False
+        df = dataset.df if hasattr(dataset, "df") else None
 
-        df = df[df.apply(exists, axis=1)].reset_index(drop=True)
-
-        # 🔥 STEP 2: STRATIFIED SPLIT (IMPORTANT FIX)
-        train_df, val_df, test_df = self._split(df)
-
-        # 🔥 STEP 3: CREATE DATASETS (CLEAN)
-        train_ds = dataset_class(train_df, images_dir, transform=train_tf)
-        val_ds = dataset_class(val_df, images_dir, transform=eval_tf)
-        test_ds = dataset_class(test_df, images_dir, transform=eval_tf)
-
-        return train_ds, val_ds, test_ds
-
-    def _split(self, df):
-        from sklearn.model_selection import train_test_split
+        if df is None:
+            raise ValueError("Dataset must expose df attribute")
 
         train_df, temp_df = train_test_split(
             df,
@@ -51,8 +31,13 @@ class RetinopathyPipeline:
             random_state=42
         )
 
-        return (
-            train_df.reset_index(drop=True),
-            val_df.reset_index(drop=True),
-            test_df.reset_index(drop=True)
-        )
+        train_ds = dataset.__class__(dir_path, transform=dataset.transform)
+        val_ds = dataset.__class__(dir_path, transform=dataset.transform)
+        test_ds = dataset.__class__(dir_path, transform=dataset.transform)
+
+        train_ds.df = train_df.reset_index(drop=True)
+        val_ds.df = val_df.reset_index(drop=True)
+        test_ds.df = test_df.reset_index(drop=True)
+
+        return train_ds, val_ds, test_ds
+
