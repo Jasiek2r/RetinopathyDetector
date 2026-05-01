@@ -5,23 +5,26 @@ import numpy as np
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, WeightedRandomSampler
+from sklearn.metrics import cohen_kappa_score
+
+from ml.abstractions.ml_engine import MLEngine
 
 
-class RetinopathyMLEngine:
+class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = self.create_model().to(self.device)
 
     # =========================
-    # CORAL ENCODING (FIXED)
+    # CORAL ENCODING
     # =========================
     def encode_labels(self, labels, num_classes=5):
-        labels = labels.unsqueeze(1)  # [B, 1]
+        labels = labels.unsqueeze(1)
         thresholds = torch.arange(num_classes - 1, device=labels.device).unsqueeze(0)
         return (labels > thresholds).float()
 
     # =========================
-    # CORAL DECODING
+    # DECODING
     # =========================
     def decode_predictions(self, outputs):
         probs = torch.sigmoid(outputs)
@@ -34,7 +37,7 @@ class RetinopathyMLEngine:
         model = timm.create_model(
             "convnext_base",
             pretrained=True,
-            num_classes=num_classes - 1  # CORAL => K-1 outputs
+            num_classes=num_classes - 1
         )
         return model
 
@@ -67,7 +70,6 @@ class RetinopathyMLEngine:
         if val_dataset:
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
-        # LOSS (STABILNY CORAL LOSS)
         pos_weight = torch.tensor(class_weights[:-1], dtype=torch.float32).to(self.device)
         criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
@@ -90,7 +92,6 @@ class RetinopathyMLEngine:
                     outputs = self.model(images)
 
                     loss = criterion(outputs, targets)
-
                     loss.backward()
                     optimizer.step()
 
@@ -103,17 +104,17 @@ class RetinopathyMLEngine:
             print(f"Loss: {running_loss / len(train_loader):.4f}")
 
             if val_loader:
-                acc = self._validate(val_loader)
-                print(f"Val accuracy: {acc:.2f}%")
+                kappa = self._validate(val_loader)
+                print(f"Val Cohen Kappa: {kappa:.4f} ({kappa*100:.2f}%)")
 
     # =========================
-    # VALIDATION
+    # VALIDATION (KAPPA)
     # =========================
     def _validate(self, loader):
         self.model.eval()
 
-        correct = 0
-        total = 0
+        preds_all = []
+        labels_all = []
 
         with torch.no_grad():
             for images, labels in loader:
@@ -121,13 +122,15 @@ class RetinopathyMLEngine:
                 labels = labels.to(self.device).long()
 
                 outputs = self.model(images)
-                preds = self.decode_predictions(outputs).cpu()
+                preds = self.decode_predictions(outputs).cpu().numpy()
 
-                correct += (preds == labels.cpu()).sum().item()
-                total += labels.size(0)
+                preds_all.extend(preds)
+                labels_all.extend(labels.cpu().numpy())
 
         self.model.train()
-        return 100 * correct / total
+
+        kappa = cohen_kappa_score(labels_all, preds_all, weights="quadratic")
+        return kappa
 
     # =========================
     # TEST
@@ -137,8 +140,8 @@ class RetinopathyMLEngine:
 
         self.model.eval()
 
-        correct = 0
-        total = 0
+        preds_all = []
+        labels_all = []
 
         with torch.no_grad():
             for images, labels in loader:
@@ -146,13 +149,14 @@ class RetinopathyMLEngine:
                 labels = labels.to(self.device).long()
 
                 outputs = self.model(images)
-                preds = self.decode_predictions(outputs).cpu()
+                preds = self.decode_predictions(outputs).cpu().numpy()
 
-                correct += (preds == labels.cpu()).sum().item()
-                total += labels.size(0)
+                preds_all.extend(preds)
+                labels_all.extend(labels.cpu().numpy())
 
-        acc = 100 * correct / total
-        print(f"Test accuracy: {acc:.2f}%")
+        kappa = cohen_kappa_score(labels_all, preds_all, weights="quadratic")
+
+        print(f"Test Cohen Kappa: {kappa:.4f} ({kappa*100:.2f}%)")
 
         torch.save(self.model.state_dict(), "model_weights.pth")
-        return acc
+        return kappa
