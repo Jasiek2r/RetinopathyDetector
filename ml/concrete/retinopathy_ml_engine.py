@@ -108,10 +108,8 @@ class RetinopathyMLEngine(MLEngine):
             for images, labels in loader:
                 images, labels = images.to(self.device), labels.to(self.device)
                 outputs = self.model(images)
-                predicted = torch.sum(
-                    (torch.sigmoid(outputs) > 0.5),
-                    dim=1
-                )
+                probs = torch.sigmoid(outputs)
+                predicted = (probs > 0.5).sum(dim=1)
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
 
@@ -131,10 +129,8 @@ class RetinopathyMLEngine(MLEngine):
                 labels = labels.to(self.device)
 
                 outputs = self.model(images)
-                predicted = torch.sum(
-                    (torch.sigmoid(outputs) > 0.5),
-                    dim=1
-                )
+                probs = torch.sigmoid(outputs)
+                predicted = (probs > 0.5).sum(dim=1)
 
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
@@ -166,7 +162,6 @@ class RetinopathyMLEngine(MLEngine):
             nn.init.constant_(final_layer.weight, 0.)
 
             bias_values = torch.tensor([1.5, 0.5, -0.5, -1.5])
-            final_layer.bias.data = bias_values
 
             print("✓ CORAL bias initialized")
 
