@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix kappa" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: clean cohen cappa coral">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -530,11 +532,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777634283842</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="fix: clean cohen cappa coral">
+      <option name="closed" value="true" />
+      <created>1777634475407</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1777634475407</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: sample limits fix attempt 2" />
     <MESSAGE value="chore: change sample limit to 200 atm" />
     <MESSAGE value="chore: change sample limit to 2000 atm" />
     <MESSAGE value="feat: remove shitty augumentations" />
@@ -559,6 +568,7 @@
     <MESSAGE value="feat: using Cohen's Kappa Score instead of accuracy" />
     <MESSAGE value="debug: print debug" />
     <MESSAGE value="fix: fix kappa" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix kappa" />
+    <MESSAGE value="fix: clean cohen cappa coral" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: clean cohen cappa coral" />
   </component>
 </project>
