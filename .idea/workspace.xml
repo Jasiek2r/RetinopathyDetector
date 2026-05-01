@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: set image count to 400">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: CORAL done properly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/CORALLoss.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/CORALLoss.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -485,11 +485,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777631329879</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="feat: CORAL done properly">
+      <option name="closed" value="true" />
+      <created>1777631989967</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1777631989967</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: change size of image to 224x224" />
     <MESSAGE value="chore: change dataset path" />
     <MESSAGE value="fix: change file loading algo to accomodate for new file extensions" />
     <MESSAGE value="fix: change dataset augumentation to train only" />
@@ -514,6 +521,7 @@
     <MESSAGE value="feat: remove tkinter file path" />
     <MESSAGE value="fix: unset bias values" />
     <MESSAGE value="chore: set image count to 400" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: set image count to 400" />
+    <MESSAGE value="feat: CORAL done properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: CORAL done properly" />
   </component>
 </project>
