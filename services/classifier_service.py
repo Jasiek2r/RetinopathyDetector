@@ -1,132 +1,42 @@
-import traceback
-
-import timm
-import torch
-import numpy as np
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import DataLoader, WeightedRandomSampler
-
+from ml.abstractions.data_pipeline import DataPipeline
 from ml.abstractions.ml_engine import MLEngine
+from services.abstractions.loader_service import LoaderService
+from utility.decorated_print import print_decorated
+from utility.formatted_date import get_formatted_date
 
 
-class RetinopathyMLEngine(MLEngine):
-    def __init__(self, device=None):
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        #self.model = ResearchProjectNet().to(self.device)
-        self.model = self.create_model().to(self.device)
+class ClassifierService:
+    def __init__(self, engine: MLEngine, loader_service: LoaderService, pipeline: DataPipeline):
+        self.sample_limit = None
+        self.__engine__ = engine
+        self.__loader_service__ = loader_service
+        self.__pipeline__ = pipeline
 
-    def train(self, train_dataset, val_dataset, batch_size=16, epochs=50):
+    def set_sample_limit(self, sample_limit):
+        self.sample_limit = sample_limit
 
-        criterion = nn.CrossEntropyLoss()
-        optimizer = optim.AdamW(self.model.parameters(), lr=1e-5, weight_decay=1e-4)
+    def train(self, dir_path: str):
+        dataset = self.__loader_service__.load_data(dir_path, self.sample_limit)
 
-        self.model.train()
+        print("Dataset size:", len(dataset))
 
-        val_loader = None
-        if val_dataset is not None:
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
-
-        # --- Pobieranie etykiet dla WeightedRandomSampler ---
-        if hasattr(train_dataset, "indices"):
-            labels = train_dataset.dataset.df.iloc[train_dataset.indices]["diagnosis"].values
-        else:
-            labels = train_dataset.df["diagnosis"].values
-
-        class_counts = np.bincount(labels)
-        class_weights = 1.0 / class_counts
-        sample_weights = class_weights[labels]
-
-        sampler = WeightedRandomSampler(
-            weights=sample_weights,
-            num_samples=len(sample_weights),
-            replacement=True
+        train_dataset, val_dataset, test_dataset = self.__pipeline__.run(
+            dataset=dataset,
+            dir_path=dir_path
         )
 
-        # --- TRAIN LOADER ---
-        train_loader = DataLoader(
-            train_dataset,
-            batch_size=batch_size,
-            sampler=sampler,
-            num_workers=4
-        )
+        print("Images have been loaded successfully")
+        print_decorated("RETINOPATHY DIAGNOSTIC APPLICATION")
 
-        for epoch in range(epochs):
-            print(f"\n===== EPOKA {epoch + 1} / {epochs} =====")
+        formatted_date = get_formatted_date()
+        print(f"Training started at {formatted_date}")
 
-            running_loss = 0.0
+        # --- TRENING ---
+        self.__engine__.train(train_dataset, val_dataset)
 
-            for batch_idx, (images, labels) in enumerate(train_loader):
-                try:
-                    images = images.to(self.device)
-                    labels = labels.to(self.device)
+        formatted_date = get_formatted_date()
+        print(f"Training finished at {formatted_date}")
 
-                    optimizer.zero_grad()
-                    outputs = self.model(images)
-                    loss = criterion(outputs, labels)
-                    loss.backward()
-                    optimizer.step()
-
-                    # 🔥 CLR aktualizowany co batch
-                    #scheduler.step()
-
-                    running_loss += loss.item()
-
-                except Exception as e:
-                    print(f"\n*** ERROR in batch {batch_idx} ***")
-                    print("Exception:", e)
-                    traceback.print_exc()
-                    raise
-
-            print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(train_loader):.4f}")
-
-            if val_dataset is not None:
-                acc = self._validate(val_loader)
-                print(f"Validation accuracy: {acc:.2f}%")
-
-    def _validate(self, loader):
-        self.model.eval()
-        correct = 0
-        total = 0
-
-        with torch.no_grad():
-            for images, labels in loader:
-                images, labels = images.to(self.device), labels.to(self.device)
-                outputs = self.model(images)
-                _, predicted = torch.max(outputs, 1)
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
-
-        self.model.train()
-        return 100 * correct / total
-
-    def test(self, dataset, batch_size=8):
-        loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
-
-        self.model.eval()
-        correct = 0
-        total = 0
-
-        with torch.no_grad():
-            for images, labels in loader:
-                images = images.to(self.device)
-                labels = labels.to(self.device)
-
-                outputs = self.model(images)
-                _, predicted = torch.max(outputs, 1)
-
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
-
-        accuracy = correct / total * 100
-        print(f"Test accuracy: {accuracy:.2f}%")
-        torch.save(self.model.state_dict(), "model_weights.pth")
-        return accuracy
-
-    def create_model(self, num_classes=5):
-        model = timm.create_model(
-            "convnext_tiny",
-            pretrained=True,
-            num_classes=num_classes
-        )
-        return model
+        # --- TEST ---
+        print("Evaluating on test split...")
+        self.__engine__.test(test_dataset)

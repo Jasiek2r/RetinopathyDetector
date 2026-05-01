@@ -1,55 +1,43 @@
+import traceback
+
 import timm
 import torch
 import numpy as np
 import torch.nn as nn
 import torch.optim as optim
+from torch.optim.lr_scheduler import CosineAnnealingLR, CyclicLR
 from torch.utils.data import DataLoader, WeightedRandomSampler
-from sklearn.metrics import cohen_kappa_score
 
 from ml.abstractions.ml_engine import MLEngine
+import matplotlib.pyplot as plt
 
 
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        #self.model = ResearchProjectNet().to(self.device)
         self.model = self.create_model().to(self.device)
 
-    # =========================
-    # CORAL ENCODING
-    # =========================
-    def encode_labels(self, labels, num_classes=5):
-        labels = labels.unsqueeze(1)  # [B,1]
-        thresholds = torch.arange(num_classes - 1, device=labels.device).unsqueeze(0)
-        return (labels > thresholds).float()
+    def train(self, train_dataset, val_dataset, batch_size=16, epochs=50):
 
-    # =========================
-    # CORAL DECODING (FIXED)
-    # =========================
-    def decode_predictions(self, outputs):
-        probs = torch.sigmoid(outputs)
-        return (probs > 0.5).sum(dim=1)
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.AdamW(self.model.parameters(), lr=1e-5, weight_decay=1e-4)
 
-    # =========================
-    # MODEL
-    # =========================
-    def create_model(self, num_classes=5):
-        return timm.create_model(
-            "convnext_base",
-            pretrained=True,
-            num_classes=num_classes - 1
-        )
+        self.model.train()
 
-    # =========================
-    # TRAIN
-    # =========================
-    def train(self, train_dataset, val_dataset=None, batch_size=8, epochs=50):
+        val_loader = None
+        if val_dataset is not None:
+            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
-        raw_labels = train_dataset.df["diagnosis"].values
+        # --- Pobieranie etykiet dla WeightedRandomSampler ---
+        if hasattr(train_dataset, "indices"):
+            labels = train_dataset.dataset.df.iloc[train_dataset.indices]["diagnosis"].values
+        else:
+            labels = train_dataset.df["diagnosis"].values
 
-        class_counts = np.bincount(raw_labels)
-        class_weights = 1.0 / (class_counts + 1e-6)
-
-        sample_weights = class_weights[raw_labels]
+        class_counts = np.bincount(labels)
+        class_weights = 1.0 / class_counts
+        sample_weights = class_weights[labels]
 
         sampler = WeightedRandomSampler(
             weights=sample_weights,
@@ -57,6 +45,7 @@ class RetinopathyMLEngine(MLEngine):
             replacement=True
         )
 
+        # --- TRAIN LOADER ---
         train_loader = DataLoader(
             train_dataset,
             batch_size=batch_size,
@@ -64,111 +53,93 @@ class RetinopathyMLEngine(MLEngine):
             num_workers=4
         )
 
-        val_loader = None
-        if val_dataset:
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+        # --- Cyclical Learning Rate (CLR) ---
+        # scheduler = CyclicLR(
+        #     optimizer,
+        #     base_lr=1e-6,
+        #     max_lr=3e-4,
+        #     step_size_up=len(train_loader) * 2,
+        #     mode="triangular2",
+        #     cycle_momentum=False
+        # )
 
-        pos_weight = torch.tensor(class_weights[:-1], dtype=torch.float32).to(self.device)
-        criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
-
-        optimizer = optim.AdamW(self.model.parameters(), lr=3e-4, weight_decay=1e-4)
 
         for epoch in range(epochs):
-            print(f"\n===== EPOKA {epoch+1}/{epochs} =====")
+            print(f"\n===== EPOKA {epoch + 1} / {epochs} =====")
 
-            self.model.train()
             running_loss = 0.0
 
-            for images, labels in train_loader:
+            for batch_idx, (images, labels) in enumerate(train_loader):
+                try:
+                    images = images.to(self.device)
+                    labels = labels.to(self.device)
 
-                images = images.to(self.device)
-                labels = labels.to(self.device).long()
+                    optimizer.zero_grad()
+                    outputs = self.model(images)
+                    loss = criterion(outputs, labels)
+                    loss.backward()
+                    optimizer.step()
 
-                targets = self.encode_labels(labels)
+                    # 🔥 CLR aktualizowany co batch
+                    #scheduler.step()
 
-                optimizer.zero_grad()
-                outputs = self.model(images)
+                    running_loss += loss.item()
 
-                loss = criterion(outputs, targets)
-                loss.backward()
-                optimizer.step()
+                except Exception as e:
+                    print(f"\n*** ERROR in batch {batch_idx} ***")
+                    print("Exception:", e)
+                    traceback.print_exc()
+                    raise
 
-                running_loss += loss.item()
+            print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(train_loader):.4f}")
 
-            print(f"Loss: {running_loss / len(train_loader):.4f}")
+            if val_dataset is not None:
+                acc = self._validate(val_loader)
+                print(f"Validation accuracy: {acc:.2f}%")
 
-            if val_loader:
-                kappa = self._validate(val_loader)
-                print(f"Val Cohen Kappa: {kappa:.4f} ({kappa*100:.2f}%)")
-
-    # =========================
-    # VALIDATION (FIXED)
-    # =========================
     def _validate(self, loader):
         self.model.eval()
-
-        preds_all = []
-        labels_all = []
+        correct = 0
+        total = 0
 
         with torch.no_grad():
             for images, labels in loader:
-
-                images = images.to(self.device)
-                labels = labels.to(self.device).long()
-
+                images, labels = images.to(self.device), labels.to(self.device)
                 outputs = self.model(images)
-
-                preds = self.decode_predictions(outputs)
-
-                preds = preds.detach().cpu().numpy()
-                labels = labels.detach().cpu().numpy()
-
-                preds_all.extend(preds)
-                labels_all.extend(labels)
-
-        preds_all = np.array(preds_all)
-        labels_all = np.array(labels_all)
-
-        print("pred distribution:", np.bincount(preds_all))
-        print("label distribution:", np.bincount(labels_all))
+                _, predicted = torch.max(outputs, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
 
         self.model.train()
+        return 100 * correct / total
 
-        return cohen_kappa_score(labels_all, preds_all, weights="quadratic")
-
-    # =========================
-    # TEST
-    # =========================
     def test(self, dataset, batch_size=8):
-        loader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
+        loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
         self.model.eval()
-
-        preds_all = []
-        labels_all = []
+        correct = 0
+        total = 0
 
         with torch.no_grad():
             for images, labels in loader:
-
                 images = images.to(self.device)
-                labels = labels.to(self.device).long()
+                labels = labels.to(self.device)
 
                 outputs = self.model(images)
+                _, predicted = torch.max(outputs, 1)
 
-                preds = self.decode_predictions(outputs)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
 
-                preds = preds.detach().cpu().numpy()
-                labels = labels.detach().cpu().numpy()
-
-                preds_all.extend(preds)
-                labels_all.extend(labels)
-
-        preds_all = np.array(preds_all)
-        labels_all = np.array(labels_all)
-
-        kappa = cohen_kappa_score(labels_all, preds_all, weights="quadratic")
-
-        print(f"Test Cohen Kappa: {kappa:.4f} ({kappa*100:.2f}%)")
-
+        accuracy = correct / total * 100
+        print(f"Test accuracy: {accuracy:.2f}%")
         torch.save(self.model.state_dict(), "model_weights.pth")
-        return kappa
+        return accuracy
+
+    def create_model(self, num_classes=5):
+        model = timm.create_model(
+            "convnext_tiny",
+            pretrained=True,
+            num_classes=num_classes
+        )
+        return model

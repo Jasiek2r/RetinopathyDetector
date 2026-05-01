@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: clean cohen cappa coral">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: bring back old ml engine">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/classifier_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/classifier_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -540,11 +541,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777634475407</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="fix: bring back old ml engine">
+      <option name="closed" value="true" />
+      <created>1777634866411</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1777634866411</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: change sample limit to 200 atm" />
     <MESSAGE value="chore: change sample limit to 2000 atm" />
     <MESSAGE value="feat: remove shitty augumentations" />
     <MESSAGE value="chore: change path" />
@@ -569,6 +577,7 @@
     <MESSAGE value="debug: print debug" />
     <MESSAGE value="fix: fix kappa" />
     <MESSAGE value="fix: clean cohen cappa coral" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: clean cohen cappa coral" />
+    <MESSAGE value="fix: bring back old ml engine" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: bring back old ml engine" />
   </component>
 </project>
