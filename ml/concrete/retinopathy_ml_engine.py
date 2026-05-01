@@ -20,7 +20,7 @@ class RetinopathyMLEngine(MLEngine):
         #self.model = ResearchProjectNet().to(self.device)
         self.model = self.create_model().to(self.device)
 
-    def train(self, train_dataset, val_dataset, batch_size=16, epochs=50):
+    def train(self, train_dataset, val_dataset, batch_size=32, epochs=50):
 
         labels = train_dataset.df["diagnosis"].to_numpy()
 
