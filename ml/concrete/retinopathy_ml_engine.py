@@ -28,7 +28,7 @@ class RetinopathyMLEngine(MLEngine):
     # =========================
     def decode_predictions(self, outputs):
         probs = torch.sigmoid(outputs)
-        return torch.sum(probs >= 0.5, dim=1)
+        return torch.sum(probs, dim=1)
 
     # =========================
     # MODEL
@@ -122,7 +122,8 @@ class RetinopathyMLEngine(MLEngine):
                 labels = labels.to(self.device).long()
 
                 outputs = self.model(images)
-                preds = self.decode_predictions(outputs).cpu().numpy()
+                preds = self.decode_predictions(outputs)
+                preds = np.clip(np.round(preds), 0, 4)
 
                 preds_all.extend(preds)
                 labels_all.extend(labels.cpu().numpy())
@@ -150,7 +151,8 @@ class RetinopathyMLEngine(MLEngine):
                 labels = labels.to(self.device).long()
 
                 outputs = self.model(images)
-                preds = self.decode_predictions(outputs).cpu().numpy()
+                preds = self.decode_predictions(outputs)
+                preds = np.clip(np.round(preds), 0, 4)
 
                 preds_all.extend(preds)
                 labels_all.extend(labels.cpu().numpy())
