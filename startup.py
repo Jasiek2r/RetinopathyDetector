@@ -14,7 +14,6 @@ class Startup:
         # configure constants here
         sample_limit = 2000  # use None for no limit
         path = "./research-project-dataset"
-        dev = True  # uses developer version for testing
 
         # configure the dependencies used by application here
         engine = RetinopathyMLEngine()
@@ -27,7 +26,6 @@ class Startup:
         )
         classifier.set_sample_limit(sample_limit)
         file_service = FileService(
-            is_dev=dev,
             path=path
         )
         application = RetinopathyApplication(classifier, file_service)
