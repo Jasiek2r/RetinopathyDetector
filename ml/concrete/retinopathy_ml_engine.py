@@ -11,6 +11,8 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 from ml.abstractions.ml_engine import MLEngine
 import matplotlib.pyplot as plt
 
+from ml.concrete.CORALLoss import CORALLoss
+
 
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
@@ -20,7 +22,7 @@ class RetinopathyMLEngine(MLEngine):
 
     def train(self, train_dataset, val_dataset, batch_size=4, epochs=50):
 
-        criterion = nn.CrossEntropyLoss()
+        criterion = CORALLoss()
         optimizer = optim.AdamW(self.model.parameters(), lr=3e-4, weight_decay=1e-4)
 
         self.model.train()
@@ -106,7 +108,10 @@ class RetinopathyMLEngine(MLEngine):
             for images, labels in loader:
                 images, labels = images.to(self.device), labels.to(self.device)
                 outputs = self.model(images)
-                _, predicted = torch.max(outputs, 1)
+                predicted = torch.sum(
+                    (torch.sigmoid(outputs) > 0.5),
+                    dim=1
+                )
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
 
@@ -126,7 +131,10 @@ class RetinopathyMLEngine(MLEngine):
                 labels = labels.to(self.device)
 
                 outputs = self.model(images)
-                _, predicted = torch.max(outputs, 1)
+                predicted = torch.sum(
+                    (torch.sigmoid(outputs) > 0.5),
+                    dim=1
+                )
 
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
@@ -140,6 +148,29 @@ class RetinopathyMLEngine(MLEngine):
         model = timm.create_model(
             "convnext_base",
             pretrained=True,
-            num_classes=num_classes
+            num_classes=num_classes - 1
         )
+
+        print(model)  # <-- tylko raz debug
+
+        final_layer = None
+
+        if hasattr(model, "head") and hasattr(model.head, "fc"):
+            final_layer = model.head.fc
+        elif hasattr(model, "head") and isinstance(model.head, nn.Linear):
+            final_layer = model.head
+        elif hasattr(model, "classifier"):
+            final_layer = model.classifier
+
+        if final_layer is not None:
+            nn.init.constant_(final_layer.weight, 0.)
+
+            bias_values = torch.tensor([1.5, 0.5, -0.5, -1.5])
+            final_layer.bias.data = bias_values
+
+            print("✓ CORAL bias initialized")
+
+        else:
+            print("WARNING: Could not find final classification layer!")
+
         return model
