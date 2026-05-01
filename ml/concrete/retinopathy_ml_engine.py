@@ -11,6 +11,8 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 from ml.abstractions.ml_engine import MLEngine
 import matplotlib.pyplot as plt
 
+from ml.concrete.FocalLoss import FocalLoss
+
 
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
@@ -20,7 +22,14 @@ class RetinopathyMLEngine(MLEngine):
 
     def train(self, train_dataset, val_dataset, batch_size=16, epochs=50):
 
-        criterion = nn.CrossEntropyLoss()
+        labels = train_dataset.df["diagnosis"].to_numpy()
+
+        class_counts = np.bincount(labels)
+        class_weights = 1.0 / class_counts
+        class_weights = class_weights / class_weights.sum()
+        class_weights = torch.tensor(class_weights, dtype=torch.float32).to(self.device)
+
+        criterion = FocalLoss(gamma=2.0)
         optimizer = optim.AdamW(self.model.parameters(), lr=1e-5, weight_decay=1e-4)
 
         self.model.train()
