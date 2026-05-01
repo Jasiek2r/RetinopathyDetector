@@ -45,6 +45,12 @@ class RetinopathyDataset(Dataset):
 
         print(f"Dataset ready: {len(self.df)} images")
 
+    @classmethod
+    def from_df(cls, df, dataset_dir, transform=None):
+        obj = cls(dataset_dir, transform=transform)
+        obj.df = df.reset_index(drop=True)
+        return obj
+
     def __len__(self):
         return len(self.df)
 
