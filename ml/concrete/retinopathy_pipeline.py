@@ -1,9 +1,5 @@
-import os
-
 from sklearn.model_selection import train_test_split
-from torch.utils.data import random_split
-import torch
-import pandas as pd
+from torchvision import transforms
 
 from ml.abstractions.data_pipeline import DataPipeline
 
@@ -12,10 +8,7 @@ class RetinopathyPipeline(DataPipeline):
 
     def run(self, dataset, dir_path):
 
-        df = dataset.df if hasattr(dataset, "df") else None
-
-        if df is None:
-            raise ValueError("Dataset must expose df attribute")
+        df = dataset.df
 
         train_df, temp_df = train_test_split(
             df,
@@ -31,13 +24,49 @@ class RetinopathyPipeline(DataPipeline):
             random_state=42
         )
 
-        train_ds = dataset.__class__(dir_path, transform=dataset.transform)
-        val_ds = dataset.__class__(dir_path, transform=dataset.transform)
-        test_ds = dataset.__class__(dir_path, transform=dataset.transform)
+        DatasetClass = dataset.__class__
 
-        train_ds.df = train_df.reset_index(drop=True)
-        val_ds.df = val_df.reset_index(drop=True)
-        test_ds.df = test_df.reset_index(drop=True)
+        train_ds = DatasetClass.from_df(train_df, dataset)
+        val_ds = DatasetClass.from_df(val_df, dataset)
+        test_ds = DatasetClass.from_df(test_df, dataset)
+
+        train_tf = transforms.Compose([
+            transforms.Resize((384, 384)),
+
+            # augmentacje (realistyczne dla medycznych obrazów)
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.RandomRotation(degrees=15),
+
+            # lekka zmienność kadru (OK dla fundus images)
+            transforms.RandomResizedCrop(
+                384,
+                scale=(0.9, 1.0),
+                ratio=(0.95, 1.05)
+            ),
+
+            transforms.ToTensor(),
+
+            # ImageNet normalization (dla pretrained CNN)
+            transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            )
+        ])
+
+        eval_tf = transforms.Compose([
+            transforms.Resize((384, 384)),
+            transforms.CenterCrop(384),
+
+            transforms.ToTensor(),
+
+            transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            )
+        ])
+
+        train_ds.transform = train_tf
+        val_ds.transform = eval_tf
+        test_ds.transform = eval_tf
 
         return train_ds, val_ds, test_ds
-
