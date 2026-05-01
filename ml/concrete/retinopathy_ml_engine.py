@@ -126,7 +126,8 @@ class RetinopathyMLEngine(MLEngine):
 
                 preds_all.extend(preds)
                 labels_all.extend(labels.cpu().numpy())
-
+            print("pred distribution:", np.bincount(preds_all))
+            print("label distribution:", np.bincount(labels_all))
         self.model.train()
 
         kappa = cohen_kappa_score(labels_all, preds_all, weights="quadratic")
