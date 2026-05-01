@@ -1,72 +1,58 @@
-import torch
+import os
 
-from ml.abstractions.data_pipeline import DataPipeline
 from torch.utils.data import random_split
-from torchvision import transforms
-from ml.concrete.retinopathy_dataset import RetinopathyDataset
+import torch
+import pandas as pd
 
 
-class RetinopathyPipeline(DataPipeline):
+class RetinopathyPipeline:
+    def run(self, dataset_dir, dataset_class, train_tf, eval_tf):
 
-    def __init__(self):
-        self.train_tf = transforms.Compose([
-            transforms.Resize((384, 384)),
-            transforms.RandomResizedCrop(384, scale=(0.9, 1.0)),
-            transforms.RandomHorizontalFlip(p=0.5),
-            transforms.RandomRotation(15),
-            transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.0)),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )
-        ])
+        csv_path = f"{dataset_dir}/train.csv"
+        images_dir = f"{dataset_dir}/train_images"
 
-        self.eval_tf = transforms.Compose([
-            transforms.Resize((384, 384)),
-            transforms.CenterCrop(384),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )
-        ])
+        df = pd.read_csv(csv_path)
+        df["diagnosis"] = df["diagnosis"].astype(int)
 
-    def run(self, dataset, dir_path):
-        # --- PODZIAŁ NA INDEKSY ---
-        test_size = int(0.15 * len(dataset))
-        val_size = int(0.15 * len(dataset))
-        train_size = len(dataset) - test_size - val_size
+        # 🔥 STEP 1: REMOVE INVALID FILES FIRST
+        def exists(row):
+            file_id = str(row["id_code"])
+            for ext in [".png", ".jpg", ".jpeg"]:
+                if os.path.exists(f"{images_dir}/{file_id}{ext}"):
+                    return True
+            return False
 
-        train_subset, val_subset, test_subset = random_split(
-            dataset,
-            [train_size, val_size, test_size],
-            generator=torch.Generator().manual_seed(42)
-        )
+        df = df[df.apply(exists, axis=1)].reset_index(drop=True)
 
-        # --- TWORZENIE TRZECH KOPII DATASETU ---
-        train_ds = RetinopathyDataset(
-            dir_path,
-            transform=self.train_tf,
-            max_images=dataset.max_images,
-            balanced_subset_per_class=dataset.balanced_subset_per_class
-        )
-        val_ds = RetinopathyDataset(
-            dir_path,
-            transform=self.eval_tf,
-            max_images=dataset.max_images,
-            balanced_subset_per_class=dataset.balanced_subset_per_class
-        )
-        test_ds = RetinopathyDataset(
-            dir_path,
-            transform=self.eval_tf,
-            max_images=dataset.max_images,
-            balanced_subset_per_class=dataset.balanced_subset_per_class
-        )
+        # 🔥 STEP 2: STRATIFIED SPLIT (IMPORTANT FIX)
+        train_df, val_df, test_df = self._split(df)
 
-        # --- PODMIANA DF NA ODPOWIEDNIE PODZBIORY ---
-        train_ds.df = dataset.df.iloc[train_subset.indices].reset_index(drop=True)
-        val_ds.df = dataset.df.iloc[val_subset.indices].reset_index(drop=True)
-        test_ds.df = dataset.df.iloc[test_subset.indices].reset_index(drop=True)
+        # 🔥 STEP 3: CREATE DATASETS (CLEAN)
+        train_ds = dataset_class(train_df, images_dir, transform=train_tf)
+        val_ds = dataset_class(val_df, images_dir, transform=eval_tf)
+        test_ds = dataset_class(test_df, images_dir, transform=eval_tf)
 
         return train_ds, val_ds, test_ds
+
+    def _split(self, df):
+        from sklearn.model_selection import train_test_split
+
+        train_df, temp_df = train_test_split(
+            df,
+            test_size=0.3,
+            stratify=df["diagnosis"],
+            random_state=42
+        )
+
+        val_df, test_df = train_test_split(
+            temp_df,
+            test_size=0.5,
+            stratify=temp_df["diagnosis"],
+            random_state=42
+        )
+
+        return (
+            train_df.reset_index(drop=True),
+            val_df.reset_index(drop=True),
+            test_df.reset_index(drop=True)
+        )
