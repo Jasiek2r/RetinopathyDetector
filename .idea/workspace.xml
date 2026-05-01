@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="debug: print debug">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-    </list>
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix kappa" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -525,11 +522,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777633961444</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="fix: fix kappa">
+      <option name="closed" value="true" />
+      <created>1777634283842</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1777634283842</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: sample limits" />
     <MESSAGE value="fix: sample limits fix attempt 2" />
     <MESSAGE value="chore: change sample limit to 200 atm" />
     <MESSAGE value="chore: change sample limit to 2000 atm" />
@@ -554,6 +558,7 @@
     <MESSAGE value="chore: set image count to 1k" />
     <MESSAGE value="feat: using Cohen's Kappa Score instead of accuracy" />
     <MESSAGE value="debug: print debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="debug: print debug" />
+    <MESSAGE value="fix: fix kappa" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fix kappa" />
   </component>
 </project>

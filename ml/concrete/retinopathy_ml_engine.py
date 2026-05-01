@@ -1,4 +1,3 @@
-import traceback
 import timm
 import torch
 import numpy as np
@@ -19,27 +18,26 @@ class RetinopathyMLEngine(MLEngine):
     # CORAL ENCODING
     # =========================
     def encode_labels(self, labels, num_classes=5):
-        labels = labels.unsqueeze(1)
+        labels = labels.unsqueeze(1)  # [B,1]
         thresholds = torch.arange(num_classes - 1, device=labels.device).unsqueeze(0)
         return (labels > thresholds).float()
 
     # =========================
-    # DECODING
+    # CORAL DECODING (FIXED)
     # =========================
     def decode_predictions(self, outputs):
         probs = torch.sigmoid(outputs)
-        return torch.sum(probs, dim=1)
+        return (probs > 0.5).sum(dim=1)
 
     # =========================
     # MODEL
     # =========================
     def create_model(self, num_classes=5):
-        model = timm.create_model(
+        return timm.create_model(
             "convnext_base",
             pretrained=True,
             num_classes=num_classes - 1
         )
-        return model
 
     # =========================
     # TRAIN
@@ -82,24 +80,20 @@ class RetinopathyMLEngine(MLEngine):
             running_loss = 0.0
 
             for images, labels in train_loader:
-                try:
-                    images = images.to(self.device)
-                    labels = labels.to(self.device).long()
 
-                    targets = self.encode_labels(labels).to(self.device)
+                images = images.to(self.device)
+                labels = labels.to(self.device).long()
 
-                    optimizer.zero_grad()
-                    outputs = self.model(images)
+                targets = self.encode_labels(labels)
 
-                    loss = criterion(outputs, targets)
-                    loss.backward()
-                    optimizer.step()
+                optimizer.zero_grad()
+                outputs = self.model(images)
 
-                    running_loss += loss.item()
+                loss = criterion(outputs, targets)
+                loss.backward()
+                optimizer.step()
 
-                except Exception:
-                    traceback.print_exc()
-                    raise
+                running_loss += loss.item()
 
             print(f"Loss: {running_loss / len(train_loader):.4f}")
 
@@ -108,7 +102,7 @@ class RetinopathyMLEngine(MLEngine):
                 print(f"Val Cohen Kappa: {kappa:.4f} ({kappa*100:.2f}%)")
 
     # =========================
-    # VALIDATION (KAPPA)
+    # VALIDATION (FIXED)
     # =========================
     def _validate(self, loader):
         self.model.eval()
@@ -118,21 +112,29 @@ class RetinopathyMLEngine(MLEngine):
 
         with torch.no_grad():
             for images, labels in loader:
+
                 images = images.to(self.device)
                 labels = labels.to(self.device).long()
 
                 outputs = self.model(images)
+
                 preds = self.decode_predictions(outputs)
-                preds = np.clip(np.round(preds), 0, 4)
+
+                preds = preds.detach().cpu().numpy()
+                labels = labels.detach().cpu().numpy()
 
                 preds_all.extend(preds)
-                labels_all.extend(labels.cpu().numpy())
-            print("pred distribution:", np.bincount(preds_all))
-            print("label distribution:", np.bincount(labels_all))
+                labels_all.extend(labels)
+
+        preds_all = np.array(preds_all)
+        labels_all = np.array(labels_all)
+
+        print("pred distribution:", np.bincount(preds_all))
+        print("label distribution:", np.bincount(labels_all))
+
         self.model.train()
 
-        kappa = cohen_kappa_score(labels_all, preds_all, weights="quadratic")
-        return kappa
+        return cohen_kappa_score(labels_all, preds_all, weights="quadratic")
 
     # =========================
     # TEST
@@ -147,15 +149,22 @@ class RetinopathyMLEngine(MLEngine):
 
         with torch.no_grad():
             for images, labels in loader:
+
                 images = images.to(self.device)
                 labels = labels.to(self.device).long()
 
                 outputs = self.model(images)
+
                 preds = self.decode_predictions(outputs)
-                preds = np.clip(np.round(preds), 0, 4)
+
+                preds = preds.detach().cpu().numpy()
+                labels = labels.detach().cpu().numpy()
 
                 preds_all.extend(preds)
-                labels_all.extend(labels.cpu().numpy())
+                labels_all.extend(labels)
+
+        preds_all = np.array(preds_all)
+        labels_all = np.array(labels_all)
 
         kappa = cohen_kappa_score(labels_all, preds_all, weights="quadratic")
 
