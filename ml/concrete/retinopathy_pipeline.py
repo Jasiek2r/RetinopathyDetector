@@ -6,12 +6,7 @@ from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
 
 class RetinopathyPipeline(DataPipeline):
 
-    def run(self, dataset, dir_path):
-        df = dataset.df
-
-        # --------------------
-        # TRANSFORMY
-        # --------------------
+    def run(self, dir_path):
 
         tf = transforms.Compose([
             transforms.Resize((384, 384)),
@@ -22,9 +17,6 @@ class RetinopathyPipeline(DataPipeline):
             )
         ])
 
-        # --------------------
-        # DATASETS (3 sztuki)
-        # --------------------
         train_ds = RetinopathyFolderDataset(dir_path, split="train", transform=tf)
         val_ds = RetinopathyFolderDataset(dir_path, split="val", transform=tf)
         test_ds = RetinopathyFolderDataset(dir_path, split="test", transform=tf)
