@@ -21,7 +21,7 @@ class SimpleCNN(nn.Module):
         )
 
         # CORAL: K-1 outputs
-        self.fc = nn.Linear(64, num_classes - 1)
+        self.fc = nn.Linear(64, num_classes)
 
     def forward(self, x):
         x = self.features(x)

@@ -17,7 +17,7 @@ class RetinopathyMLEngine:
     # ---------------- TRAIN ----------------
     def train(self, train_dataset, val_dataset=None, batch_size=4, epochs=50):
 
-        criterion = CORALLoss()
+        criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(
             self.model.parameters(),
             lr=1e-3,
@@ -115,7 +115,7 @@ class RetinopathyMLEngine:
                 total_loss += loss.item()
 
                 # severity score
-                preds = torch.sigmoid(outputs).sum(dim=1)
+                preds = torch.argmax(outputs, dim=1)
 
                 total_mae += torch.abs(preds - labels.float()).sum().item()
                 total += labels.size(0)
@@ -140,7 +140,7 @@ class RetinopathyMLEngine:
                 images, labels = images.to(self.device), labels.to(self.device)
 
                 outputs = self.model(images)
-                preds = torch.sigmoid(outputs).sum(dim=1)
+                preds = torch.argmax(outputs, dim=1)
 
                 total_mae += torch.abs(preds - labels.float()).sum().item()
                 total += labels.size(0)
