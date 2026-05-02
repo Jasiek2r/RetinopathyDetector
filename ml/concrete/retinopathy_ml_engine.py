@@ -16,7 +16,7 @@ class RetinopathyMLEngine(MLEngine):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = self.create_model().to(self.device)
 
-    def train(self, train_dataset, val_dataset, batch_size=32, epochs=50):
+    def train(self, train_dataset, val_dataset, batch_size=8, epochs=50):
 
         labels = train_dataset.df["diagnosis"].to_numpy()
 
