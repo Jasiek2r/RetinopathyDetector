@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 from ml.abstractions.ml_engine import MLEngine
 
 from ml.concrete.FocalLoss import FocalLoss
-
+from tqdm import tqdm
 
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
