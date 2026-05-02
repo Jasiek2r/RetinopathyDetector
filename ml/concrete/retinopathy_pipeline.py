@@ -1,5 +1,8 @@
+import torch
 from sklearn.model_selection import train_test_split
 from torchvision import transforms
+
+from torchvision.transforms import v2 as T
 
 from ml.abstractions.data_pipeline import DataPipeline
 from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
@@ -7,14 +10,9 @@ from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
 class RetinopathyPipeline(DataPipeline):
 
     def run(self, dir_path, max_images):
-
-        tf = transforms.Compose([
-            transforms.Resize((384, 384)),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )
+        tf = T.Compose([
+            T.ToImage(),
+            T.ToDtype(torch.float32, scale=True),
         ])
 
         train_ds = RetinopathyFolderDataset(dir_path, "train", tf, max_images=max_images)

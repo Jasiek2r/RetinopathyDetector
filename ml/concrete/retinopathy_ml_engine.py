@@ -86,8 +86,22 @@ class RetinopathyMLEngine(MLEngine):
 
             for batch_idx, (images, labels) in enumerate(progress_bar):
                 try:
-                    images = images.to(self.device)
-                    labels = labels.to(self.device)
+                    # --- MOVE TO GPU ---
+                    images = images.to(self.device, non_blocking=True)
+                    labels = labels.to(self.device, non_blocking=True)
+
+                    # --- GPU RESIZE ---
+                    images = torch.nn.functional.interpolate(
+                        images,
+                        size=(384, 384),
+                        mode="bilinear",
+                        align_corners=False
+                    )
+
+                    # --- GPU NORMALIZE ---
+                    mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
+                    std = torch.tensor([0.229, 0.224, 0.225], device=self.device)[None, :, None, None]
+                    images = (images - mean) / std
 
                     optimizer.zero_grad()
                     outputs = self.model(images)
@@ -122,7 +136,20 @@ class RetinopathyMLEngine(MLEngine):
 
         with torch.no_grad():
             for images, labels in loader:
-                images, labels = images.to(self.device), labels.to(self.device)
+                images = images.to(self.device, non_blocking=True)
+                labels = labels.to(self.device, non_blocking=True)
+
+                images = torch.nn.functional.interpolate(
+                    images,
+                    size=(384, 384),
+                    mode="bilinear",
+                    align_corners=False
+                )
+
+                mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
+                std = torch.tensor([0.229, 0.224, 0.225], device=self.device)[None, :, None, None]
+                images = (images - mean) / std
+
                 outputs = self.model(images)
                 _, predicted = torch.max(outputs, 1)
                 total += labels.size(0)
@@ -140,8 +167,19 @@ class RetinopathyMLEngine(MLEngine):
 
         with torch.no_grad():
             for images, labels in loader:
-                images = images.to(self.device)
-                labels = labels.to(self.device)
+                images = images.to(self.device, non_blocking=True)
+                labels = labels.to(self.device, non_blocking=True)
+
+                images = torch.nn.functional.interpolate(
+                    images,
+                    size=(384, 384),
+                    mode="bilinear",
+                    align_corners=False
+                )
+
+                mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
+                std = torch.tensor([0.229, 0.224, 0.225], device=self.device)[None, :, None, None]
+                images = (images - mean) / std
 
                 outputs = self.model(images)
                 _, predicted = torch.max(outputs, 1)
