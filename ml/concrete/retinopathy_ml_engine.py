@@ -33,7 +33,15 @@ class RetinopathyMLEngine(MLEngine):
         # --- Walidacja ---
         val_loader = None
         if val_dataset is not None:
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
+            val_loader = DataLoader(
+                val_dataset,
+                batch_size=batch_size,
+                shuffle=False,
+                num_workers=8,
+                pin_memory=True,
+                prefetch_factor=4,
+                persistent_workers=True
+            )
 
         # --- WeightedRandomSampler ---
         if hasattr(train_dataset, "indices"):
@@ -56,7 +64,10 @@ class RetinopathyMLEngine(MLEngine):
             train_dataset,
             batch_size=batch_size,
             sampler=sampler,
-            num_workers=4
+            num_workers=12,
+            pin_memory=True,
+            prefetch_factor=4,
+            persistent_workers=True
         )
 
         # --- PĘTLA TRENINGOWA ---
