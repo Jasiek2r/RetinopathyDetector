@@ -93,7 +93,7 @@ class RetinopathyMLEngine(MLEngine):
                     # --- GPU RESIZE ---
                     images = torch.nn.functional.interpolate(
                         images,
-                        size=(384, 384),
+                        size=(256, 256),
                         mode="bilinear",
                         align_corners=False
                     )
@@ -141,7 +141,7 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = torch.nn.functional.interpolate(
                     images,
-                    size=(384, 384),
+                    size=(256, 256),
                     mode="bilinear",
                     align_corners=False
                 )
@@ -172,7 +172,7 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = torch.nn.functional.interpolate(
                     images,
-                    size=(384, 384),
+                    size=(256, 256),
                     mode="bilinear",
                     align_corners=False
                 )
@@ -194,7 +194,7 @@ class RetinopathyMLEngine(MLEngine):
 
     def create_model(self, num_classes=5):
         model = timm.create_model(
-            "convnext_base",
+            "convnext_small",
             pretrained=True,
             num_classes=num_classes
         )
