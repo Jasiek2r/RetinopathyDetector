@@ -18,7 +18,11 @@ class RetinopathyMLEngine:
     def train(self, train_dataset, val_dataset=None, batch_size=4, epochs=50):
 
         criterion = CORALLoss()
-        optimizer = optim.AdamW(self.model.parameters(), lr=3e-4, weight_decay=1e-4)
+        optimizer = optim.Adam(
+            self.model.parameters(),
+            lr=1e-3,
+            weight_decay=0
+        )
 
         # ----- sampler (class imbalance) -----
         labels = train_dataset.df["diagnosis"].values
@@ -26,17 +30,12 @@ class RetinopathyMLEngine:
         class_weights = 1.0 / class_counts
         sample_weights = class_weights[labels]
 
-        sampler = WeightedRandomSampler(
-            sample_weights,
-            num_samples=len(sample_weights),
-            replacement=True
-        )
 
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler=sampler)
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
         val_loader = None
         if val_dataset:
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True)
 
         train_losses = []
         val_metrics = []
