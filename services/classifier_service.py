@@ -16,7 +16,8 @@ class ClassifierService:
     def train(self, dir_path: str):
 
         train_dataset, val_dataset, test_dataset = self.__pipeline__.run(
-            dir_path=dir_path
+            dir_path=dir_path,
+            max_images=self.sample_limit
         )
 
         print("Images have been loaded successfully")

@@ -5,6 +5,7 @@ from services.file_service import FileService
 
 from ml.concrete.retinopathy_ml_engine import RetinopathyMLEngine
 
+
 class Startup:
     def __init__(self):
         self.__application__ = None
@@ -27,7 +28,6 @@ class Startup:
         )
         application = RetinopathyApplication(classifier, file_service)
         return application
-
 
     def run_application(self) -> None:
         self.__application__ = self.__build_application__()
