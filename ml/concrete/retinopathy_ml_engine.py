@@ -1,5 +1,5 @@
-from tqdm import tqdm
 import traceback
+
 import timm
 import torch
 import numpy as np
@@ -7,6 +7,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from ml.abstractions.ml_engine import MLEngine
+
 from ml.concrete.FocalLoss import FocalLoss
 
 
@@ -102,3 +103,50 @@ class RetinopathyMLEngine(MLEngine):
             if val_dataset is not None:
                 acc = self._validate(val_loader)
                 print(f"Validation accuracy: {acc:.2f}%")
+
+    def _validate(self, loader):
+        self.model.eval()
+        correct = 0
+        total = 0
+
+        with torch.no_grad():
+            for images, labels in loader:
+                images, labels = images.to(self.device), labels.to(self.device)
+                outputs = self.model(images)
+                _, predicted = torch.max(outputs, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+
+        self.model.train()
+        return 100 * correct / total
+
+    def test(self, dataset, batch_size=8):
+        loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+
+        self.model.eval()
+        correct = 0
+        total = 0
+
+        with torch.no_grad():
+            for images, labels in loader:
+                images = images.to(self.device)
+                labels = labels.to(self.device)
+
+                outputs = self.model(images)
+                _, predicted = torch.max(outputs, 1)
+
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+
+        accuracy = correct / total * 100
+        print(f"Test accuracy: {accuracy:.2f}%")
+        torch.save(self.model.state_dict(), "model_weights.pth")
+        return accuracy
+
+    def create_model(self, num_classes=5):
+        model = timm.create_model(
+            "convnext_base",
+            pretrained=True,
+            num_classes=num_classes
+        )
+        return model

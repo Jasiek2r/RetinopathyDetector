@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: no image limit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: progress bar">
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,14 +171,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00019" summary="fix: change weighting">
-      <option name="closed" value="true" />
-      <created>1774877723026</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1774877723026</updated>
     </task>
     <task id="LOCAL-00020" summary="fix: sample limits">
       <option name="closed" value="true" />
@@ -564,11 +556,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777748968269</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="feat: progress bar">
+      <option name="closed" value="true" />
+      <created>1777749465585</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1777749465585</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: using Cohen's Kappa Score instead of accuracy" />
     <MESSAGE value="debug: print debug" />
     <MESSAGE value="fix: fix kappa" />
     <MESSAGE value="fix: clean cohen cappa coral" />
@@ -593,6 +592,7 @@
     <MESSAGE value="refactor: remove trash" />
     <MESSAGE value="chore: set batch size from 32 to 8" />
     <MESSAGE value="chore: no image limit" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: no image limit" />
+    <MESSAGE value="feat: progress bar" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: progress bar" />
   </component>
 </project>
