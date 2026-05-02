@@ -3,13 +3,10 @@ import traceback
 import timm
 import torch
 import numpy as np
-import torch.nn as nn
 import torch.optim as optim
-from torch.optim.lr_scheduler import CosineAnnealingLR, CyclicLR
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from ml.abstractions.ml_engine import MLEngine
-import matplotlib.pyplot as plt
 
 from ml.concrete.FocalLoss import FocalLoss
 
@@ -17,7 +14,6 @@ from ml.concrete.FocalLoss import FocalLoss
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        #self.model = ResearchProjectNet().to(self.device)
         self.model = self.create_model().to(self.device)
 
     def train(self, train_dataset, val_dataset, batch_size=32, epochs=50):
@@ -61,16 +57,6 @@ class RetinopathyMLEngine(MLEngine):
             sampler=sampler,
             num_workers=4
         )
-
-        # --- Cyclical Learning Rate (CLR) ---
-        # scheduler = CyclicLR(
-        #     optimizer,
-        #     base_lr=1e-6,
-        #     max_lr=3e-4,
-        #     step_size_up=len(train_loader) * 2,
-        #     mode="triangular2",
-        #     cycle_momentum=False
-        # )
 
 
         for epoch in range(epochs):
