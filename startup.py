@@ -21,7 +21,6 @@ class Startup:
         pipeline = RetinopathyPipeline()
         classifier = ClassifierService(
             engine=engine,
-            loader_service=loader_service,
             pipeline=pipeline
         )
         classifier.set_sample_limit(sample_limit)

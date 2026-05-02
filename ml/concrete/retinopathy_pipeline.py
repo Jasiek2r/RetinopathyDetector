@@ -1,9 +1,10 @@
 from sklearn.model_selection import train_test_split
 from torchvision import transforms
 
+from ml.abstractions.data_pipeline import DataPipeline
 from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
 
-class RetinopathyPipeline:
+class RetinopathyPipeline(DataPipeline):
 
     def run(self, dataset, dir_path):
         df = dataset.df
