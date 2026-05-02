@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: optimize data loading">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
-    </list>
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: move resizing to GPU" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -173,14 +169,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00024" summary="feat: remove shitty augumentations">
-      <option name="closed" value="true" />
-      <created>1774887182452</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1774887182452</updated>
     </task>
     <task id="LOCAL-00025" summary="chore: change path">
       <option name="closed" value="true" />
@@ -566,11 +554,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777750523603</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="feat: move resizing to GPU">
+      <option name="closed" value="true" />
+      <created>1777750999778</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1777750999778</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: go back to past ml engine" />
     <MESSAGE value="fix: pipeline and data loading fix" />
     <MESSAGE value="fix: api fix" />
     <MESSAGE value="fix: loading images fix" />
@@ -595,6 +590,7 @@
     <MESSAGE value="fix: add missing import" />
     <MESSAGE value="chore: change path" />
     <MESSAGE value="chore: optimize data loading" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: optimize data loading" />
+    <MESSAGE value="feat: move resizing to GPU" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: move resizing to GPU" />
   </component>
 </project>
