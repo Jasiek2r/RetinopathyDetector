@@ -41,7 +41,7 @@ class RetinopathyMLEngine:
         train_losses = []
         val_metrics = []
 
-        best_mae = float("inf")  # <-- tu śledzimy najlepszy wynik
+        best_mae = float("inf")
 
         for epoch in range(epochs):
             self.model.train()
@@ -66,11 +66,10 @@ class RetinopathyMLEngine:
             print(f"Train loss: {train_loss:.4f}")
 
             if val_loader:
-                mae, qoe = self._validate(val_loader, criterion)
-                val_metrics.append((mae, qoe))
-                print(f"Val MAE: {mae:.4f} | QOE: {qoe:.4f}")
+                mae, qoe, acc = self._validate(val_loader, criterion)
+                val_metrics.append((mae, qoe, acc))
+                print(f"Val MAE: {mae:.4f} | QOE: {qoe:.4f} | ACC: {acc:.4f}")
 
-                # -------- SAVE BEST MODEL --------
                 if mae < best_mae:
                     best_mae = mae
                     torch.save(self.model.state_dict(), "best_model.pth")
@@ -79,12 +78,15 @@ class RetinopathyMLEngine:
         # --- plotting ---
         val_mae = [x[0] for x in val_metrics] if val_metrics else []
         val_qoe = [x[1] for x in val_metrics] if val_metrics else []
+        val_acc = [x[2] for x in val_metrics] if val_metrics else []
 
         plt.figure(figsize=(10, 6))
         plt.plot(train_losses, label="Train Loss")
 
         if val_qoe:
             plt.plot(val_qoe, label="Validation Loss (QOE)")
+        if val_acc:
+            plt.plot(val_acc, label="Validation Accuracy")
 
         plt.xlabel("Epoch")
         plt.ylabel("Metric Value")
@@ -105,6 +107,7 @@ class RetinopathyMLEngine:
 
         total_loss = 0.0
         total_mae = 0.0
+        total_acc = 0
         total = 0
 
         with torch.no_grad():
@@ -115,17 +118,23 @@ class RetinopathyMLEngine:
                 loss = criterion(outputs, labels)
                 total_loss += loss.item()
 
-                # severity score
                 preds = torch.sigmoid(outputs).sum(dim=1)
 
+                # MAE
                 total_mae += torch.abs(preds - labels.float()).sum().item()
+
+                # ACCURACY
+                pred_classes = preds.round().long().clamp(0, 4)
+                total_acc += (pred_classes == labels).sum().item()
+
                 total += labels.size(0)
 
         mae = total_mae / total
-        qoe = (total_loss / len(loader))  # proxy
+        acc = total_acc / total
+        qoe = total_loss / len(loader)
 
         self.model.train()
-        return mae, qoe
+        return mae, qoe, acc
 
     # ---------------- TEST ----------------
     def test(self, dataset, batch_size=8):
@@ -134,6 +143,7 @@ class RetinopathyMLEngine:
         self.model.eval()
 
         total_mae = 0.0
+        total_acc = 0
         total = 0
 
         with torch.no_grad():
@@ -143,11 +153,19 @@ class RetinopathyMLEngine:
                 outputs = self.model(images)
                 preds = torch.sigmoid(outputs).sum(dim=1)
 
+                # MAE
                 total_mae += torch.abs(preds - labels.float()).sum().item()
+
+                # ACCURACY
+                pred_classes = preds.round().long().clamp(0, 4)
+                total_acc += (pred_classes == labels).sum().item()
+
                 total += labels.size(0)
 
         mae = total_mae / total
-        print(f"Test MAE: {mae:.4f}")
+        acc = total_acc / total
+
+        print(f"Test MAE: {mae:.4f} | ACC: {acc:.4f}")
 
         torch.save(self.model.state_dict(), "model_weights.pth")
-        return mae
+        return mae, acc
