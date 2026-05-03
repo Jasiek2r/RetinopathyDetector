@@ -15,7 +15,12 @@ class RetinopathyPipeline(DataPipeline):
             T.ToDtype(torch.float32, scale=True),
             T.RandomRotation(degrees=5),
             T.RandomHorizontalFlip(p=0.5),
-            T.RandomVerticalFlip(p=0.1)
+            T.RandomVerticalFlip(p=0.1),
+            T.RandomAffine(
+                degrees=5,
+                translate=(0.02, 0.02),  # 2% przesunięcia
+                scale=(0.95, 1.05)
+            )
         ])
 
         train_ds = RetinopathyFolderDataset(dir_path, "train", tf, max_images=max_images)

@@ -5,6 +5,7 @@ import torch
 import numpy as np
 import torch.optim as optim
 from torch.utils.data import DataLoader, WeightedRandomSampler
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 from ml.abstractions.ml_engine import MLEngine
 
@@ -16,7 +17,7 @@ class RetinopathyMLEngine(MLEngine):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = self.create_model().to(self.device)
 
-    def train(self, train_dataset, val_dataset, batch_size=8, epochs=50):
+    def train(self, train_dataset, val_dataset, batch_size=8, epochs=30):
 
         # --- Przygotowanie wag klas ---
         labels = train_dataset.df["diagnosis"].to_numpy()
@@ -26,7 +27,8 @@ class RetinopathyMLEngine(MLEngine):
         class_weights = torch.tensor(class_weights, dtype=torch.float32).to(self.device)
 
         criterion = FocalLoss(gamma=2.0)
-        optimizer = optim.AdamW(self.model.parameters(), lr=1e-5, weight_decay=1e-4)
+        optimizer = optim.AdamW(self.model.parameters(), lr=3e-5, weight_decay=1e-4)
+        scheduler = CosineAnnealingLR(optimizer, T_max=epochs)
 
         self.model.train()
 
@@ -108,6 +110,7 @@ class RetinopathyMLEngine(MLEngine):
                     loss = criterion(outputs, labels)
                     loss.backward()
                     optimizer.step()
+                    scheduler.step()
 
                     running_loss += loss.item()
 
