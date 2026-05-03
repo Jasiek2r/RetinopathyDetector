@@ -13,7 +13,7 @@ class Startup:
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
         sample_limit = None  # use None for no limit
-        path = "/tmp/augmented_resized_V2"
+        path = "./augmented_resized_V2"
 
         # configure the dependencies used by application here
         engine = RetinopathyMLEngine()
