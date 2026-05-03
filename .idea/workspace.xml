@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: add dropout to prevent overfitting">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change path">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00028" summary="feat: convnext-tiny">
-      <option name="closed" value="true" />
-      <created>1774891295747</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1774891295747</updated>
     </task>
     <task id="LOCAL-00029" summary="feat: change augumentations to lightweight">
       <option name="closed" value="true" />
@@ -564,7 +557,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777801775957</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="chore: change path">
+      <option name="closed" value="true" />
+      <created>1777801916409</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1777801916409</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -587,12 +588,12 @@
     <MESSAGE value="feat: progress bar" />
     <MESSAGE value="fix: restore create model method" />
     <MESSAGE value="fix: add missing import" />
-    <MESSAGE value="chore: change path" />
     <MESSAGE value="chore: optimize data loading" />
     <MESSAGE value="feat: move resizing to GPU" />
     <MESSAGE value="fix: move from PIL to tensors" />
     <MESSAGE value="feat: use convnext-small" />
     <MESSAGE value="feat: add dropout to prevent overfitting" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add dropout to prevent overfitting" />
+    <MESSAGE value="chore: change path" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: change path" />
   </component>
 </project>
