@@ -198,4 +198,13 @@ class RetinopathyMLEngine(MLEngine):
             pretrained=True,
             num_classes=num_classes
         )
+
+        # --- DODAJEMY DROPOUT DO CLASSIFIERA ---
+        model.classifier = torch.nn.Sequential(
+            timm.layers.LayerNorm2d(768, eps=1e-6),
+            torch.nn.Flatten(1),
+            torch.nn.Dropout(0.2),
+            torch.nn.Linear(768, num_classes)
+        )
+
         return model
