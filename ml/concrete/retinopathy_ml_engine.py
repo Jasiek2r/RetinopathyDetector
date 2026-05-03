@@ -12,6 +12,8 @@ from ml.abstractions.ml_engine import MLEngine
 from ml.concrete.FocalLoss import FocalLoss
 from tqdm import tqdm
 
+from sklearn.metrics import cohen_kappa_score, confusion_matrix
+
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
@@ -129,13 +131,19 @@ class RetinopathyMLEngine(MLEngine):
             print(f"✓ Epoka {epoch + 1} zakończona — średni loss: {running_loss / len(train_loader):.4f}")
 
             if val_dataset is not None:
-                acc = self._validate(val_loader)
+                acc, qwk, cm = self._validate(val_loader)
                 print(f"Validation accuracy: {acc:.2f}%")
+                print(f"Validation QWK: {qwk:.2f}%")
+
+                np.savetxt(f"confusion_epoch_{epoch + 1}.txt", cm, fmt="%d")
 
     def _validate(self, loader):
         self.model.eval()
         correct = 0
         total = 0
+
+        all_preds = []
+        all_labels = []
 
         with torch.no_grad():
             for images, labels in loader:
@@ -155,11 +163,22 @@ class RetinopathyMLEngine(MLEngine):
 
                 outputs = self.model(images)
                 _, predicted = torch.max(outputs, 1)
+
+                all_preds.append(predicted.cpu().numpy())
+                all_labels.append(labels.cpu().numpy())
+
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
 
+        preds = np.concatenate(all_preds)
+        labels = np.concatenate(all_labels)
+
+        acc = 100 * correct / total
+        qwk = cohen_kappa_score(labels, preds, weights="quadratic") * 100.0
+        cm = confusion_matrix(labels, preds)
+
         self.model.train()
-        return 100 * correct / total
+        return acc, qwk, cm
 
     def test(self, dataset, batch_size=8):
         loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
