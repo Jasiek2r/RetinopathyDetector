@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: full model evaluation" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: calculating loss">
+      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,14 +171,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00009" summary="fix: fix image loading">
-      <option name="closed" value="true" />
-      <created>1774286381790</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1774286381790</updated>
     </task>
     <task id="LOCAL-00010" summary="fix: take dataloader out of epoch loop">
       <option name="closed" value="true" />
@@ -562,11 +556,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777895188594</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="feat: calculating loss">
+      <option name="closed" value="true" />
+      <created>1777895402868</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1777895402868</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: convnext base" />
     <MESSAGE value="fix: fix pipeline from dataset hell" />
     <MESSAGE value="fix: fix pipeline" />
     <MESSAGE value="feat: szum model" />
@@ -591,6 +592,7 @@
     <MESSAGE value="fix: recreate the model and then load the weights" />
     <MESSAGE value="fix: keep the model on CUDA" />
     <MESSAGE value="feat: full model evaluation" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: full model evaluation" />
+    <MESSAGE value="feat: calculating loss" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: calculating loss" />
   </component>
 </project>
