@@ -1,4 +1,5 @@
 from ml.abstractions.ml_engine import MLEngine
+from ml.concrete.retinopathy_model_loader import RetinopathyModelLoader
 from services.abstractions.loader_service import LoaderService
 from utility.decorated_print import print_decorated
 from utility.formatted_date import get_formatted_date
@@ -33,4 +34,12 @@ class ClassifierService:
 
         # --- TEST ---
         print("Evaluating on test split...")
+        self.__engine__.test(test_dataset)
+
+    def test(self, dir_path: str):
+        print("Evaluating on test split...")
+        (train_dataset,
+         val_dataset,
+         test_dataset) \
+            = self.__loader_service__.load_data(dir_path, self.sample_limit)
         self.__engine__.test(test_dataset)

@@ -5,11 +5,13 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
+from ml.abstractions.ml_engine import MLEngine
 from ml.concrete.CORALLoss import CORALLoss
 from ml.concrete.simple_cnn import SimpleCNN
 import matplotlib.pyplot as plt
 
-class RetinopathyMLEngine:
+
+class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = SimpleCNN().to(self.device)

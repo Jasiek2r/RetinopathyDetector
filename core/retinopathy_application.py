@@ -1,3 +1,5 @@
+from ml.abstractions.model_loader import ModelLoader
+from ml.concrete.retinopathy_model_loader import RetinopathyModelLoader
 from services.classifier_service import ClassifierService
 from services.file_service import FileService
 from utility.decorated_print import print_decorated
@@ -6,9 +8,13 @@ from utility.user_query import UserQuerer
 
 class RetinopathyApplication:
 
-    def __init__(self, classifier_service: ClassifierService, file_service: FileService):
+    def __init__(self,
+                 classifier_service: ClassifierService,
+                 file_service: FileService,
+                 model_loader: ModelLoader):
         self.__classifier_service__ = classifier_service
         self.__file_service__ = file_service
+        self.__model_loader__ = model_loader
         self.__app_ready__ = False
 
     def run(self) -> None:
@@ -34,5 +40,9 @@ class RetinopathyApplication:
                     print("Loading images...")
                     self.__classifier_service__.train(training_data_directory)
                     self.__app_ready__ = True
+            elif query_result == "M":
+                self.__model_loader__.load(path=input("Please provide the path: "))
+                test_data_directory = self.__file_service__.get_directory_path()
+                self.__classifier_service__.test(test_data_directory)
 
         input("Type anything to quit ")

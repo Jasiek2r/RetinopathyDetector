@@ -1,4 +1,5 @@
 from core.retinopathy_application import RetinopathyApplication
+from ml.concrete.retinopathy_model_loader import RetinopathyModelLoader
 from services.classifier_service import ClassifierService
 from services.concrete.research_project.retinopathy_loader_service import ResearchProjectLoaderService
 from services.file_service import FileService
@@ -18,6 +19,7 @@ class Startup:
         # configure the dependencies used by application here
         engine = RetinopathyMLEngine()
         loader_service = ResearchProjectLoaderService()
+        model_loader = RetinopathyModelLoader(engine=engine)
         classifier = ClassifierService(
             engine=engine,
             loader_service=loader_service,
@@ -27,7 +29,11 @@ class Startup:
             is_dev=dev,
             path=path
         )
-        application = RetinopathyApplication(classifier, file_service)
+        application = RetinopathyApplication(
+            classifier_service=classifier,
+            file_service=file_service,
+            model_loader=model_loader
+        )
         return application
 
 
