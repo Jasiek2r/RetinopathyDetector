@@ -43,3 +43,15 @@ class ClassifierService:
          test_dataset) \
             = self.__loader_service__.load_data(dir_path, self.sample_limit)
         self.__engine__.test(test_dataset)
+
+    def full_evaluation(self, dir_path: str):
+        print("Full debug evaluation started...")
+        (train_dataset,
+         val_dataset,
+         test_dataset) \
+            = self.__loader_service__.load_data(dir_path, self.sample_limit)
+        self.__engine__.full_evaluation(
+            train_dataset=train_dataset,
+            val_dataset=val_dataset,
+            test_dataset=test_dataset
+        )

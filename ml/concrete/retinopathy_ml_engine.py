@@ -171,3 +171,55 @@ class RetinopathyMLEngine(MLEngine):
 
         torch.save(self.model.state_dict(), "model_weights.pth")
         return mae, acc
+
+    def full_evaluation(self, train_dataset, val_dataset, test_dataset):
+        self.model.eval()
+        device = self.device
+
+        train_loader = DataLoader(train_dataset, batch_size=32, shuffle=False)
+        val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+        test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+
+        def evaluate(loader):
+            correct = 0
+            total = 0
+            mae_sum = 0
+
+            with torch.no_grad():
+                for images, labels in loader:
+                    images = images.to(device)
+                    labels = labels.to(device)
+
+                    outputs = self.model(images)
+                    _, predicted = torch.max(outputs, 1)
+
+                    # Accuracy
+                    correct += (predicted == labels).sum().item()
+                    total += labels.size(0)
+
+                    # MAE
+                    mae_sum += torch.abs(predicted.float() - labels.float()).sum().item()
+
+            accuracy = correct / total
+            mae = mae_sum / total
+            return accuracy, mae
+
+        train_acc, train_mae = evaluate(train_loader)
+        val_acc, val_mae = evaluate(val_loader)
+        test_acc, test_mae = evaluate(test_loader)
+
+        print("===== FULL EVALUATION =====")
+        print(f"Train ACC: {train_acc:.4f} | Train MAE: {train_mae:.4f}")
+        print(f"Val   ACC: {val_acc:.4f} | Val   MAE: {val_mae:.4f}")
+        print(f"Test  ACC: {test_acc:.4f} | Test  MAE: {test_mae:.4f}")
+        print("============================")
+
+        return {
+            "train_acc": train_acc,
+            "train_mae": train_mae,
+            "val_acc": val_acc,
+            "val_mae": val_mae,
+            "test_acc": test_acc,
+            "test_mae": test_mae
+        }
+
