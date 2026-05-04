@@ -13,4 +13,5 @@ class RetinopathyModelLoader(ModelLoader):
         model = SimpleCNN()
         weights = torch.load(path)
         model.load_state_dict(weights)
+        model.to("cuda")
         self.engine.model = model
