@@ -2,6 +2,7 @@ import torch
 
 from ml.abstractions.ml_engine import MLEngine
 from ml.abstractions.model_loader import ModelLoader
+from ml.concrete.simple_cnn import SimpleCNN
 
 
 class RetinopathyModelLoader(ModelLoader):
@@ -9,5 +10,7 @@ class RetinopathyModelLoader(ModelLoader):
         self.engine = engine
 
     def load(self, path):
-        model = torch.load(path)
+        model = SimpleCNN()
+        weights = torch.load(path)
+        model.load_state_dict(weights)
         self.engine.model = model

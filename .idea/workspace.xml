@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: add accuracy for testing purposes">
-      <change afterPath="$PROJECT_DIR$/ml/abstractions/model_loader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/retinopathy_application.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/retinopathy_application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/classifier_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/classifier_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: add loading of model">
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,14 +171,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00005" summary="change to 5000 images">
-      <option name="closed" value="true" />
-      <created>1774274279302</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1774274279302</updated>
     </task>
     <task id="LOCAL-00006" summary="change to full data">
       <option name="closed" value="true" />
@@ -570,11 +556,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777831507246</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="feat: add loading of model">
+      <option name="closed" value="true" />
+      <created>1777893817692</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1777893817693</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: change augumentations to lightweight" />
     <MESSAGE value="chore: 2000 images" />
     <MESSAGE value="feat: convnext-large" />
     <MESSAGE value="chore: set image count to 200" />
@@ -599,6 +592,7 @@
     <MESSAGE value="chore: change to unlimited images" />
     <MESSAGE value="feat: saving image of losses" />
     <MESSAGE value="chore: add accuracy for testing purposes" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: add accuracy for testing purposes" />
+    <MESSAGE value="feat: add loading of model" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add loading of model" />
   </component>
 </project>
