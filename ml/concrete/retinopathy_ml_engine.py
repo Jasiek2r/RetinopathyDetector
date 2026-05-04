@@ -173,17 +173,23 @@ class RetinopathyMLEngine(MLEngine):
         return mae, acc
 
     def full_evaluation(self, train_dataset, val_dataset, test_dataset):
+        import torch
+        from torch.utils.data import DataLoader
+
         self.model.eval()
         device = self.device
+        criterion = CORALLoss()
 
+        # Loadery
         train_loader = DataLoader(train_dataset, batch_size=32, shuffle=False)
         val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
         test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
         def evaluate(loader):
-            correct = 0
             total = 0
-            mae_sum = 0
+            total_acc = 0
+            total_mae = 0.0
+            total_loss = 0.0
 
             with torch.no_grad():
                 for images, labels in loader:
@@ -191,35 +197,49 @@ class RetinopathyMLEngine(MLEngine):
                     labels = labels.to(device)
 
                     outputs = self.model(images)
-                    _, predicted = torch.max(outputs, 1)
 
-                    # Accuracy
-                    correct += (predicted == labels).sum().item()
-                    total += labels.size(0)
+                    # LOSS (CORAL)
+                    loss = criterion(outputs, labels)
+                    total_loss += loss.item() * labels.size(0)
+
+                    # PREDYKCJA (zgodnie z treningiem)
+                    preds = torch.sigmoid(outputs).sum(dim=1)
 
                     # MAE
-                    mae_sum += torch.abs(predicted.float() - labels.float()).sum().item()
+                    total_mae += torch.abs(preds - labels.float()).sum().item()
 
-            accuracy = correct / total
-            mae = mae_sum / total
-            return accuracy, mae
+                    # ACC
+                    pred_classes = preds.round().long().clamp(0, 4)
+                    total_acc += (pred_classes == labels).sum().item()
 
-        train_acc, train_mae = evaluate(train_loader)
-        val_acc, val_mae = evaluate(val_loader)
-        test_acc, test_mae = evaluate(test_loader)
+                    total += labels.size(0)
+
+            avg_loss = total_loss / total
+            mae = total_mae / total
+            acc = total_acc / total
+            return avg_loss, mae, acc
+
+        # Obliczenia
+        train_loss, train_mae, train_acc = evaluate(train_loader)
+        val_loss, val_mae, val_acc = evaluate(val_loader)
+        test_loss, test_mae, test_acc = evaluate(test_loader)
 
         print("===== FULL EVALUATION =====")
-        print(f"Train ACC: {train_acc:.4f} | Train MAE: {train_mae:.4f}")
-        print(f"Val   ACC: {val_acc:.4f} | Val   MAE: {val_mae:.4f}")
-        print(f"Test  ACC: {test_acc:.4f} | Test  MAE: {test_mae:.4f}")
+        print(f"Train LOSS: {train_loss:.4f} | ACC: {train_acc:.4f} | MAE: {train_mae:.4f}")
+        print(f"Val   LOSS: {val_loss:.4f} | ACC: {val_acc:.4f} | MAE: {val_mae:.4f}")
+        print(f"Test  LOSS: {test_loss:.4f} | ACC: {test_acc:.4f} | MAE: {test_mae:.4f}")
         print("============================")
 
         return {
+            "train_loss": train_loss,
             "train_acc": train_acc,
             "train_mae": train_mae,
+            "val_loss": val_loss,
             "val_acc": val_acc,
             "val_mae": val_mae,
+            "test_loss": test_loss,
             "test_acc": test_acc,
             "test_mae": test_mae
         }
+
 

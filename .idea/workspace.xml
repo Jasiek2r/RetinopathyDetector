@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: keep the model on CUDA">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/retinopathy_application.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/retinopathy_application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/classifier_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/classifier_service.py" afterDir="false" />
-    </list>
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: full model evaluation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -175,14 +169,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feat: EfficientNet-B4">
-      <option name="closed" value="true" />
-      <created>1774282480414</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1774282480414</updated>
     </task>
     <task id="LOCAL-00009" summary="fix: fix image loading">
       <option name="closed" value="true" />
@@ -568,11 +554,18 @@
       <option name="project" value="LOCAL" />
       <updated>1777894205174</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="feat: full model evaluation">
+      <option name="closed" value="true" />
+      <created>1777895188594</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1777895188594</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: set image count to 200" />
     <MESSAGE value="feat: convnext base" />
     <MESSAGE value="fix: fix pipeline from dataset hell" />
     <MESSAGE value="fix: fix pipeline" />
@@ -597,6 +590,7 @@
     <MESSAGE value="feat: add loading of model" />
     <MESSAGE value="fix: recreate the model and then load the weights" />
     <MESSAGE value="fix: keep the model on CUDA" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: keep the model on CUDA" />
+    <MESSAGE value="feat: full model evaluation" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: full model evaluation" />
   </component>
 </project>
