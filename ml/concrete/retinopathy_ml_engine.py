@@ -1,11 +1,10 @@
-import traceback
 import torch
 import numpy as np
-import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, WeightedRandomSampler
 
 from ml.abstractions.ml_engine import MLEngine
+from ml.concrete.QWK import QWK
 from ml.concrete.CORALLoss import CORALLoss
 from ml.concrete.simple_cnn import SimpleCNN
 import matplotlib.pyplot as plt
@@ -173,14 +172,10 @@ class RetinopathyMLEngine(MLEngine):
         return mae, acc
 
     def full_evaluation(self, train_dataset, val_dataset, test_dataset):
-        import torch
-        from torch.utils.data import DataLoader
-
         self.model.eval()
         device = self.device
         criterion = CORALLoss()
 
-        # Loadery
         train_loader = DataLoader(train_dataset, batch_size=32, shuffle=False)
         val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
         test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
@@ -188,8 +183,10 @@ class RetinopathyMLEngine(MLEngine):
         def evaluate(loader):
             total = 0
             total_acc = 0
-            total_mae = 0.0
             total_loss = 0.0
+
+            all_labels = []
+            all_preds = []
 
             with torch.no_grad():
                 for images, labels in loader:
@@ -202,44 +199,46 @@ class RetinopathyMLEngine(MLEngine):
                     loss = criterion(outputs, labels)
                     total_loss += loss.item() * labels.size(0)
 
-                    # PREDYKCJA (zgodnie z treningiem)
+                    # PREDYKCJA
                     preds = torch.sigmoid(outputs).sum(dim=1)
+                    pred_classes = preds.round().long().clamp(0, 4)
 
-                    # MAE
-                    total_mae += torch.abs(preds - labels.float()).sum().item()
+                    all_labels.extend(labels.cpu().numpy())
+                    all_preds.extend(pred_classes.cpu().numpy())
 
                     # ACC
-                    pred_classes = preds.round().long().clamp(0, 4)
                     total_acc += (pred_classes == labels).sum().item()
-
                     total += labels.size(0)
 
             avg_loss = total_loss / total
-            mae = total_mae / total
             acc = total_acc / total
-            return avg_loss, mae, acc
+
+            # QWK w procentach
+            qwk = QWK.perform_measurement(all_labels, all_preds)
+
+            return avg_loss, acc, qwk
 
         # Obliczenia
-        train_loss, train_mae, train_acc = evaluate(train_loader)
-        val_loss, val_mae, val_acc = evaluate(val_loader)
-        test_loss, test_mae, test_acc = evaluate(test_loader)
+        train_loss, train_acc, train_qwk = evaluate(train_loader)
+        val_loss, val_acc, val_qwk = evaluate(val_loader)
+        test_loss, test_acc, test_qwk = evaluate(test_loader)
 
         print("===== FULL EVALUATION =====")
-        print(f"Train LOSS: {train_loss:.4f} | ACC: {train_acc:.4f} | MAE: {train_mae:.4f}")
-        print(f"Val   LOSS: {val_loss:.4f} | ACC: {val_acc:.4f} | MAE: {val_mae:.4f}")
-        print(f"Test  LOSS: {test_loss:.4f} | ACC: {test_acc:.4f} | MAE: {test_mae:.4f}")
+        print(f"Train LOSS: {train_loss:.4f} | ACC: {train_acc:.4f} | QWK: {train_qwk:.2f}%")
+        print(f"Val   LOSS: {val_loss:.4f} | ACC: {val_acc:.4f} | QWK: {val_qwk:.2f}%")
+        print(f"Test  LOSS: {test_loss:.4f} | ACC: {test_acc:.4f} | QWK: {test_qwk:.2f}%")
         print("============================")
 
         return {
             "train_loss": train_loss,
             "train_acc": train_acc,
-            "train_mae": train_mae,
+            "train_qwk": train_qwk,
             "val_loss": val_loss,
             "val_acc": val_acc,
-            "val_mae": val_mae,
+            "val_qwk": val_qwk,
             "test_loss": test_loss,
             "test_acc": test_acc,
-            "test_mae": test_mae
+            "test_qwk": test_qwk
         }
 
 

@@ -1,6 +1,5 @@
 from abc import abstractmethod
 
-import torch
 from torch.utils.data import Dataset
 
 
