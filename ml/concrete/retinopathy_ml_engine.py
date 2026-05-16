@@ -214,7 +214,8 @@ class RetinopathyMLEngine(MLEngine):
             acc = total_acc / total
 
             # QWK w procentach
-            qwk = QWK.perform_measurement(all_labels, all_preds)
+            qwk_metric = QWK()
+            qwk = qwk_metric.perform_measurement(all_labels, all_preds)
 
             return avg_loss, acc, qwk
 
