@@ -271,19 +271,13 @@ class RetinopathyMLEngine(MLEngine):
         }
 
     def create_model(self, num_classes=5):
-        # CORAL → K-1 logitów
         coral_outputs = num_classes - 1
 
         model = timm.create_model(
             "convnext_small",
             pretrained=True,
-            num_classes=0
+            num_classes=coral_outputs,
+            global_pool='avg'
         )
-
-        # ConvNeXt ma head jako Linear(in_features, out_features)
-        in_features = model.head.in_features
-
-        # Nowy head dla CORAL
-        model.head = torch.nn.Linear(in_features, coral_outputs)
 
         return model.to(self.device)

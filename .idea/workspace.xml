@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix CORAL and training">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: convnext-tiny">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
@@ -172,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00017" summary="fix: change file loading algo to accomodate for new file extensions">
-      <option name="closed" value="true" />
-      <created>1774776312812</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1774776312812</updated>
     </task>
     <task id="LOCAL-00018" summary="fix: change dataset augumentation to train only">
       <option name="closed" value="true" />
@@ -565,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1779130541861</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="feat: convnext-tiny">
+      <option name="closed" value="true" />
+      <created>1779130731693</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1779130731694</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: transform image data to tensor" />
     <MESSAGE value="chore: lift the image count limit" />
     <MESSAGE value="chore: debugging image file names" />
     <MESSAGE value="fix: remove balancing of train data" />
@@ -594,6 +593,7 @@
     <MESSAGE value="chore: set path to split-2" />
     <MESSAGE value="feat: implement QWK measurement in validation" />
     <MESSAGE value="fix: fix CORAL and training" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix CORAL and training" />
+    <MESSAGE value="feat: convnext-tiny" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: convnext-tiny" />
   </component>
 </project>
