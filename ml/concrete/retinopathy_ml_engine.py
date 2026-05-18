@@ -14,7 +14,8 @@ import matplotlib.pyplot as plt
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = self.create_model()
+        #self.model = self.create_model()
+        self.model = SimpleCNN()
 
     # ---------------- TRAIN ----------------
     def train(self, train_dataset, val_dataset=None, batch_size=4, epochs=50):

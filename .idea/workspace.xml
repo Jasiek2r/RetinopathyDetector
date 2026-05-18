@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix convnext small model">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix convnext small model 2">
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,14 +171,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00021" summary="fix: sample limits fix attempt 2">
-      <option name="closed" value="true" />
-      <created>1774878467265</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1774878467265</updated>
     </task>
     <task id="LOCAL-00022" summary="chore: change sample limit to 200 atm">
       <option name="closed" value="true" />
@@ -565,11 +556,18 @@
       <option name="project" value="LOCAL" />
       <updated>1779132054943</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="fix: fix convnext small model 2">
+      <option name="closed" value="true" />
+      <created>1779132142281</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1779132142281</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: remove balanced subset per class parameter" />
     <MESSAGE value="fix: path fix" />
     <MESSAGE value="fix: add resizing" />
     <MESSAGE value="feat: enable plotting" />
@@ -594,6 +592,7 @@
     <MESSAGE value="fix: fix convnext tiny creation" />
     <MESSAGE value="chore: change cohen metric to /100 for better plotting" />
     <MESSAGE value="fix: fix convnext small model" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix convnext small model" />
+    <MESSAGE value="fix: fix convnext small model 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fix convnext small model 2" />
   </component>
 </project>
