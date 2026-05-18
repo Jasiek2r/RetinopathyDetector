@@ -40,7 +40,7 @@ class RetinopathyMLEngine(MLEngine):
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
         train_losses = []
-        val_metrics = []
+        val_metrics = []  # (mae, qoe, acc, qwk)
 
         best_mae = float("inf")
 
@@ -80,6 +80,7 @@ class RetinopathyMLEngine(MLEngine):
         val_mae = [x[0] for x in val_metrics] if val_metrics else []
         val_qoe = [x[1] for x in val_metrics] if val_metrics else []
         val_acc = [x[2] for x in val_metrics] if val_metrics else []
+        val_qwk = [x[3] for x in val_metrics] if val_metrics else []
 
         plt.figure(figsize=(12, 7))
 
@@ -93,9 +94,8 @@ class RetinopathyMLEngine(MLEngine):
             plt.plot(val_acc, label="Validation Accuracy", linewidth=2)
 
         # --- QWK ---
-        if val_qoe:
-            val_qwk = [x[1] for x in val_metrics]  # QWK jest w drugim elemencie
-            plt.plot(val_qwk, label="Validation QWK", linewidth=2)
+        if val_qwk:
+            plt.plot(val_qwk, label="Validation QWK (percent)", linewidth=2)
 
         plt.xlabel("Epoch")
         plt.ylabel("Metric Value")
@@ -109,6 +109,16 @@ class RetinopathyMLEngine(MLEngine):
         print("Training plot saved as training_plot.png")
 
         return train_losses, val_metrics
+
+    # ---------------- COMMON CORAL PREDICTION ----------------
+    def _coral_predict_classes(self, outputs: torch.Tensor) -> torch.Tensor:
+        """
+        outputs: logits of shape (B, K-1)
+        returns: predicted classes in [0, K-1]
+        """
+        probs = torch.sigmoid(outputs)
+        pred_classes = (probs > 0.5).sum(dim=1)
+        return pred_classes
 
     # ---------------- VALIDATION ----------------
     def _validate(self, loader, criterion):
@@ -130,14 +140,13 @@ class RetinopathyMLEngine(MLEngine):
                 loss = criterion(outputs, labels)
                 total_loss += loss.item()
 
-                probs = torch.sigmoid(outputs)
+                pred_classes = self._coral_predict_classes(outputs)
 
                 # ACC
-                pred_classes = (probs > 0.5).sum(dim=1)
                 total_acc += (pred_classes == labels).sum().item()
 
-                # MAE
-                total_mae += torch.abs(pred_classes - labels.float()).sum().item()
+                # MAE (na klasach)
+                total_mae += torch.abs(pred_classes - labels).sum().item()
 
                 total += labels.size(0)
 
@@ -148,7 +157,7 @@ class RetinopathyMLEngine(MLEngine):
         acc = total_acc / total
         qoe = total_loss / len(loader)
 
-        # QWK
+        # QWK (w procentach)
         qwk_metric = QWK()
         qwk = qwk_metric.perform_measurement(all_labels, all_preds)
 
@@ -170,13 +179,12 @@ class RetinopathyMLEngine(MLEngine):
                 images, labels = images.to(self.device), labels.to(self.device)
 
                 outputs = self.model(images)
-                probs = torch.sigmoid(outputs)
+                pred_classes = self._coral_predict_classes(outputs)
 
                 # MAE
                 total_mae += torch.abs(pred_classes - labels).sum().item()
 
                 # ACCURACY
-                pred_classes = (probs > 0.5).sum(dim=1)
                 total_acc += (pred_classes == labels).sum().item()
 
                 total += labels.size(0)
@@ -189,6 +197,7 @@ class RetinopathyMLEngine(MLEngine):
         torch.save(self.model.state_dict(), "model_weights.pth")
         return mae, acc
 
+    # ---------------- FULL EVALUATION ----------------
     def full_evaluation(self, train_dataset, val_dataset, test_dataset):
         self.model.eval()
         device = self.device
@@ -217,9 +226,8 @@ class RetinopathyMLEngine(MLEngine):
                     loss = criterion(outputs, labels)
                     total_loss += loss.item() * labels.size(0)
 
-                    # PREDYKCJA
-                    preds = torch.sigmoid(outputs).sum(dim=1)
-                    pred_classes = preds.round().long().clamp(0, 4)
+                    # PREDYKCJA CORAL
+                    pred_classes = self._coral_predict_classes(outputs)
 
                     all_labels.extend(labels.cpu().numpy())
                     all_preds.extend(pred_classes.cpu().numpy())
@@ -229,6 +237,7 @@ class RetinopathyMLEngine(MLEngine):
                     total += labels.size(0)
 
             avg_loss = total_loss / total
+
             acc = total_acc / total
 
             # QWK w procentach
