@@ -1,3 +1,4 @@
+import timm
 import torch
 import numpy as np
 import torch.optim as optim
@@ -13,7 +14,7 @@ import matplotlib.pyplot as plt
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = SimpleCNN().to(self.device)
+        self.model = self.create_model()
 
     # ---------------- TRAIN ----------------
     def train(self, train_dataset, val_dataset=None, batch_size=4, epochs=50):
@@ -268,3 +269,21 @@ class RetinopathyMLEngine(MLEngine):
             "test_acc": test_acc,
             "test_qwk": test_qwk
         }
+
+    def create_model(self, num_classes=5):
+        # CORAL → K-1 logitów
+        coral_outputs = num_classes - 1
+
+        model = timm.create_model(
+            "convnext_small",
+            pretrained=True,
+            num_classes=0
+        )
+
+        # ConvNeXt ma head jako Linear(in_features, out_features)
+        in_features = model.head.in_features
+
+        # Nowy head dla CORAL
+        model.head = torch.nn.Linear(in_features, coral_outputs)
+
+        return model.to(self.device)
