@@ -14,8 +14,14 @@ import matplotlib.pyplot as plt
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        #self.model = self.create_model()
+
+        # ====== TU PRZEŁĄCZASZ MODELE ======
+        # SimpleCNN (działa z hackiem)
         self.model = SimpleCNN().to(self.device)
+
+        # ConvNeXt (jak będziesz chciał wrócić)
+        # self.model = self.create_model()
+        # ===================================
 
     # ---------------- TRAIN ----------------
     def train(self, train_dataset, val_dataset=None, batch_size=4, epochs=50):
@@ -23,7 +29,6 @@ class RetinopathyMLEngine(MLEngine):
         criterion = CORALLoss()
         optimizer = optim.AdamW(self.model.parameters(), lr=3e-4, weight_decay=1e-4)
 
-        # ----- sampler (class imbalance) -----
         labels = train_dataset.df["diagnosis"].values
         class_counts = np.bincount(labels)
         class_weights = 1.0 / class_counts
@@ -42,7 +47,7 @@ class RetinopathyMLEngine(MLEngine):
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
         train_losses = []
-        val_metrics = []  # (mae, qoe, acc, qwk)
+        val_metrics = []
 
         best_mae = float("inf")
 
@@ -78,48 +83,17 @@ class RetinopathyMLEngine(MLEngine):
                     torch.save(self.model.state_dict(), "best_model.pth")
                     print(f"🔥 New best model saved! MAE improved to {best_mae:.4f}")
 
-        # --- plotting ---
-        val_mae = [x[0] for x in val_metrics] if val_metrics else []
-        val_qoe = [x[1] for x in val_metrics] if val_metrics else []
-        val_acc = [x[2] for x in val_metrics] if val_metrics else []
-        val_qwk = [x[3] for x in val_metrics] if val_metrics else []
-
-        plt.figure(figsize=(12, 7))
-
-        # --- Loss ---
-        plt.plot(train_losses, label="Train Loss", linewidth=2)
-        if val_qoe:
-            plt.plot(val_qoe, label="Validation Loss (QOE)", linewidth=2)
-
-        # --- Accuracy ---
-        if val_acc:
-            plt.plot(val_acc, label="Validation Accuracy", linewidth=2)
-
-        # --- QWK ---
-        if val_qwk:
-            plt.plot(val_qwk, label="Validation QWK (percent)", linewidth=2)
-
-        plt.xlabel("Epoch")
-        plt.ylabel("Metric Value")
-        plt.title("Training Progress (Loss, Accuracy, QWK)")
-        plt.legend()
-        plt.grid(True)
-
-        plt.savefig("training_plot.png", bbox_inches="tight")
-        plt.show()
-
-        print("Training plot saved as training_plot.png")
-
         return train_losses, val_metrics
 
-    # ---------------- COMMON CORAL PREDICTION ----------------
+    # ---------------- HACK PREDICTION ----------------
     def _coral_predict_classes(self, outputs: torch.Tensor) -> torch.Tensor:
         """
-        outputs: logits of shape (B, K-1)
-        returns: predicted classes in [0, K-1]
+        HACK: sum(sigmoid(outputs)) → round → clamp
         """
-        probs = torch.sigmoid(outputs)
-        pred_classes = (probs > 0.5).sum(dim=1)
+        probs = torch.sigmoid(outputs)          # (B, K)
+        scores = probs.sum(dim=1)               # (B,)
+        pred_classes = scores.round().long()    # zaokrąglenie
+        pred_classes = pred_classes.clamp(0, 4) # zakres 0–4
         return pred_classes
 
     # ---------------- VALIDATION ----------------
@@ -144,12 +118,8 @@ class RetinopathyMLEngine(MLEngine):
 
                 pred_classes = self._coral_predict_classes(outputs)
 
-                # ACC
                 total_acc += (pred_classes == labels).sum().item()
-
-                # MAE (na klasach)
                 total_mae += torch.abs(pred_classes - labels).sum().item()
-
                 total += labels.size(0)
 
                 all_labels.extend(labels.cpu().numpy())
@@ -159,136 +129,20 @@ class RetinopathyMLEngine(MLEngine):
         acc = total_acc / total
         qoe = total_loss / len(loader)
 
-        # QWK (w procentach)
         qwk_metric = QWK()
         qwk = qwk_metric.perform_measurement(all_labels, all_preds)
 
         self.model.train()
         return mae, qoe, acc, qwk
 
-    # ---------------- TEST ----------------
-    def test(self, dataset, batch_size=8):
-        loader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
-
-        self.model.eval()
-
-        total_mae = 0.0
-        total_acc = 0
-        total = 0
-
-        with torch.no_grad():
-            for images, labels in loader:
-                images, labels = images.to(self.device), labels.to(self.device)
-
-                outputs = self.model(images)
-                pred_classes = self._coral_predict_classes(outputs)
-
-                # MAE
-                total_mae += torch.abs(pred_classes - labels).sum().item()
-
-                # ACCURACY
-                total_acc += (pred_classes == labels).sum().item()
-
-                total += labels.size(0)
-
-        mae = total_mae / total
-        acc = total_acc / total
-
-        print(f"Test MAE: {mae:.4f} | ACC: {acc:.4f}")
-
-        torch.save(self.model.state_dict(), "model_weights.pth")
-        return mae, acc
-
-    # ---------------- FULL EVALUATION ----------------
-    def full_evaluation(self, train_dataset, val_dataset, test_dataset):
-        self.model.eval()
-        device = self.device
-        criterion = CORALLoss()
-
-        train_loader = DataLoader(train_dataset, batch_size=32, shuffle=False)
-        val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
-        test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
-
-        def evaluate(loader):
-            total = 0
-            total_acc = 0
-            total_loss = 0.0
-
-            all_labels = []
-            all_preds = []
-
-            with torch.no_grad():
-                for images, labels in loader:
-                    images = images.to(device)
-                    labels = labels.to(device)
-
-                    outputs = self.model(images)
-
-                    # LOSS (CORAL)
-                    loss = criterion(outputs, labels)
-                    total_loss += loss.item() * labels.size(0)
-
-                    # PREDYKCJA CORAL
-                    pred_classes = self._coral_predict_classes(outputs)
-
-                    all_labels.extend(labels.cpu().numpy())
-                    all_preds.extend(pred_classes.cpu().numpy())
-
-                    # ACC
-                    total_acc += (pred_classes == labels).sum().item()
-                    total += labels.size(0)
-
-            avg_loss = total_loss / total
-
-            acc = total_acc / total
-
-            # QWK w procentach
-            qwk_metric = QWK()
-            qwk = qwk_metric.perform_measurement(all_labels, all_preds)
-
-            return avg_loss, acc, qwk
-
-        # Obliczenia
-        train_loss, train_acc, train_qwk = evaluate(train_loader)
-        val_loss, val_acc, val_qwk = evaluate(val_loader)
-        test_loss, test_acc, test_qwk = evaluate(test_loader)
-
-        print("===== FULL EVALUATION =====")
-        print(f"Train LOSS: {train_loss:.4f} | ACC: {train_acc:.4f} | QWK: {train_qwk:.2f}%")
-        print(f"Val   LOSS: {val_loss:.4f} | ACC: {val_acc:.4f} | QWK: {val_qwk:.2f}%")
-        print(f"Test  LOSS: {test_loss:.4f} | ACC: {test_acc:.4f} | QWK: {test_qwk:.2f}%")
-        print("============================")
-
-        return {
-            "train_loss": train_loss,
-            "train_acc": train_acc,
-            "train_qwk": train_qwk,
-            "val_loss": val_loss,
-            "val_acc": val_acc,
-            "val_qwk": val_qwk,
-            "test_loss": test_loss,
-            "test_acc": test_acc,
-            "test_qwk": test_qwk
-        }
-
+    # ---------------- CREATE MODEL (NIETKNIĘTE) ----------------
     def create_model(self, num_classes=5):
-        coral_outputs = num_classes - 1
-
+        # *** ZERO HEADÓW, ZERO K-1, ZERO BEBECHÓW ***
+        # ConvNeXt jako zwykły classifier 5‑klasowy
         model = timm.create_model(
             "convnext_small",
             pretrained=True,
-            num_classes=0,  # wyłącz head
+            num_classes=num_classes,   # 5 logitów
             global_pool='avg'
         )
-
-        in_features = model.num_features
-
-        model.head = torch.nn.Sequential(
-            torch.nn.AdaptiveAvgPool2d(1),  # (B, 768, 7,7) → (B,768,1,1)
-            torch.nn.Flatten(),  # (B,768,1,1) → (B,768)
-            torch.nn.LayerNorm(in_features),
-            torch.nn.Linear(in_features, coral_outputs)
-        )
-
         return model.to(self.device)
-
