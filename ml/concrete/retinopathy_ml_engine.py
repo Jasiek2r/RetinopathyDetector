@@ -130,14 +130,14 @@ class RetinopathyMLEngine(MLEngine):
                 loss = criterion(outputs, labels)
                 total_loss += loss.item()
 
-                preds = torch.sigmoid(outputs).sum(dim=1)
-
-                # MAE
-                total_mae += torch.abs(preds - labels.float()).sum().item()
+                probs = torch.sigmoid(outputs)
 
                 # ACC
-                pred_classes = preds.round().long().clamp(0, 4)
+                pred_classes = (probs > 0.5).sum(dim=1)
                 total_acc += (pred_classes == labels).sum().item()
+
+                # MAE
+                total_mae += torch.abs(pred_classes - labels.float()).sum().item()
 
                 total += labels.size(0)
 
@@ -170,13 +170,13 @@ class RetinopathyMLEngine(MLEngine):
                 images, labels = images.to(self.device), labels.to(self.device)
 
                 outputs = self.model(images)
-                preds = torch.sigmoid(outputs).sum(dim=1)
+                probs = torch.sigmoid(outputs)
 
                 # MAE
-                total_mae += torch.abs(preds - labels.float()).sum().item()
+                total_mae += torch.abs(pred_classes - labels).sum().item()
 
                 # ACCURACY
-                pred_classes = preds.round().long().clamp(0, 4)
+                pred_classes = (probs > 0.5).sum(dim=1)
                 total_acc += (pred_classes == labels).sum().item()
 
                 total += labels.size(0)
