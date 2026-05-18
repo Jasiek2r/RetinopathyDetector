@@ -283,6 +283,8 @@ class RetinopathyMLEngine(MLEngine):
         in_features = model.num_features
 
         model.head = torch.nn.Sequential(
+            torch.nn.AdaptiveAvgPool2d(1),  # (B, 768, 7,7) → (B,768,1,1)
+            torch.nn.Flatten(),  # (B,768,1,1) → (B,768)
             torch.nn.LayerNorm(in_features),
             torch.nn.Linear(in_features, coral_outputs)
         )
