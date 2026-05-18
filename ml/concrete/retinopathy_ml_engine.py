@@ -276,8 +276,16 @@ class RetinopathyMLEngine(MLEngine):
         model = timm.create_model(
             "convnext_small",
             pretrained=True,
-            num_classes=coral_outputs,
+            num_classes=0,  # wyłącz head
             global_pool='avg'
         )
 
+        in_features = model.num_features
+
+        model.head = torch.nn.Sequential(
+            torch.nn.LayerNorm(in_features),
+            torch.nn.Linear(in_features, coral_outputs)
+        )
+
         return model.to(self.device)
+
