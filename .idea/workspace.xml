@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: make sure metric measurement is called on the object and not on the class">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: set path to split-2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,8 +148,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.exclude files" />
-      <item itemvalue="Python.main" />
       <item itemvalue="Python.start" />
+      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
@@ -172,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00013" summary="chore: change batch size to 32">
-      <option name="closed" value="true" />
-      <created>1774287705971</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1774287705971</updated>
     </task>
     <task id="LOCAL-00014" summary="chore: change batch size to 16">
       <option name="closed" value="true" />
@@ -565,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1778945725688</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="chore: set path to split-2">
+      <option name="closed" value="true" />
+      <created>1779126484452</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1779126484452</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: szum dataset loader" />
     <MESSAGE value="chore: move directory to ./split-1" />
     <MESSAGE value="fix: fix path of train.csv" />
     <MESSAGE value="fix: transform image data to tensor" />
@@ -594,6 +593,7 @@
     <MESSAGE value="chore: set sample limit to None" />
     <MESSAGE value="feat: change metric to QWK" />
     <MESSAGE value="fix: make sure metric measurement is called on the object and not on the class" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: make sure metric measurement is called on the object and not on the class" />
+    <MESSAGE value="chore: set path to split-2" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: set path to split-2" />
   </component>
 </project>

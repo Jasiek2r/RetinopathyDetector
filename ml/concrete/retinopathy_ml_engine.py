@@ -67,9 +67,9 @@ class RetinopathyMLEngine(MLEngine):
             print(f"Train loss: {train_loss:.4f}")
 
             if val_loader:
-                mae, qoe, acc = self._validate(val_loader, criterion)
-                val_metrics.append((mae, qoe, acc))
-                print(f"Val MAE: {mae:.4f} | QOE: {qoe:.4f} | ACC: {acc:.4f}")
+                mae, qoe, acc, qwk = self._validate(val_loader, criterion)
+                val_metrics.append((mae, qoe, acc, qwk))
+                print(f"Val MAE: {mae:.4f} | QOE: {qoe:.4f} | ACC: {acc:.4f} | QWK : {qwk:.4f}")
 
                 if mae < best_mae:
                     best_mae = mae
@@ -81,17 +81,25 @@ class RetinopathyMLEngine(MLEngine):
         val_qoe = [x[1] for x in val_metrics] if val_metrics else []
         val_acc = [x[2] for x in val_metrics] if val_metrics else []
 
-        plt.figure(figsize=(10, 6))
-        plt.plot(train_losses, label="Train Loss")
+        plt.figure(figsize=(12, 7))
 
+        # --- Loss ---
+        plt.plot(train_losses, label="Train Loss", linewidth=2)
         if val_qoe:
-            plt.plot(val_qoe, label="Validation Loss (QOE)")
+            plt.plot(val_qoe, label="Validation Loss (QOE)", linewidth=2)
+
+        # --- Accuracy ---
         if val_acc:
-            plt.plot(val_acc, label="Validation Accuracy")
+            plt.plot(val_acc, label="Validation Accuracy", linewidth=2)
+
+        # --- QWK ---
+        if val_qoe:
+            val_qwk = [x[1] for x in val_metrics]  # QWK jest w drugim elemencie
+            plt.plot(val_qwk, label="Validation QWK", linewidth=2)
 
         plt.xlabel("Epoch")
         plt.ylabel("Metric Value")
-        plt.title("Training Progress")
+        plt.title("Training Progress (Loss, Accuracy, QWK)")
         plt.legend()
         plt.grid(True)
 
@@ -111,6 +119,9 @@ class RetinopathyMLEngine(MLEngine):
         total_acc = 0
         total = 0
 
+        all_labels = []
+        all_preds = []
+
         with torch.no_grad():
             for images, labels in loader:
                 images, labels = images.to(self.device), labels.to(self.device)
@@ -124,18 +135,25 @@ class RetinopathyMLEngine(MLEngine):
                 # MAE
                 total_mae += torch.abs(preds - labels.float()).sum().item()
 
-                # ACCURACY
+                # ACC
                 pred_classes = preds.round().long().clamp(0, 4)
                 total_acc += (pred_classes == labels).sum().item()
 
                 total += labels.size(0)
 
+                all_labels.extend(labels.cpu().numpy())
+                all_preds.extend(pred_classes.cpu().numpy())
+
         mae = total_mae / total
         acc = total_acc / total
         qoe = total_loss / len(loader)
 
+        # QWK
+        qwk_metric = QWK()
+        qwk = qwk_metric.perform_measurement(all_labels, all_preds)
+
         self.model.train()
-        return mae, qoe, acc
+        return mae, qoe, acc, qwk
 
     # ---------------- TEST ----------------
     def test(self, dataset, batch_size=8):
@@ -241,5 +259,3 @@ class RetinopathyMLEngine(MLEngine):
             "test_acc": test_acc,
             "test_qwk": test_qwk
         }
-
-
