@@ -155,7 +155,7 @@ class RetinopathyMLEngine(MLEngine):
         # *** ZERO HEADÓW, ZERO K-1, ZERO BEBECHÓW ***
         # ConvNeXt jako zwykły classifier 5‑klasowy
         model = timm.create_model(
-            "convnext_small",
+            "convnext_base",
             pretrained=True,
             num_classes=num_classes,   # 5 logitów
             global_pool='avg'
