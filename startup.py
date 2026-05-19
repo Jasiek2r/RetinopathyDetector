@@ -13,7 +13,7 @@ class Startup:
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
         sample_limit = None  # use None for no limit
-        path = "./split-2"
+        path = "./split-1"
         dev = True  # uses developer version for testing
 
         # configure the dependencies used by application here
