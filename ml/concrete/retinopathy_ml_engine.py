@@ -15,13 +15,8 @@ class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
 
-        # ====== TU PRZEŁĄCZASZ MODELE ======
-        # SimpleCNN (działa z hackiem)
         self.model = SimpleCNN().to(self.device)
-
-        # ConvNeXt (jak będziesz chciał wrócić)
         # self.model = self.create_model()
-        # ===================================
 
     # ---------------- TRAIN ----------------
     def train(self, train_dataset, val_dataset=None, batch_size=4, epochs=50):
@@ -82,6 +77,26 @@ class RetinopathyMLEngine(MLEngine):
                     best_mae = mae
                     torch.save(self.model.state_dict(), "best_model.pth")
                     print(f"🔥 New best model saved! MAE improved to {best_mae:.4f}")
+        # --- plotting (Accuracy + QWK) ---
+        if val_metrics:
+            val_acc = [x[2] for x in val_metrics]
+            val_qwk = [x[3] for x in val_metrics]
+
+            plt.figure(figsize=(12, 7))
+
+            plt.plot(val_acc, label="Validation Accuracy", linewidth=2)
+            plt.plot(val_qwk, label="Validation QWK", linewidth=2)
+
+            plt.xlabel("Epoch")
+            plt.ylabel("Metric Value")
+            plt.title("Validation Metrics (Accuracy & QWK)")
+            plt.legend()
+            plt.grid(True)
+
+            plt.savefig("training_plot.png", bbox_inches="tight")
+            plt.show()
+
+            print("Training plot saved as training_plot.png")
 
         return train_losses, val_metrics
 

@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: move cnn to device">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: back to the hack">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00024" summary="feat: remove shitty augumentations">
-      <option name="closed" value="true" />
-      <created>1774887182452</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1774887182452</updated>
     </task>
     <task id="LOCAL-00025" summary="chore: change path">
       <option name="closed" value="true" />
@@ -564,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1779132374418</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="fix: back to the hack">
+      <option name="closed" value="true" />
+      <created>1779132871376</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1779132871376</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: enable plotting" />
     <MESSAGE value="chore: initially set the image set size to 200" />
     <MESSAGE value="fix: ensure that criterion is passed to the _validate method" />
     <MESSAGE value="feat: new criterions and scoring" />
@@ -593,6 +593,7 @@
     <MESSAGE value="fix: fix convnext small model 2" />
     <MESSAGE value="feat: SimpleCNN" />
     <MESSAGE value="fix: move cnn to device" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: move cnn to device" />
+    <MESSAGE value="fix: back to the hack" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: back to the hack" />
   </component>
 </project>
