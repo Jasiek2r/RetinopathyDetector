@@ -12,7 +12,7 @@ class Startup:
 
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
-        sample_limit = 5000  # use None for no limit
+        sample_limit = None  # use None for no limit
         path = "./augmented_resized_V2"
 
         # configure the dependencies used by application here
