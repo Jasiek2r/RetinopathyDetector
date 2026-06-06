@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: use full dataset">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: try to unlock only last blocks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
@@ -148,8 +148,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.exclude files" />
-      <item itemvalue="Python.start" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>
@@ -173,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00034" summary="fix: fix pipeline from dataset hell">
-      <option name="closed" value="true" />
-      <created>1777221674056</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1777221674056</updated>
     </task>
     <task id="LOCAL-00035" summary="fix: fix pipeline">
       <option name="closed" value="true" />
@@ -566,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1779977908474</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="feat: try to unlock only last blocks">
+      <option name="closed" value="true" />
+      <created>1779979777675</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1779979777675</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: new pre-augmented dataset" />
     <MESSAGE value="chore: set image set size to 2000" />
     <MESSAGE value="refactor: remove data loader service" />
     <MESSAGE value="fix: fix imports" />
@@ -595,6 +594,7 @@
     <MESSAGE value="feat: add QWK score and confusion matrix saving" />
     <MESSAGE value="feat: DINO model" />
     <MESSAGE value="chore: use full dataset" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: use full dataset" />
+    <MESSAGE value="feat: try to unlock only last blocks" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: try to unlock only last blocks" />
   </component>
 </project>

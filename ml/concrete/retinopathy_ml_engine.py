@@ -1,5 +1,6 @@
 import traceback
 import numpy as np
+import timm
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -226,6 +227,22 @@ class RetinopathyMLEngine(MLEngine):
         torch.save(self.model.state_dict(), "dino_retinopathy.pth")
         return acc
 
+    def create_conv_model(self, num_classes = 5):
+        model = timm.create_model(
+            "convnext_small",
+            pretrained=True,
+            num_classes=num_classes
+        )
+
+        # --- DODAJEMY DROPOUT DO CLASSIFIERA ---
+        model.classifier = torch.nn.Sequential(
+            timm.layers.LayerNorm2d(768, eps=1e-6),
+            torch.nn.Flatten(1),
+            torch.nn.Dropout(0.2),
+            torch.nn.Linear(768, num_classes)
+        )
+
+        return model
     # -------------------------
     # MODEL
     # -------------------------
