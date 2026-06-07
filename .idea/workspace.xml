@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: bring back the convnext into the code">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-    </list>
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: bring back efficientnet_b0" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -173,14 +170,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00037" summary="feat: remove tkinter file path">
-      <option name="closed" value="true" />
-      <created>1777630268813</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1777630268813</updated>
     </task>
     <task id="LOCAL-00038" summary="fix: unset bias values">
       <option name="closed" value="true" />
@@ -566,11 +555,18 @@
       <option name="project" value="LOCAL" />
       <updated>1780761418622</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="chore: bring back efficientnet_b0">
+      <option name="closed" value="true" />
+      <created>1780852518775</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1780852518775</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor: remove data loader service" />
     <MESSAGE value="fix: fix imports" />
     <MESSAGE value="fix: fix imports 2" />
     <MESSAGE value="refactor: remove dataset param from data pipeline" />
@@ -595,6 +591,7 @@
     <MESSAGE value="chore: use full dataset" />
     <MESSAGE value="feat: try to unlock only last blocks" />
     <MESSAGE value="chore: bring back the convnext into the code" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: bring back the convnext into the code" />
+    <MESSAGE value="chore: bring back efficientnet_b0" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: bring back efficientnet_b0" />
   </component>
 </project>
