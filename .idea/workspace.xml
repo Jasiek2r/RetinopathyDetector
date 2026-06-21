@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: bring back efficientnet_b0" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: remove dropout">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,8 +148,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.exclude files" />
-      <item itemvalue="Python.start" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>
@@ -170,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00038" summary="fix: unset bias values">
-      <option name="closed" value="true" />
-      <created>1777631287633</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1777631287633</updated>
     </task>
     <task id="LOCAL-00039" summary="chore: set image count to 400">
       <option name="closed" value="true" />
@@ -563,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1780852518775</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="fix: remove dropout">
+      <option name="closed" value="true" />
+      <created>1780852618460</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1780852618460</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: fix imports" />
     <MESSAGE value="fix: fix imports 2" />
     <MESSAGE value="refactor: remove dataset param from data pipeline" />
     <MESSAGE value="fix: fix application of max images on pipeline" />
@@ -592,6 +594,7 @@
     <MESSAGE value="feat: try to unlock only last blocks" />
     <MESSAGE value="chore: bring back the convnext into the code" />
     <MESSAGE value="chore: bring back efficientnet_b0" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: bring back efficientnet_b0" />
+    <MESSAGE value="fix: remove dropout" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: remove dropout" />
   </component>
 </project>

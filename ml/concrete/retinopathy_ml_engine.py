@@ -31,7 +31,7 @@ class DinoRetinopathyModel(nn.Module):
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = self.create_conv_model().to(self.device)
+        self.model = self.create_model().to(self.device)
 
         # precompute normalization (IMPORTANT)
         self.mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
@@ -242,12 +242,9 @@ class RetinopathyMLEngine(MLEngine):
     def create_model(self, num_classes=5):
         backbone = AutoModel.from_pretrained("facebook/dinov2-base")
 
-        # freeze backbone
+        # pełne odmrożenie backbone – wszystkie parametry trenowalne
         for p in backbone.parameters():
-            p.requires_grad = False
-        for name, param in backbone.named_parameters():
-            if "blocks.11" in name or "blocks.10" in name:
-                param.requires_grad = True
+            p.requires_grad = True
 
         hidden = backbone.config.hidden_size
 
