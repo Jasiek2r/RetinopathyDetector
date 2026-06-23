@@ -102,7 +102,7 @@ class RetinopathyMLEngine(MLEngine):
                     # resize
                     images = torch.nn.functional.interpolate(
                         images,
-                        size=(224, 224),
+                        size=(512, 512),
                         mode="bilinear",
                         align_corners=False
                     )
@@ -158,7 +158,7 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = torch.nn.functional.interpolate(
                     images,
-                    size=(224, 224),
+                    size=(512, 512),
                     mode="bilinear",
                     align_corners=False
                 )
@@ -208,7 +208,7 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = torch.nn.functional.interpolate(
                     images,
-                    size=(224, 224),
+                    size=(512, 512),
                     mode="bilinear",
                     align_corners=False
                 )

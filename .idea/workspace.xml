@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: full dino unfreeze">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: set up convnext small">
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00040" summary="feat: CORAL done properly">
-      <option name="closed" value="true" />
-      <created>1777631989967</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1777631989967</updated>
     </task>
     <task id="LOCAL-00041" summary="fix: some fix">
       <option name="closed" value="true" />
@@ -566,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782037844485</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="chore: set up convnext small">
+      <option name="closed" value="true" />
+      <created>1782211973876</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1782211973876</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor: remove dataset param from data pipeline" />
     <MESSAGE value="fix: fix application of max images on pipeline" />
     <MESSAGE value="feat: use convnext_base" />
     <MESSAGE value="refactor: remove trash" />
@@ -595,6 +593,7 @@
     <MESSAGE value="chore: bring back efficientnet_b0" />
     <MESSAGE value="fix: remove dropout" />
     <MESSAGE value="feat: full dino unfreeze" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: full dino unfreeze" />
+    <MESSAGE value="chore: set up convnext small" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: set up convnext small" />
   </component>
 </project>
