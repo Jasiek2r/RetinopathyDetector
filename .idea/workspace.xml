@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: set up convnext small">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: set up a 512x512 resolution">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00041" summary="fix: some fix">
-      <option name="closed" value="true" />
-      <created>1777632191544</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1777632191544</updated>
     </task>
     <task id="LOCAL-00042" summary="chore: set image count to 1k">
       <option name="closed" value="true" />
@@ -565,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782211973876</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="feat: set up a 512x512 resolution">
+      <option name="closed" value="true" />
+      <created>1782212124659</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1782212124659</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: fix application of max images on pipeline" />
     <MESSAGE value="feat: use convnext_base" />
     <MESSAGE value="refactor: remove trash" />
     <MESSAGE value="chore: set batch size from 32 to 8" />
@@ -594,6 +594,7 @@
     <MESSAGE value="fix: remove dropout" />
     <MESSAGE value="feat: full dino unfreeze" />
     <MESSAGE value="chore: set up convnext small" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: set up convnext small" />
+    <MESSAGE value="feat: set up a 512x512 resolution" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: set up a 512x512 resolution" />
   </component>
 </project>

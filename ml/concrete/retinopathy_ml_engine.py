@@ -224,7 +224,7 @@ class RetinopathyMLEngine(MLEngine):
         acc = 100 * correct / total
         print(f"TEST accuracy: {acc:.2f}%")
 
-        torch.save(self.model.state_dict(), "dino_retinopathy.pth")
+        torch.save(self.model.state_dict(), "model_weights.pth")
         return acc
 
     def create_conv_model(self, num_classes = 5):
