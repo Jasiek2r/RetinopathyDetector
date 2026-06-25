@@ -35,4 +35,5 @@ class RetinopathyApplication:
                     self.__classifier_service__.train(training_data_directory)
                     self.__app_ready__ = True
 
+
         input("Type anything to quit ")

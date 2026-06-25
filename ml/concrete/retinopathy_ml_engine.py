@@ -102,7 +102,7 @@ class RetinopathyMLEngine(MLEngine):
                     # resize
                     images = torch.nn.functional.interpolate(
                         images,
-                        size=(512, 512),
+                        size=(224, 224),
                         mode="bilinear",
                         align_corners=False
                     )
@@ -158,7 +158,7 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = torch.nn.functional.interpolate(
                     images,
-                    size=(512, 512),
+                    size=(224, 224),
                     mode="bilinear",
                     align_corners=False
                 )
@@ -208,7 +208,7 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = torch.nn.functional.interpolate(
                     images,
-                    size=(512, 512),
+                    size=(224, 224),
                     mode="bilinear",
                     align_corners=False
                 )
@@ -229,7 +229,7 @@ class RetinopathyMLEngine(MLEngine):
 
     def create_conv_model(self, num_classes = 5):
         model = timm.create_model(
-            "convnext_small",
+            "efficientnet_b0",
             pretrained=True,
             num_classes=num_classes
         )
