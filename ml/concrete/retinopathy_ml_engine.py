@@ -58,7 +58,7 @@ class RetinopathyMLEngine(MLEngine):
             train_dataset,
             batch_size=batch_size,
             sampler=sampler,
-            num_workers=12,
+            num_workers=8,
             pin_memory=True
         )
 
@@ -68,7 +68,7 @@ class RetinopathyMLEngine(MLEngine):
                 val_dataset,
                 batch_size=batch_size,
                 shuffle=False,
-                num_workers=8,
+                num_workers=6,
                 pin_memory=True
             )
 
@@ -89,7 +89,7 @@ class RetinopathyMLEngine(MLEngine):
 
             progress_bar = tqdm(
                 train_loader,
-                desc=f"Epoch {epoch+1}/{epochs}",
+                desc=f"Epoch {epoch + 1}/{epochs}",
                 ncols=120
             )
 
@@ -131,12 +131,12 @@ class RetinopathyMLEngine(MLEngine):
 
             scheduler.step()
 
-            print(f"\nEpoch {epoch+1} loss: {running_loss / len(train_loader):.4f}")
+            print(f"\nEpoch {epoch + 1} loss: {running_loss / len(train_loader):.4f}")
 
             if val_loader is not None:
                 acc, qwk, cm = self._validate(val_loader)
                 print(f"VAL acc: {acc:.2f}% | QWK: {qwk:.2f}")
-                np.savetxt(f"confusion_epoch_{epoch+1}.txt", cm, fmt="%d")
+                np.savetxt(f"confusion_epoch_{epoch + 1}.txt", cm, fmt="%d")
 
     # -------------------------
     # VALIDATION
@@ -152,7 +152,6 @@ class RetinopathyMLEngine(MLEngine):
 
         with torch.no_grad():
             for images, labels in loader:
-
                 images = images.to(self.device, non_blocking=True)
                 labels = labels.to(self.device, non_blocking=True)
 
@@ -192,7 +191,7 @@ class RetinopathyMLEngine(MLEngine):
             dataset,
             batch_size=batch_size,
             shuffle=False,
-            num_workers=4
+            num_workers=2
         )
 
         self.model.eval()
@@ -202,7 +201,6 @@ class RetinopathyMLEngine(MLEngine):
 
         with torch.no_grad():
             for images, labels in loader:
-
                 images = images.to(self.device)
                 labels = labels.to(self.device)
 
@@ -227,15 +225,15 @@ class RetinopathyMLEngine(MLEngine):
         torch.save(self.model.state_dict(), "model_weights.pth")
         return acc
 
-    def create_conv_model(self, num_classes = 5):
+    def create_conv_model(self, num_classes=5):
         model = timm.create_model(
             "efficientnet_b0",
             pretrained=True,
             num_classes=num_classes
         )
 
-
         return model
+
     # -------------------------
     # MODEL
     # -------------------------
