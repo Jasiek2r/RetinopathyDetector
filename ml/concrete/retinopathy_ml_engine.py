@@ -1,38 +1,28 @@
 import traceback
 import numpy as np
-import timm
 import torch
-import torch.nn as nn
 import torch.optim as optim
 
 from torch.utils.data import DataLoader, WeightedRandomSampler
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from transformers import AutoModel
 
 from tqdm import tqdm
-from sklearn.metrics import cohen_kappa_score, confusion_matrix
+from sklearn.metrics import cohen_kappa_score, confusion_matrix, accuracy_score
 
 from ml.abstractions.ml_engine import MLEngine
 from ml.concrete.FocalLoss import FocalLoss
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-
-class DinoRetinopathyModel(nn.Module):
-    def __init__(self, backbone, classifier):
-        super().__init__()
-        self.backbone = backbone
-        self.classifier = classifier
-
-    def forward(self, x):
-        outputs = self.backbone(pixel_values=x)
-        cls_token = outputs.last_hidden_state[:, 0]
-        return self.classifier(cls_token)
+from ml.concrete.model_provider import ModelProvider
 
 
 class RetinopathyMLEngine(MLEngine):
-    def __init__(self, device=None):
+
+    def __init__(self, provider: ModelProvider, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = self.create_conv_model().to(self.device)
-        #self.model = self.create_model().to(self.device)
+        self.model = provider.create_conv_model().to(self.device)
+        #self.model = provider.create_model().to(self.device)
 
         # precompute normalization (IMPORTANT)
         self.mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
@@ -226,36 +216,66 @@ class RetinopathyMLEngine(MLEngine):
         torch.save(self.model.state_dict(), "model_weights.pth")
         return acc
 
-    def create_conv_model(self, num_classes=5):
-        model = timm.create_model(
-            "convnext_large",
-            pretrained=True,
-            num_classes=num_classes
-        )
+    def full_evaluation(self, train_dataset, val_dataset, test_dataset):
 
-        return model
+        def get_predictions(dataset):
+            loader = torch.utils.data.DataLoader(dataset, batch_size=64, shuffle=False)
+            all_preds = []
+            all_labels = []
 
-    # -------------------------
-    # MODEL
-    # -------------------------
-    def create_model(self, num_classes=5):
-        backbone = AutoModel.from_pretrained("facebook/dinov2-base")
+            self.model.eval()
+            with torch.no_grad():
+                for x, y in loader:
+                    x = x.to(self.device)
+                    y = y.to(self.device)
 
-        # freeze backbone
-        for p in backbone.parameters():
-            p.requires_grad = False
-        for name, param in backbone.named_parameters():
-            if "blocks.11" in name or "blocks.10" in name:
-                param.requires_grad = True
+                    logits = self.model(x)
+                    preds = torch.argmax(logits, dim=1)
 
-        hidden = backbone.config.hidden_size
+                    all_preds.extend(preds.cpu().numpy())
+                    all_labels.extend(y.cpu().numpy())
 
-        classifier = nn.Sequential(
-            nn.LayerNorm(hidden),
-            nn.Linear(hidden, 256),
-            nn.GELU(),
-            nn.Dropout(0.3),
-            nn.Linear(256, num_classes)
-        )
+            return all_labels, all_preds
 
-        return DinoRetinopathyModel(backbone, classifier)
+        # === PREDYKCJE ===
+        y_train, y_train_pred = get_predictions(train_dataset)
+        y_val, y_val_pred = get_predictions(val_dataset)
+        y_test, y_test_pred = get_predictions(test_dataset)
+
+        # === ACCURACY ===
+        acc_train = accuracy_score(y_train, y_train_pred)
+        acc_val = accuracy_score(y_val, y_val_pred)
+        acc_test = accuracy_score(y_test, y_test_pred)
+
+        # === QWK ===
+        qwk_train = cohen_kappa_score(y_train, y_train_pred, weights='quadratic')
+        qwk_val = cohen_kappa_score(y_val, y_val_pred, weights='quadratic')
+        qwk_test = cohen_kappa_score(y_test, y_test_pred, weights='quadratic')
+
+        print("=== Accuracy ===")
+        print(f"Train: {acc_train:.4f}")
+        print(f"Val:   {acc_val:.4f}")
+        print(f"Test:  {acc_test:.4f}\n")
+
+        print("=== QWK ===")
+        print(f"Train: {qwk_train:.4f}")
+        print(f"Val:   {qwk_val:.4f}")
+        print(f"Test:  {qwk_test:.4f}\n")
+
+        # === CONFUSION MATRICES ===
+        sets = [
+            ("Train", y_train, y_train_pred),
+            ("Validation", y_val, y_val_pred),
+            ("Test", y_test, y_test_pred)
+        ]
+
+        for name, y_true, y_pred in sets:
+            cm = confusion_matrix(y_true, y_pred)
+            plt.figure(figsize=(6, 5))
+            sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+            plt.title(f"Confusion Matrix - {name}")
+            plt.xlabel("Predicted")
+            plt.ylabel("True")
+            plt.show()
+
+

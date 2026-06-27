@@ -35,3 +35,15 @@ class ClassifierService:
         # --- TEST ---
         print("Evaluating on test split...")
         self.__engine__.test(test_dataset)
+
+    def full_evaluation(self, dir_path: str):
+        print("Full debug evaluation started...")
+        train_dataset, val_dataset, test_dataset = self.__pipeline__.run(
+            dir_path=dir_path,
+            max_images=self.sample_limit
+        )
+        self.__engine__.full_evaluation(
+            train_dataset=train_dataset,
+            val_dataset=val_dataset,
+            test_dataset=test_dataset
+        )
