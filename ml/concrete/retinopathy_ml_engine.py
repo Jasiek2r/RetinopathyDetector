@@ -31,7 +31,8 @@ class DinoRetinopathyModel(nn.Module):
 class RetinopathyMLEngine(MLEngine):
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = self.create_conv_model().to(self.device)
+        #self.model = self.create_conv_model().to(self.device)
+        self.model = self.create_model().to(self.device)
 
         # precompute normalization (IMPORTANT)
         self.mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
