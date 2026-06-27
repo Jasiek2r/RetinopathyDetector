@@ -219,14 +219,23 @@ class RetinopathyMLEngine(MLEngine):
     def full_evaluation(self, train_dataset, val_dataset, test_dataset):
 
         def get_predictions(dataset):
-            loader = torch.utils.data.DataLoader(dataset, batch_size=64, shuffle=False)
+            loader = DataLoader(
+                dataset,
+                batch_size=64,
+                shuffle=False,
+                num_workers=8,
+                pin_memory=True
+            )
             all_preds = []
             all_labels = []
 
             self.model.eval()
             with torch.no_grad():
                 for x, y in loader:
-                    x = x.to(self.device)
+                    x = torch.nn.functional.interpolate(
+                        x, size=(224, 224), mode="bilinear", align_corners=False
+                    )
+                    x = (x - self.mean) / self.std
                     y = y.to(self.device)
 
                     logits = self.model(x)
