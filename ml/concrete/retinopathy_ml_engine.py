@@ -218,7 +218,12 @@ class RetinopathyMLEngine(MLEngine):
 
     def full_evaluation(self, train_dataset, val_dataset, test_dataset):
 
-        def get_predictions(dataset):
+        import os
+        from tqdm import tqdm
+
+        os.makedirs("evaluation_results", exist_ok=True)
+
+        def get_predictions(name, dataset):
             loader = torch.utils.data.DataLoader(
                 dataset,
                 batch_size=64,
@@ -232,7 +237,7 @@ class RetinopathyMLEngine(MLEngine):
 
             self.model.eval()
             with torch.no_grad():
-                for x, y in loader:
+                for x, y in tqdm(loader, desc=f"Evaluating {name}", ncols=120):
                     x = x.to(self.device, non_blocking=True)
                     y = y.to(self.device, non_blocking=True)
 
@@ -251,9 +256,9 @@ class RetinopathyMLEngine(MLEngine):
             return all_labels, all_preds
 
         # === PREDYKCJE ===
-        y_train, y_train_pred = get_predictions(train_dataset)
-        y_val, y_val_pred = get_predictions(val_dataset)
-        y_test, y_test_pred = get_predictions(test_dataset)
+        y_train, y_train_pred = get_predictions("Train", train_dataset)
+        y_val, y_val_pred = get_predictions("Validation", val_dataset)
+        y_test, y_test_pred = get_predictions("Test", test_dataset)
 
         # === ACCURACY ===
         acc_train = accuracy_score(y_train, y_train_pred)
@@ -265,6 +270,7 @@ class RetinopathyMLEngine(MLEngine):
         qwk_val = cohen_kappa_score(y_val, y_val_pred, weights='quadratic')
         qwk_test = cohen_kappa_score(y_test, y_test_pred, weights='quadratic')
 
+        # === PRINT METRICS ===
         print("=== Accuracy ===")
         print(f"Train: {acc_train:.4f}")
         print(f"Val:   {acc_val:.4f}")
@@ -275,20 +281,34 @@ class RetinopathyMLEngine(MLEngine):
         print(f"Val:   {qwk_val:.4f}")
         print(f"Test:  {qwk_test:.4f}\n")
 
-        # === CONFUSION MATRICES ===
+        # === SAVE METRICS TO TXT ===
+        with open("evaluation_results/metrics.txt", "w") as f:
+            f.write("=== Accuracy ===\n")
+            f.write(f"Train: {acc_train:.4f}\n")
+            f.write(f"Val:   {acc_val:.4f}\n")
+            f.write(f"Test:  {acc_test:.4f}\n\n")
+
+            f.write("=== QWK ===\n")
+            f.write(f"Train: {qwk_train:.4f}\n")
+            f.write(f"Val:   {qwk_val:.4f}\n")
+            f.write(f"Test:  {qwk_test:.4f}\n")
+
+        print("[INFO] Saved metrics: evaluation_results/metrics.txt")
+
+        # === CONFUSION MATRICES TO TXT ===
         sets = [
-            ("Train", y_train, y_train_pred),
-            ("Validation", y_val, y_val_pred),
-            ("Test", y_test, y_test_pred)
+            ("train", y_train, y_train_pred),
+            ("validation", y_val, y_val_pred),
+            ("test", y_test, y_test_pred)
         ]
 
         for name, y_true, y_pred in sets:
             cm = confusion_matrix(y_true, y_pred)
-            plt.figure(figsize=(6, 5))
-            sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
-            plt.title(f"Confusion Matrix - {name}")
-            plt.xlabel("Predicted")
-            plt.ylabel("True")
-            plt.show()
+
+            out_path = f"evaluation_results/confusion_matrix_{name}.txt"
+            np.savetxt(out_path, cm, fmt="%d")
+
+            print(f"[INFO] Saved confusion matrix: {out_path}")
+
 
 

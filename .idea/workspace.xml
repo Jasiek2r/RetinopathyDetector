@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: optimize slightly loading in full eval">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: move to gpu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
@@ -173,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00050" summary="fix: api fix">
-      <option name="closed" value="true" />
-      <created>1777635688592</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1777635688592</updated>
     </task>
     <task id="LOCAL-00051" summary="fix: loading images fix">
       <option name="closed" value="true" />
@@ -566,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782558606687</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="fix: move to gpu">
+      <option name="closed" value="true" />
+      <created>1782558717497</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1782558717497</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: move resizing to GPU" />
     <MESSAGE value="fix: move from PIL to tensors" />
     <MESSAGE value="feat: use convnext-small" />
     <MESSAGE value="feat: add dropout to prevent overfitting" />
@@ -595,6 +594,7 @@
     <MESSAGE value="feat: implement model evaluation" />
     <MESSAGE value="chore: set convnext small in provider" />
     <MESSAGE value="chore: optimize slightly loading in full eval" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: optimize slightly loading in full eval" />
+    <MESSAGE value="fix: move to gpu" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: move to gpu" />
   </component>
 </project>
