@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: try convnext large">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: implement model evaluation">
       <change afterPath="$PROJECT_DIR$/ml/abstractions/model_loader.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/retinopathy_application.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/retinopathy_application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/classifier_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/classifier_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -180,14 +176,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00047" summary="fix: bring back old ml engine">
-      <option name="closed" value="true" />
-      <created>1777634866411</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1777634866411</updated>
     </task>
     <task id="LOCAL-00048" summary="fix: go back to past ml engine">
       <option name="closed" value="true" />
@@ -573,11 +561,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782548599238</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="feat: implement model evaluation">
+      <option name="closed" value="true" />
+      <created>1782557578647</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1782557578647</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: restore create model method" />
     <MESSAGE value="fix: add missing import" />
     <MESSAGE value="chore: optimize data loading" />
     <MESSAGE value="feat: move resizing to GPU" />
@@ -602,6 +597,7 @@
     <MESSAGE value="chore: decrease number of workers" />
     <MESSAGE value="chore: bring back the dino for another experiment" />
     <MESSAGE value="chore: try convnext large" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: try convnext large" />
+    <MESSAGE value="feat: implement model evaluation" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement model evaluation" />
   </component>
 </project>
