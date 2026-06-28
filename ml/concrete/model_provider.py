@@ -34,9 +34,6 @@ class ModelProvider:
         # freeze backbone
         for p in backbone.parameters():
             p.requires_grad = False
-        for name, param in backbone.named_parameters():
-            if "blocks.11" in name or "blocks.10" in name:
-                param.requires_grad = True
 
         hidden = backbone.config.hidden_size
 

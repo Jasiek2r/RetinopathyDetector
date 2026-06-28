@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: more agressive augumentation">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: set up model back to dino">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,8 +148,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.exclude files" />
-      <item itemvalue="Python.main" />
       <item itemvalue="Python.start" />
+      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
@@ -174,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00053" summary="fix: dataset loading fix 3">
-      <option name="closed" value="true" />
-      <created>1777636087227</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1777636087227</updated>
     </task>
     <task id="LOCAL-00054" summary="feat: normalization">
       <option name="closed" value="true" />
@@ -567,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782560458760</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="chore: set up model back to dino">
+      <option name="closed" value="true" />
+      <created>1782666678076</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1782666678077</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add dropout to prevent overfitting" />
     <MESSAGE value="chore: change path" />
     <MESSAGE value="feat: very light runtime augumentation to prevent overfitting" />
     <MESSAGE value="feat: add cosine annealing and zoom shift" />
@@ -596,6 +594,7 @@
     <MESSAGE value="fix: move to gpu" />
     <MESSAGE value="chore: set up file saving" />
     <MESSAGE value="feat: more agressive augumentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: more agressive augumentation" />
+    <MESSAGE value="chore: set up model back to dino" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: set up model back to dino" />
   </component>
 </project>
