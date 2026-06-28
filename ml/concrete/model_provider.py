@@ -14,6 +14,17 @@ class DinoRetinopathyModel(nn.Module):
         cls_token = outputs.last_hidden_state[:, 0]
         return self.classifier(cls_token)
 
+class RetinaFoundationModel(nn.Module):
+    def __init__(self, backbone, classifier):
+        super().__init__()
+        self.backbone = backbone
+        self.classifier = classifier
+
+    def forward(self, x):
+        outputs = self.backbone(pixel_values=x)
+        cls_token = outputs.last_hidden_state[:, 0]
+        return self.classifier(cls_token)
+
 
 class ModelProvider:
     def create_conv_model(self, num_classes=5):
@@ -46,3 +57,22 @@ class ModelProvider:
         )
 
         return DinoRetinopathyModel(backbone, classifier)
+
+    def create_retfound(self, num_classes=5):
+        backbone = AutoModel.from_pretrained("uclanlp/retfound")
+
+        # freeze backbone
+        for p in backbone.parameters():
+            p.requires_grad = False
+
+        hidden = backbone.config.hidden_size
+
+        classifier = nn.Sequential(
+            nn.LayerNorm(hidden),
+            nn.Linear(hidden, 256),
+            nn.GELU(),
+            nn.Dropout(0.3),
+            nn.Linear(256, num_classes)
+        )
+
+        return RetinaFoundationModel(backbone, classifier)

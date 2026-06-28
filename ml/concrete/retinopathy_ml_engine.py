@@ -22,7 +22,8 @@ class RetinopathyMLEngine(MLEngine):
     def __init__(self, provider: ModelProvider, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         #self.model = provider.create_conv_model().to(self.device)
-        self.model = provider.create_model().to(self.device)
+        #self.model = provider.create_model().to(self.device)
+        self.model = provider.create_retfound().to(self.device)
 
         # precompute normalization (IMPORTANT)
         self.mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
