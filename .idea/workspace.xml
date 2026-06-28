@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: dino head-only">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: RetFound">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00055" summary="fix: 3 dataset splitting">
-      <option name="closed" value="true" />
-      <created>1777637863084</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1777637863084</updated>
     </task>
     <task id="LOCAL-00056" summary="fix: FocalLoss">
       <option name="closed" value="true" />
@@ -567,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782666795027</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="feat: RetFound">
+      <option name="closed" value="true" />
+      <created>1782667484925</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1782667484925</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: very light runtime augumentation to prevent overfitting" />
     <MESSAGE value="feat: add cosine annealing and zoom shift" />
     <MESSAGE value="feat: add QWK score and confusion matrix saving" />
     <MESSAGE value="feat: DINO model" />
@@ -596,6 +594,7 @@
     <MESSAGE value="feat: more agressive augumentation" />
     <MESSAGE value="chore: set up model back to dino" />
     <MESSAGE value="chore: dino head-only" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: dino head-only" />
+    <MESSAGE value="feat: RetFound" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: RetFound" />
   </component>
 </project>
