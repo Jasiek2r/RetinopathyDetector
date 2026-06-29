@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: inference for convnext">
-      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
-    </list>
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: inference for effnet" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -172,14 +170,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00059" summary="refactor: remove data loader service">
-      <option name="closed" value="true" />
-      <created>1777747849973</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1777747849973</updated>
     </task>
     <task id="LOCAL-00060" summary="fix: fix imports">
       <option name="closed" value="true" />
@@ -565,11 +555,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782731292090</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="chore: inference for effnet">
+      <option name="closed" value="true" />
+      <created>1782732913010</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1782732913010</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: use full dataset" />
     <MESSAGE value="feat: try to unlock only last blocks" />
     <MESSAGE value="chore: bring back the convnext into the code" />
     <MESSAGE value="chore: bring back efficientnet_b0" />
@@ -594,6 +591,7 @@
     <MESSAGE value="fix: create retfound" />
     <MESSAGE value="chore: inference for dino" />
     <MESSAGE value="chore: inference for convnext" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: inference for convnext" />
+    <MESSAGE value="chore: inference for effnet" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: inference for effnet" />
   </component>
 </project>
