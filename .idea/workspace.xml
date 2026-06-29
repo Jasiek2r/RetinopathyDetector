@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: inference for effnet">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: inference for dino">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,14 +174,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00061" summary="fix: fix imports 2">
-      <option name="closed" value="true" />
-      <created>1777747930817</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1777747930817</updated>
     </task>
     <task id="LOCAL-00062" summary="refactor: remove dataset param from data pipeline">
       <option name="closed" value="true" />
@@ -566,7 +559,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782733009676</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="chore: inference for dino">
+      <option name="closed" value="true" />
+      <created>1782746975261</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1782746975261</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -592,9 +593,9 @@
     <MESSAGE value="chore: dino head-only" />
     <MESSAGE value="feat: RetFound" />
     <MESSAGE value="fix: create retfound" />
-    <MESSAGE value="chore: inference for dino" />
     <MESSAGE value="chore: inference for convnext" />
     <MESSAGE value="chore: inference for effnet" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: inference for effnet" />
+    <MESSAGE value="chore: inference for dino" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: inference for dino" />
   </component>
 </project>

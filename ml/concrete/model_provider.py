@@ -44,7 +44,7 @@ class ModelProvider:
 
         # freeze backbone
         for p in backbone.parameters():
-            p.requires_grad = False
+            p.requires_grad = True
 
         hidden = backbone.config.hidden_size
 
