@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: RetFound">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: create retfound">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00056" summary="fix: FocalLoss">
-      <option name="closed" value="true" />
-      <created>1777638408788</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1777638408788</updated>
     </task>
     <task id="LOCAL-00057" summary="feat: new pre-augmented dataset">
       <option name="closed" value="true" />
@@ -566,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782667484925</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="fix: create retfound">
+      <option name="closed" value="true" />
+      <created>1782668526481</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1782668526481</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add cosine annealing and zoom shift" />
     <MESSAGE value="feat: add QWK score and confusion matrix saving" />
     <MESSAGE value="feat: DINO model" />
     <MESSAGE value="chore: use full dataset" />
@@ -595,6 +594,7 @@
     <MESSAGE value="chore: set up model back to dino" />
     <MESSAGE value="chore: dino head-only" />
     <MESSAGE value="feat: RetFound" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: RetFound" />
+    <MESSAGE value="fix: create retfound" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: create retfound" />
   </component>
 </project>
