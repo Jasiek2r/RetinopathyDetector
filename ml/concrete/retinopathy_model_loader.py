@@ -11,7 +11,7 @@ class RetinopathyModelLoader(ModelLoader):
         self.provider = provider
 
     def load(self, path):
-        model = self.provider.create_model()
+        model = self.provider.create_conv_model()
         weights = torch.load(path)
         model.load_state_dict(weights)
         model.to("cuda")
