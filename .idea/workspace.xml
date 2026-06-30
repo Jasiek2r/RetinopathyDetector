@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: dino with full tuning">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: do not use augumentation on val">
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00063" summary="fix: fix application of max images on pipeline">
-      <option name="closed" value="true" />
-      <created>1777748180190</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1777748180190</updated>
     </task>
     <task id="LOCAL-00064" summary="feat: use convnext_base">
       <option name="closed" value="true" />
@@ -566,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1782749669081</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="chore: do not use augumentation on val">
+      <option name="closed" value="true" />
+      <created>1782819628476</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1782819628476</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: bring back the convnext into the code" />
     <MESSAGE value="chore: bring back efficientnet_b0" />
     <MESSAGE value="fix: remove dropout" />
     <MESSAGE value="feat: full dino unfreeze" />
@@ -595,6 +593,7 @@
     <MESSAGE value="chore: inference for effnet" />
     <MESSAGE value="chore: inference for dino" />
     <MESSAGE value="chore: dino with full tuning" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: dino with full tuning" />
+    <MESSAGE value="chore: do not use augumentation on val" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: do not use augumentation on val" />
   </component>
 </project>
