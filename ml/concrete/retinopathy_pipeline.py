@@ -8,7 +8,8 @@ from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
 class RetinopathyPipeline(DataPipeline):
 
     def run(self, dir_path, max_images):
-        tf = T.Compose([
+
+        train_tf = T.Compose([
             T.ToImage(),
             T.ToDtype(torch.float32, scale=True),
             T.RandomRotation(degrees=5),
@@ -21,8 +22,12 @@ class RetinopathyPipeline(DataPipeline):
             )
         ])
 
-        train_ds = RetinopathyFolderDataset(dir_path, "train", tf, max_images=max_images)
-        val_ds = RetinopathyFolderDataset(dir_path, "val", tf, max_images=max_images)
-        test_ds = RetinopathyFolderDataset(dir_path, "test", tf, max_images=max_images)
+        eval_tf = T.Compose([
+            T.ToDtype(torch.float32, scale=True),
+        ])
+
+        train_ds = RetinopathyFolderDataset(dir_path, "train", train_tf, max_images=max_images)
+        val_ds = RetinopathyFolderDataset(dir_path, "val", eval_tf, max_images=max_images)
+        test_ds = RetinopathyFolderDataset(dir_path, "test", eval_tf, max_images=max_images)
 
         return train_ds, val_ds, test_ds
