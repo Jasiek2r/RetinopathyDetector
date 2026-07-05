@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: do not use augumentation on val">
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: convnext">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,22 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00064" summary="feat: use convnext_base">
-      <option name="closed" value="true" />
-      <created>1777748390468</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1777748390468</updated>
-    </task>
-    <task id="LOCAL-00065" summary="refactor: remove trash">
-      <option name="closed" value="true" />
-      <created>1777748486829</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1777748486829</updated>
     </task>
     <task id="LOCAL-00066" summary="chore: set batch size from 32 to 8">
       <option name="closed" value="true" />
@@ -565,12 +550,26 @@
       <option name="project" value="LOCAL" />
       <updated>1782819628476</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <task id="LOCAL-00113" summary="chore: effnetb0">
+      <option name="closed" value="true" />
+      <created>1782819678519</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1782819678519</updated>
+    </task>
+    <task id="LOCAL-00114" summary="chore: convnext">
+      <option name="closed" value="true" />
+      <created>1782819769636</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1782819769636</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: bring back efficientnet_b0" />
-    <MESSAGE value="fix: remove dropout" />
     <MESSAGE value="feat: full dino unfreeze" />
     <MESSAGE value="chore: set up convnext small" />
     <MESSAGE value="feat: set up a 512x512 resolution" />
@@ -594,6 +593,8 @@
     <MESSAGE value="chore: inference for dino" />
     <MESSAGE value="chore: dino with full tuning" />
     <MESSAGE value="chore: do not use augumentation on val" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: do not use augumentation on val" />
+    <MESSAGE value="chore: effnetb0" />
+    <MESSAGE value="chore: convnext" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: convnext" />
   </component>
 </project>
