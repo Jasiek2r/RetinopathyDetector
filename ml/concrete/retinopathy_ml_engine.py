@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import torch.optim as optim
 
-from torch.utils.data import DataLoader, WeightedRandomSampler
+from torch.utils.data import DataLoader, WeightedRandomSampler, Dataset
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
 from tqdm import tqdm
@@ -11,12 +11,14 @@ from sklearn.metrics import cohen_kappa_score, confusion_matrix, accuracy_score
 
 from ml.abstractions.ml_engine import MLEngine
 from ml.concrete.FocalLoss import FocalLoss
-
-
 from ml.concrete.model_provider import ModelProvider
+
+import os
+
 
 
 class RetinopathyMLEngine(MLEngine):
+
 
     def __init__(self, provider: ModelProvider, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
@@ -218,9 +220,6 @@ class RetinopathyMLEngine(MLEngine):
 
     def full_evaluation(self, train_dataset, val_dataset, test_dataset):
 
-        import os
-        from tqdm import tqdm
-
         os.makedirs("evaluation_results", exist_ok=True)
 
         def get_predictions(name, dataset):
@@ -309,6 +308,3 @@ class RetinopathyMLEngine(MLEngine):
             np.savetxt(out_path, cm, fmt="%d")
 
             print(f"[INFO] Saved confusion matrix: {out_path}")
-
-
-

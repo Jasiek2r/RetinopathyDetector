@@ -23,9 +23,10 @@ class RetinopathyApplication:
             query_result = querer.retrieve_input(headers=[
                 "Would you like to start fresh or recover model from backup?",
                 "- Enter F to start fresh",
-                "- Enter M to load model from backup"
+                "- Enter M to load model from backup",
+                "- Enter Z to perform a zero-shot"
             ], permitted_values=[
-                "F", "M"
+                "F", "M", "Z"
             ])
             if query_result == "F":
                 acceptance_result = querer.retrieve_acceptance(headers=[
@@ -43,6 +44,10 @@ class RetinopathyApplication:
                 self.__model_loader__.load(path=input("Please provide the path: "))
                 test_data_directory = self.__file_service__.get_directory_path()
                 self.__classifier_service__.full_evaluation(test_data_directory)
+            elif query_result == "Z":
+                data_directory = self.__file_service__.get_directory_path()
+                self.__classifier_service__.zero_shot(data_directory)
+
 
 
         input("Type anything to quit ")
