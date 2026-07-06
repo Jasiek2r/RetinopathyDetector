@@ -4,8 +4,10 @@ from torch.utils.data import DataLoader
 from sklearn.metrics import accuracy_score, cohen_kappa_score, confusion_matrix
 from tqdm import tqdm
 
+from ml.abstractions.zero_shot_engine import ZeroShotEngine
 
-class RetinopathyZeroShotEngine:
+
+class RetinopathyZeroShotEngine(ZeroShotEngine):
 
     def __init__(self, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")

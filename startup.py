@@ -2,6 +2,7 @@ from core.retinopathy_application import RetinopathyApplication
 from ml.concrete.model_provider import ModelProvider
 from ml.concrete.retinopathy_model_loader import RetinopathyModelLoader
 from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
+from ml.concrete.retinopathy_zero_shot_engine import RetinopathyZeroShotEngine
 from services.classifier_service import ClassifierService
 from services.file_service import FileService
 
@@ -20,11 +21,13 @@ class Startup:
         # configure the dependencies used by application here
         provider = ModelProvider()
         engine = RetinopathyMLEngine(provider=provider)
+        zero_shot_engine = RetinopathyZeroShotEngine()
         model_loader = RetinopathyModelLoader(engine=engine, provider=provider)
         pipeline = RetinopathyPipeline()
         classifier = ClassifierService(
             engine=engine,
-            pipeline=pipeline
+            pipeline=pipeline,
+            zero_shot_engine=zero_shot_engine
         )
         classifier.set_sample_limit(sample_limit)
         file_service = FileService(

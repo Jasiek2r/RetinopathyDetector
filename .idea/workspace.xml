@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: dino head only">
-      <change afterPath="$PROJECT_DIR$/ml/abstractions/zero_shot_engine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_zero_shot_engine.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: zero shot on DINO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/retinopathy_application.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/retinopathy_application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/classifier_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/classifier_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_zero_shot_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_zero_shot_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,14 +174,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00069" summary="fix: restore create model method">
-      <option name="closed" value="true" />
-      <created>1777749559304</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1777749559304</updated>
     </task>
     <task id="LOCAL-00070" summary="fix: add missing import">
       <option name="closed" value="true" />
@@ -571,11 +559,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783331087854</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="feat: zero shot on DINO">
+      <option name="closed" value="true" />
+      <created>1783359310316</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1783359310316</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: set up a 512x512 resolution" />
     <MESSAGE value="chore: set up file path to model_weights.pth" />
     <MESSAGE value="chore: train on efficientnet-b0" />
     <MESSAGE value="chore: decrease number of workers" />
@@ -600,6 +595,7 @@
     <MESSAGE value="chore: convnext" />
     <MESSAGE value="chore: effnet" />
     <MESSAGE value="chore: dino head only" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: dino head only" />
+    <MESSAGE value="feat: zero shot on DINO" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: zero shot on DINO" />
   </component>
 </project>
