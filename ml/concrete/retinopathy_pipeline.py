@@ -12,7 +12,6 @@ class RetinopathyPipeline(DataPipeline):
             T.ToImage(),  # jeśli wejście to tensor, zamień na tv_tensors.Image
             T.ToDtype(torch.float32, scale=True),
 
-            T.CenterCrop(224),
             # fotometria: symulacja różnych kamer / ekspozycji
             T.ColorJitter(
                 brightness=0.2,
