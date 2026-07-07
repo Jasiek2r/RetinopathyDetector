@@ -24,7 +24,7 @@ class RetinopathyPipeline(DataPipeline):
 
             # delikatna zmiana gamma (ciemniej/jaśniej)
             T.RandomApply([
-                T.RandomGamma(gamma=(0.9, 1.1))
+                T.Lambda(lambda x: x ** torch.empty(1).uniform_(0.9, 1.1).item())
             ], p=0.3),
         ])
 
