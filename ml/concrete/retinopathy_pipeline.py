@@ -8,23 +8,18 @@ from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
 class RetinopathyPipeline(DataPipeline):
 
     def run(self, dir_path, max_images):
+
         train_tf = T.Compose([
-            T.ToImage(),  # jeśli wejście to tensor, zamień na tv_tensors.Image
+            T.ToImage(),
             T.ToDtype(torch.float32, scale=True),
-
-            # fotometria: symulacja różnych kamer / ekspozycji
-            T.ColorJitter(
-                brightness=0.2,
-                contrast=0.2,
-                saturation=0.1,
-                hue=0.02
-            ),
-            T.GaussianBlur(kernel_size=3, sigma=(0.1, 1.0)),
-
-            # delikatna zmiana gamma (ciemniej/jaśniej)
-            T.RandomApply([
-                T.Lambda(lambda x: x ** torch.empty(1).uniform_(0.9, 1.1).item())
-            ], p=0.3),
+            T.RandomRotation(degrees=5),
+            T.RandomHorizontalFlip(p=0.5),
+            T.RandomVerticalFlip(p=0.1),
+            T.RandomAffine(
+                degrees=5,
+                translate=(0.02, 0.02),  # 2% przesunięcia
+                scale=(0.95, 1.05)
+            )
         ])
 
         eval_tf = T.Compose([

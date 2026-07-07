@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: remove crop">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore:convnext">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,22 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00077" summary="chore: change path">
-      <option name="closed" value="true" />
-      <created>1777801916409</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1777801916409</updated>
-    </task>
-    <task id="LOCAL-00078" summary="feat: very light runtime augumentation to prevent overfitting">
-      <option name="closed" value="true" />
-      <created>1777811662460</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1777811662460</updated>
     </task>
     <task id="LOCAL-00079" summary="feat: add cosine annealing and zoom shift">
       <option name="closed" value="true" />
@@ -565,11 +550,26 @@
       <option name="project" value="LOCAL" />
       <updated>1783436519400</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="chore:convnext">
+      <option name="closed" value="true" />
+      <created>1783437525411</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1783437525411</updated>
+    </task>
+    <task id="LOCAL-00127" summary="chore:convnext">
+      <option name="closed" value="true" />
+      <created>1783437541245</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1783437541245</updated>
+    </task>
+    <option name="localTasksCounter" value="128" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: set convnext small in provider" />
     <MESSAGE value="chore: optimize slightly loading in full eval" />
     <MESSAGE value="fix: move to gpu" />
     <MESSAGE value="chore: set up file saving" />
@@ -594,6 +594,7 @@
     <MESSAGE value="fix: use train dataset to build prototypes" />
     <MESSAGE value="fix: use agument" />
     <MESSAGE value="fix: remove crop" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: remove crop" />
+    <MESSAGE value="chore:convnext" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore:convnext" />
   </component>
 </project>
