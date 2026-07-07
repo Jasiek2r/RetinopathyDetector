@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix the dependency pipeline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/abstractions/zero_shot_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/abstractions/zero_shot_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/classifier_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/classifier_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_zero_shot_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_zero_shot_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,8 +148,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.exclude files" />
-      <item itemvalue="Python.start" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>
