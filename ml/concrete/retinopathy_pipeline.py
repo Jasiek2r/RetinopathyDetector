@@ -9,16 +9,23 @@ class RetinopathyPipeline(DataPipeline):
 
     def run(self, dir_path, max_images):
         train_tf = T.Compose([
-            T.ToImage(),
+            T.ToImage(),  # jeśli wejście to tensor, zamień na tv_tensors.Image
             T.ToDtype(torch.float32, scale=True),
-            T.RandomResizedCrop(224, scale=(0.8, 1.0)),
-            T.RandomHorizontalFlip(),
-            T.RandomVerticalFlip(),
-            T.RandomRotation(10),
-            T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
-            T.GaussianBlur(kernel_size=3),
-            T.RandomPerspective(distortion_scale=0.2, p=0.5),
-            T.RandomErasing(p=0.25),
+
+            T.CenterCrop(224),
+            # fotometria: symulacja różnych kamer / ekspozycji
+            T.ColorJitter(
+                brightness=0.2,
+                contrast=0.2,
+                saturation=0.1,
+                hue=0.02
+            ),
+            T.GaussianBlur(kernel_size=3, sigma=(0.1, 1.0)),
+
+            # delikatna zmiana gamma (ciemniej/jaśniej)
+            T.RandomApply([
+                T.RandomGamma(gamma=(0.9, 1.1))
+            ], p=0.3),
         ])
 
         eval_tf = T.Compose([
