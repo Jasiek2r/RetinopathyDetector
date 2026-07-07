@@ -50,9 +50,9 @@ class ClassifierService:
         )
 
     def zero_shot(self, dir_path: str):
-        _, _, test_dataset = self.__pipeline__.run(
+        train_dataset, _, test_dataset = self.__pipeline__.run(
             dir_path=dir_path,
             max_images=self.sample_limit
         )
-        self.__zero_shot_engine__.build_prototypes(test_dataset)
+        self.__zero_shot_engine__.build_prototypes(train_dataset)
         self.__zero_shot_engine__.evaluate(test_dataset)
