@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: use agument">
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_pipeline.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: remove crop">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00076" summary="feat: add dropout to prevent overfitting">
-      <option name="closed" value="true" />
-      <created>1777801775956</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1777801775957</updated>
     </task>
     <task id="LOCAL-00077" summary="chore: change path">
       <option name="closed" value="true" />
@@ -565,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783436272861</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="fix: remove crop">
+      <option name="closed" value="true" />
+      <created>1783436519400</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1783436519400</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: implement model evaluation" />
     <MESSAGE value="chore: set convnext small in provider" />
     <MESSAGE value="chore: optimize slightly loading in full eval" />
     <MESSAGE value="fix: move to gpu" />
@@ -594,6 +593,7 @@
     <MESSAGE value="feat: increase augumentation power" />
     <MESSAGE value="fix: use train dataset to build prototypes" />
     <MESSAGE value="fix: use agument" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: use agument" />
+    <MESSAGE value="fix: remove crop" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: remove crop" />
   </component>
 </project>
