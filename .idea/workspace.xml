@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix the dependency pipeline">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: 512x512">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_zero_shot_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_zero_shot_engine.py" afterDir="false" />
     </list>
@@ -148,8 +148,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.exclude files" />
-      <item itemvalue="Python.main" />
       <item itemvalue="Python.start" />
+      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
@@ -173,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00071" summary="chore: change path">
-      <option name="closed" value="true" />
-      <created>1777750165358</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1777750165358</updated>
     </task>
     <task id="LOCAL-00072" summary="chore: optimize data loading">
       <option name="closed" value="true" />
@@ -566,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783359563373</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="chore: 512x512">
+      <option name="closed" value="true" />
+      <created>1783434224303</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1783434224303</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: train on efficientnet-b0" />
     <MESSAGE value="chore: decrease number of workers" />
     <MESSAGE value="chore: bring back the dino for another experiment" />
     <MESSAGE value="chore: try convnext large" />
@@ -595,6 +594,7 @@
     <MESSAGE value="chore: dino head only" />
     <MESSAGE value="feat: zero shot on DINO" />
     <MESSAGE value="fix: fix the dependency pipeline" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix the dependency pipeline" />
+    <MESSAGE value="chore: 512x512" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: 512x512" />
   </component>
 </project>

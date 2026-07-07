@@ -8,18 +8,17 @@ from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
 class RetinopathyPipeline(DataPipeline):
 
     def run(self, dir_path, max_images):
-
         train_tf = T.Compose([
             T.ToImage(),
             T.ToDtype(torch.float32, scale=True),
-            T.RandomRotation(degrees=5),
-            T.RandomHorizontalFlip(p=0.5),
-            T.RandomVerticalFlip(p=0.1),
-            T.RandomAffine(
-                degrees=5,
-                translate=(0.02, 0.02),  # 2% przesunięcia
-                scale=(0.95, 1.05)
-            )
+            T.RandomResizedCrop(224, scale=(0.8, 1.0)),
+            T.RandomHorizontalFlip(),
+            T.RandomVerticalFlip(),
+            T.RandomRotation(10),
+            T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
+            T.GaussianBlur(kernel_size=3),
+            T.RandomPerspective(distortion_scale=0.2, p=0.5),
+            T.RandomErasing(p=0.25),
         ])
 
         eval_tf = T.Compose([

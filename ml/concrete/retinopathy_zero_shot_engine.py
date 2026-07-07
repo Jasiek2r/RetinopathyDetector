@@ -38,7 +38,7 @@ class RetinopathyZeroShotEngine(ZeroShotEngine):
         print("Budowanie prototypów zero-shot:")
         for images, labels in tqdm(loader, ncols=120):
             images = images.to(self.device)
-            images = torch.nn.functional.interpolate(images, (512, 512))
+            images = torch.nn.functional.interpolate(images, (224, 224))
             images = (images - self.mean) / self.std
 
             emb = self._embed(images)
