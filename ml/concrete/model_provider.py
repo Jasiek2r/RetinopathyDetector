@@ -29,7 +29,7 @@ class RetFoundViT(nn.Module):
 class ModelProvider:
     def create_conv_model(self, num_classes=5):
         model = timm.create_model(
-            "convnext_small",
+            "efficientnet_b0",
             pretrained=True,
             num_classes=num_classes
         )
