@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: add QWK score and confusion matrix saving">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: dino">
+      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,6 +153,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -173,427 +173,427 @@
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
     </task>
-    <task id="LOCAL-00032" summary="chore: set image count to 200">
+    <task id="LOCAL-00088" summary="feat: full dino unfreeze">
       <option name="closed" value="true" />
-      <created>1777220435832</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+      <created>1782037844485</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
       <option name="project" value="LOCAL" />
-      <updated>1777220435832</updated>
+      <updated>1782037844485</updated>
     </task>
-    <task id="LOCAL-00033" summary="feat: convnext base">
+    <task id="LOCAL-00089" summary="chore: set up convnext small">
       <option name="closed" value="true" />
-      <created>1777220959658</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
+      <created>1782211973876</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
       <option name="project" value="LOCAL" />
-      <updated>1777220959658</updated>
+      <updated>1782211973876</updated>
     </task>
-    <task id="LOCAL-00034" summary="fix: fix pipeline from dataset hell">
+    <task id="LOCAL-00090" summary="feat: set up a 512x512 resolution">
       <option name="closed" value="true" />
-      <created>1777221674056</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
+      <created>1782212124659</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
       <option name="project" value="LOCAL" />
-      <updated>1777221674056</updated>
+      <updated>1782212124659</updated>
     </task>
-    <task id="LOCAL-00035" summary="fix: fix pipeline">
+    <task id="LOCAL-00091" summary="chore: set up file path to model_weights.pth">
       <option name="closed" value="true" />
-      <created>1777221946755</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
+      <created>1782290780345</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
       <option name="project" value="LOCAL" />
-      <updated>1777221946755</updated>
+      <updated>1782290780345</updated>
     </task>
-    <task id="LOCAL-00036" summary="feat: implement CORAL">
+    <task id="LOCAL-00092" summary="chore: train on efficientnet-b0">
       <option name="closed" value="true" />
-      <created>1777630136857</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
+      <created>1782385415056</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
       <option name="project" value="LOCAL" />
-      <updated>1777630136857</updated>
+      <updated>1782385415056</updated>
     </task>
-    <task id="LOCAL-00037" summary="feat: remove tkinter file path">
+    <task id="LOCAL-00093" summary="chore: decrease number of workers">
       <option name="closed" value="true" />
-      <created>1777630268813</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
+      <created>1782397727122</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
       <option name="project" value="LOCAL" />
-      <updated>1777630268813</updated>
+      <updated>1782397727122</updated>
     </task>
-    <task id="LOCAL-00038" summary="fix: unset bias values">
+    <task id="LOCAL-00094" summary="chore: bring back the dino for another experiment">
       <option name="closed" value="true" />
-      <created>1777631287633</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
+      <created>1782547919477</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
       <option name="project" value="LOCAL" />
-      <updated>1777631287633</updated>
+      <updated>1782547919477</updated>
     </task>
-    <task id="LOCAL-00039" summary="chore: set image count to 400">
+    <task id="LOCAL-00095" summary="chore: try convnext large">
       <option name="closed" value="true" />
-      <created>1777631329879</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
+      <created>1782548599238</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
       <option name="project" value="LOCAL" />
-      <updated>1777631329879</updated>
+      <updated>1782548599238</updated>
     </task>
-    <task id="LOCAL-00040" summary="feat: CORAL done properly">
+    <task id="LOCAL-00096" summary="feat: implement model evaluation">
       <option name="closed" value="true" />
-      <created>1777631989967</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
+      <created>1782557578647</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
       <option name="project" value="LOCAL" />
-      <updated>1777631989967</updated>
+      <updated>1782557578647</updated>
     </task>
-    <task id="LOCAL-00041" summary="fix: some fix">
+    <task id="LOCAL-00097" summary="chore: set convnext small in provider">
       <option name="closed" value="true" />
-      <created>1777632191544</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
+      <created>1782557714372</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
       <option name="project" value="LOCAL" />
-      <updated>1777632191544</updated>
+      <updated>1782557714372</updated>
     </task>
-    <task id="LOCAL-00042" summary="chore: set image count to 1k">
+    <task id="LOCAL-00098" summary="chore: optimize slightly loading in full eval">
       <option name="closed" value="true" />
-      <created>1777632447771</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
+      <created>1782558606687</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
       <option name="project" value="LOCAL" />
-      <updated>1777632447771</updated>
+      <updated>1782558606687</updated>
     </task>
-    <task id="LOCAL-00043" summary="feat: using Cohen's Kappa Score instead of accuracy">
+    <task id="LOCAL-00099" summary="fix: move to gpu">
       <option name="closed" value="true" />
-      <created>1777633730654</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
+      <created>1782558717497</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
       <option name="project" value="LOCAL" />
-      <updated>1777633730654</updated>
+      <updated>1782558717497</updated>
     </task>
-    <task id="LOCAL-00044" summary="debug: print debug">
+    <task id="LOCAL-00100" summary="chore: set up file saving">
       <option name="closed" value="true" />
-      <created>1777633961444</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
+      <created>1782559216714</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
       <option name="project" value="LOCAL" />
-      <updated>1777633961444</updated>
+      <updated>1782559216714</updated>
     </task>
-    <task id="LOCAL-00045" summary="fix: fix kappa">
+    <task id="LOCAL-00101" summary="feat: more agressive augumentation">
       <option name="closed" value="true" />
-      <created>1777634283842</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
+      <created>1782560458760</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
       <option name="project" value="LOCAL" />
-      <updated>1777634283842</updated>
+      <updated>1782560458760</updated>
     </task>
-    <task id="LOCAL-00046" summary="fix: clean cohen cappa coral">
+    <task id="LOCAL-00102" summary="chore: set up model back to dino">
       <option name="closed" value="true" />
-      <created>1777634475407</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
+      <created>1782666678076</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
       <option name="project" value="LOCAL" />
-      <updated>1777634475407</updated>
+      <updated>1782666678077</updated>
     </task>
-    <task id="LOCAL-00047" summary="fix: bring back old ml engine">
+    <task id="LOCAL-00103" summary="chore: dino head-only">
       <option name="closed" value="true" />
-      <created>1777634866411</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
+      <created>1782666795027</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
       <option name="project" value="LOCAL" />
-      <updated>1777634866411</updated>
+      <updated>1782666795027</updated>
     </task>
-    <task id="LOCAL-00048" summary="fix: go back to past ml engine">
+    <task id="LOCAL-00104" summary="feat: RetFound">
       <option name="closed" value="true" />
-      <created>1777635085101</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
+      <created>1782667484925</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
       <option name="project" value="LOCAL" />
-      <updated>1777635085101</updated>
+      <updated>1782667484925</updated>
     </task>
-    <task id="LOCAL-00049" summary="fix: pipeline and data loading fix">
+    <task id="LOCAL-00105" summary="fix: create retfound">
       <option name="closed" value="true" />
-      <created>1777635548405</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
+      <created>1782668526481</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
       <option name="project" value="LOCAL" />
-      <updated>1777635548405</updated>
+      <updated>1782668526481</updated>
     </task>
-    <task id="LOCAL-00050" summary="fix: api fix">
+    <task id="LOCAL-00106" summary="chore: inference for dino">
       <option name="closed" value="true" />
-      <created>1777635688592</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
+      <created>1782730059688</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
       <option name="project" value="LOCAL" />
-      <updated>1777635688592</updated>
+      <updated>1782730059688</updated>
     </task>
-    <task id="LOCAL-00051" summary="fix: loading images fix">
+    <task id="LOCAL-00107" summary="chore: inference for convnext">
       <option name="closed" value="true" />
-      <created>1777635798897</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
+      <created>1782731292090</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
       <option name="project" value="LOCAL" />
-      <updated>1777635798897</updated>
+      <updated>1782731292090</updated>
     </task>
-    <task id="LOCAL-00052" summary="fix: dataset loading fix 2">
+    <task id="LOCAL-00108" summary="chore: inference for effnet">
       <option name="closed" value="true" />
-      <created>1777635979694</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
+      <created>1782732913010</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
       <option name="project" value="LOCAL" />
-      <updated>1777635979694</updated>
+      <updated>1782732913010</updated>
     </task>
-    <task id="LOCAL-00053" summary="fix: dataset loading fix 3">
+    <task id="LOCAL-00109" summary="chore: inference for effnet">
       <option name="closed" value="true" />
-      <created>1777636087227</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
+      <created>1782733009676</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
       <option name="project" value="LOCAL" />
-      <updated>1777636087227</updated>
+      <updated>1782733009676</updated>
     </task>
-    <task id="LOCAL-00054" summary="feat: normalization">
+    <task id="LOCAL-00110" summary="chore: inference for dino">
       <option name="closed" value="true" />
-      <created>1777636621236</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
+      <created>1782746975261</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
       <option name="project" value="LOCAL" />
-      <updated>1777636621236</updated>
+      <updated>1782746975261</updated>
     </task>
-    <task id="LOCAL-00055" summary="fix: 3 dataset splitting">
+    <task id="LOCAL-00111" summary="chore: dino with full tuning">
       <option name="closed" value="true" />
-      <created>1777637863084</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
+      <created>1782749669081</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
       <option name="project" value="LOCAL" />
-      <updated>1777637863084</updated>
+      <updated>1782749669081</updated>
     </task>
-    <task id="LOCAL-00056" summary="fix: FocalLoss">
+    <task id="LOCAL-00112" summary="chore: do not use augumentation on val">
       <option name="closed" value="true" />
-      <created>1777638408788</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
+      <created>1782819628476</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
       <option name="project" value="LOCAL" />
-      <updated>1777638408788</updated>
+      <updated>1782819628476</updated>
     </task>
-    <task id="LOCAL-00057" summary="feat: new pre-augmented dataset">
+    <task id="LOCAL-00113" summary="chore: effnetb0">
       <option name="closed" value="true" />
-      <created>1777747409078</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
+      <created>1782819678519</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
       <option name="project" value="LOCAL" />
-      <updated>1777747409078</updated>
+      <updated>1782819678519</updated>
     </task>
-    <task id="LOCAL-00058" summary="chore: set image set size to 2000">
+    <task id="LOCAL-00114" summary="chore: convnext">
       <option name="closed" value="true" />
-      <created>1777747469352</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
+      <created>1782819769636</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
       <option name="project" value="LOCAL" />
-      <updated>1777747469352</updated>
+      <updated>1782819769636</updated>
     </task>
-    <task id="LOCAL-00059" summary="refactor: remove data loader service">
+    <task id="LOCAL-00115" summary="chore: effnet">
       <option name="closed" value="true" />
-      <created>1777747849973</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
+      <created>1783243624154</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
       <option name="project" value="LOCAL" />
-      <updated>1777747849973</updated>
+      <updated>1783243624154</updated>
     </task>
-    <task id="LOCAL-00060" summary="fix: fix imports">
+    <task id="LOCAL-00116" summary="chore: effnet">
       <option name="closed" value="true" />
-      <created>1777747888872</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
+      <created>1783243967651</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
       <option name="project" value="LOCAL" />
-      <updated>1777747888872</updated>
+      <updated>1783243967651</updated>
     </task>
-    <task id="LOCAL-00061" summary="fix: fix imports 2">
+    <task id="LOCAL-00117" summary="chore: dino head only">
       <option name="closed" value="true" />
-      <created>1777747930817</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
+      <created>1783331087853</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
       <option name="project" value="LOCAL" />
-      <updated>1777747930817</updated>
+      <updated>1783331087854</updated>
     </task>
-    <task id="LOCAL-00062" summary="refactor: remove dataset param from data pipeline">
+    <task id="LOCAL-00118" summary="feat: zero shot on DINO">
       <option name="closed" value="true" />
-      <created>1777748001409</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
+      <created>1783359310316</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
       <option name="project" value="LOCAL" />
-      <updated>1777748001409</updated>
+      <updated>1783359310316</updated>
     </task>
-    <task id="LOCAL-00063" summary="fix: fix application of max images on pipeline">
+    <task id="LOCAL-00119" summary="fix: fix the dependency pipeline">
       <option name="closed" value="true" />
-      <created>1777748180190</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
+      <created>1783359563373</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
       <option name="project" value="LOCAL" />
-      <updated>1777748180190</updated>
+      <updated>1783359563373</updated>
     </task>
-    <task id="LOCAL-00064" summary="feat: use convnext_base">
+    <task id="LOCAL-00120" summary="chore: 512x512">
       <option name="closed" value="true" />
-      <created>1777748390468</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
+      <created>1783434224303</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
       <option name="project" value="LOCAL" />
-      <updated>1777748390468</updated>
+      <updated>1783434224303</updated>
     </task>
-    <task id="LOCAL-00065" summary="refactor: remove trash">
+    <task id="LOCAL-00121" summary="feat: increase augumentation power">
       <option name="closed" value="true" />
-      <created>1777748486829</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
+      <created>1783434886663</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
       <option name="project" value="LOCAL" />
-      <updated>1777748486829</updated>
+      <updated>1783434886663</updated>
     </task>
-    <task id="LOCAL-00066" summary="chore: set batch size from 32 to 8">
+    <task id="LOCAL-00122" summary="fix: use train dataset to build prototypes">
       <option name="closed" value="true" />
-      <created>1777748597246</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
+      <created>1783435056381</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
       <option name="project" value="LOCAL" />
-      <updated>1777748597246</updated>
+      <updated>1783435056381</updated>
     </task>
-    <task id="LOCAL-00067" summary="chore: no image limit">
+    <task id="LOCAL-00123" summary="fix: use agument">
       <option name="closed" value="true" />
-      <created>1777748968269</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
+      <created>1783436203209</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
       <option name="project" value="LOCAL" />
-      <updated>1777748968269</updated>
+      <updated>1783436203209</updated>
     </task>
-    <task id="LOCAL-00068" summary="feat: progress bar">
+    <task id="LOCAL-00124" summary="fix: use agument">
       <option name="closed" value="true" />
-      <created>1777749465585</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
+      <created>1783436272861</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
       <option name="project" value="LOCAL" />
-      <updated>1777749465585</updated>
+      <updated>1783436272861</updated>
     </task>
-    <task id="LOCAL-00069" summary="fix: restore create model method">
+    <task id="LOCAL-00125" summary="fix: remove crop">
       <option name="closed" value="true" />
-      <created>1777749559304</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
+      <created>1783436519400</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
       <option name="project" value="LOCAL" />
-      <updated>1777749559304</updated>
+      <updated>1783436519400</updated>
     </task>
-    <task id="LOCAL-00070" summary="fix: add missing import">
+    <task id="LOCAL-00126" summary="chore:convnext">
       <option name="closed" value="true" />
-      <created>1777749618763</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
+      <created>1783437525411</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
       <option name="project" value="LOCAL" />
-      <updated>1777749618763</updated>
+      <updated>1783437525411</updated>
     </task>
-    <task id="LOCAL-00071" summary="chore: change path">
+    <task id="LOCAL-00127" summary="chore:convnext">
       <option name="closed" value="true" />
-      <created>1777750165358</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
+      <created>1783437541245</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
       <option name="project" value="LOCAL" />
-      <updated>1777750165358</updated>
+      <updated>1783437541245</updated>
     </task>
-    <task id="LOCAL-00072" summary="chore: optimize data loading">
+    <task id="LOCAL-00128" summary="chore: bring back old augment">
       <option name="closed" value="true" />
-      <created>1777750523603</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
+      <created>1783442253749</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
       <option name="project" value="LOCAL" />
-      <updated>1777750523603</updated>
+      <updated>1783442253749</updated>
     </task>
-    <task id="LOCAL-00073" summary="feat: move resizing to GPU">
+    <task id="LOCAL-00129" summary="chore: dino">
       <option name="closed" value="true" />
-      <created>1777750999778</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
+      <created>1783520296991</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
       <option name="project" value="LOCAL" />
-      <updated>1777750999778</updated>
+      <updated>1783520296991</updated>
     </task>
-    <task id="LOCAL-00074" summary="fix: move from PIL to tensors">
+    <task id="LOCAL-00130" summary="chore: dino full fine tuning">
       <option name="closed" value="true" />
-      <created>1777751160069</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
+      <created>1783613482116</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
       <option name="project" value="LOCAL" />
-      <updated>1777751160069</updated>
+      <updated>1783613482116</updated>
     </task>
-    <task id="LOCAL-00075" summary="feat: use convnext-small">
+    <task id="LOCAL-00131" summary="chore: dino partial unfreeze">
       <option name="closed" value="true" />
-      <created>1777751512367</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
+      <created>1783672838481</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
       <option name="project" value="LOCAL" />
-      <updated>1777751512367</updated>
+      <updated>1783672838481</updated>
     </task>
-    <task id="LOCAL-00076" summary="feat: add dropout to prevent overfitting">
+    <task id="LOCAL-00132" summary="chore: inference on efficientnet-b0">
       <option name="closed" value="true" />
-      <created>1777801775956</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
+      <created>1783692963743</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
       <option name="project" value="LOCAL" />
-      <updated>1777801775957</updated>
+      <updated>1783692963743</updated>
     </task>
-    <task id="LOCAL-00077" summary="chore: change path">
+    <task id="LOCAL-00133" summary="chore: efficientnet-b0">
       <option name="closed" value="true" />
-      <created>1777801916409</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
+      <created>1783693465115</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
       <option name="project" value="LOCAL" />
-      <updated>1777801916409</updated>
+      <updated>1783693465115</updated>
     </task>
-    <task id="LOCAL-00078" summary="feat: very light runtime augumentation to prevent overfitting">
+    <task id="LOCAL-00134" summary="chore: convnext-small">
       <option name="closed" value="true" />
-      <created>1777811662460</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
+      <created>1783695053804</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
       <option name="project" value="LOCAL" />
-      <updated>1777811662460</updated>
+      <updated>1783695053804</updated>
     </task>
-    <task id="LOCAL-00079" summary="feat: add cosine annealing and zoom shift">
+    <task id="LOCAL-00135" summary="chore: efficientnet-b0">
       <option name="closed" value="true" />
-      <created>1777817247226</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
+      <created>1783789002600</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
       <option name="project" value="LOCAL" />
-      <updated>1777817247226</updated>
+      <updated>1783789002600</updated>
     </task>
-    <task id="LOCAL-00080" summary="feat: add QWK score and confusion matrix saving">
+    <task id="LOCAL-00136" summary="chore: dino">
       <option name="closed" value="true" />
-      <created>1777823599005</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
+      <created>1783791599918</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
       <option name="project" value="LOCAL" />
-      <updated>1777823599005</updated>
+      <updated>1783791599918</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: 3 dataset splitting" />
-    <MESSAGE value="fix: FocalLoss" />
-    <MESSAGE value="feat: new pre-augmented dataset" />
-    <MESSAGE value="chore: set image set size to 2000" />
-    <MESSAGE value="refactor: remove data loader service" />
-    <MESSAGE value="fix: fix imports" />
-    <MESSAGE value="fix: fix imports 2" />
-    <MESSAGE value="refactor: remove dataset param from data pipeline" />
-    <MESSAGE value="fix: fix application of max images on pipeline" />
-    <MESSAGE value="feat: use convnext_base" />
-    <MESSAGE value="refactor: remove trash" />
-    <MESSAGE value="chore: set batch size from 32 to 8" />
-    <MESSAGE value="chore: no image limit" />
-    <MESSAGE value="feat: progress bar" />
-    <MESSAGE value="fix: restore create model method" />
-    <MESSAGE value="fix: add missing import" />
-    <MESSAGE value="chore: optimize data loading" />
-    <MESSAGE value="feat: move resizing to GPU" />
-    <MESSAGE value="fix: move from PIL to tensors" />
-    <MESSAGE value="feat: use convnext-small" />
-    <MESSAGE value="feat: add dropout to prevent overfitting" />
-    <MESSAGE value="chore: change path" />
-    <MESSAGE value="feat: very light runtime augumentation to prevent overfitting" />
-    <MESSAGE value="feat: add cosine annealing and zoom shift" />
-    <MESSAGE value="feat: add QWK score and confusion matrix saving" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add QWK score and confusion matrix saving" />
+    <MESSAGE value="fix: create retfound" />
+    <MESSAGE value="chore: inference for convnext" />
+    <MESSAGE value="chore: inference for effnet" />
+    <MESSAGE value="chore: inference for dino" />
+    <MESSAGE value="chore: dino with full tuning" />
+    <MESSAGE value="chore: do not use augumentation on val" />
+    <MESSAGE value="chore: effnetb0" />
+    <MESSAGE value="chore: convnext" />
+    <MESSAGE value="chore: effnet" />
+    <MESSAGE value="chore: dino head only" />
+    <MESSAGE value="feat: zero shot on DINO" />
+    <MESSAGE value="fix: fix the dependency pipeline" />
+    <MESSAGE value="chore: 512x512" />
+    <MESSAGE value="feat: increase augumentation power" />
+    <MESSAGE value="fix: use train dataset to build prototypes" />
+    <MESSAGE value="fix: use agument" />
+    <MESSAGE value="fix: remove crop" />
+    <MESSAGE value="chore:convnext" />
+    <MESSAGE value="chore: bring back old augment" />
+    <MESSAGE value="chore: dino full fine tuning" />
+    <MESSAGE value="chore: dino partial unfreeze" />
+    <MESSAGE value="chore: inference on efficientnet-b0" />
+    <MESSAGE value="chore: convnext-small" />
+    <MESSAGE value="chore: efficientnet-b0" />
+    <MESSAGE value="chore: dino" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: dino" />
   </component>
 </project>

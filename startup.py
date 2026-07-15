@@ -1,5 +1,8 @@
 from core.retinopathy_application import RetinopathyApplication
+from ml.concrete.model_provider import ModelProvider
+from ml.concrete.retinopathy_model_loader import RetinopathyModelLoader
 from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
+from ml.concrete.retinopathy_zero_shot_engine import RetinopathyZeroShotEngine
 from services.classifier_service import ClassifierService
 from services.file_service import FileService
 
@@ -12,21 +15,29 @@ class Startup:
 
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
-        sample_limit = 5000  # use None for no limit
+        sample_limit = None  # use None for no limit
         path = "./augmented_resized_V2"
 
         # configure the dependencies used by application here
-        engine = RetinopathyMLEngine()
+        provider = ModelProvider()
+        engine = RetinopathyMLEngine(provider=provider)
+        zero_shot_engine = RetinopathyZeroShotEngine()
+        model_loader = RetinopathyModelLoader(engine=engine, provider=provider)
         pipeline = RetinopathyPipeline()
         classifier = ClassifierService(
             engine=engine,
-            pipeline=pipeline
+            pipeline=pipeline,
+            zero_shot_engine=zero_shot_engine
         )
         classifier.set_sample_limit(sample_limit)
         file_service = FileService(
             path=path
         )
-        application = RetinopathyApplication(classifier, file_service)
+        application = RetinopathyApplication(
+            classifier_service=classifier,
+            file_service=file_service,
+            model_loader=model_loader
+        )
         return application
 
     def run_application(self) -> None:
