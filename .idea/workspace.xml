@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: dino">
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_model_loader.py" afterDir="false" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: dino inference">
+      <change afterPath="$PROJECT_DIR$/ml/concrete/qwk_loss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00088" summary="feat: full dino unfreeze">
-      <option name="closed" value="true" />
-      <created>1782037844485</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1782037844485</updated>
     </task>
     <task id="LOCAL-00089" summary="chore: set up convnext small">
       <option name="closed" value="true" />
@@ -565,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1783791599918</updated>
     </task>
-    <option name="localTasksCounter" value="137" />
+    <task id="LOCAL-00137" summary="chore: dino inference">
+      <option name="closed" value="true" />
+      <created>1783791739482</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1783791739482</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: create retfound" />
     <MESSAGE value="chore: inference for convnext" />
     <MESSAGE value="chore: inference for effnet" />
     <MESSAGE value="chore: inference for dino" />
@@ -594,6 +594,7 @@
     <MESSAGE value="chore: convnext-small" />
     <MESSAGE value="chore: efficientnet-b0" />
     <MESSAGE value="chore: dino" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: dino" />
+    <MESSAGE value="chore: dino inference" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: dino inference" />
   </component>
 </project>
