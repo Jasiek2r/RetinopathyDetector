@@ -9,8 +9,6 @@ class QuadraticWeightedKappaLoss(nn.Module):
         self.num_classes = num_classes
         self.epsilon = epsilon
 
-        # Tworzenie stałej macierzy wag (penalizacja kwadratowa odległości)
-        # Rejestrujemy jako buffer, żeby PyTorch pamiętał o przenoszeniu na GPU (Cuda)
         w = torch.zeros((num_classes, num_classes))
         for i in range(num_classes):
             for j in range(num_classes):
@@ -22,19 +20,21 @@ class QuadraticWeightedKappaLoss(nn.Module):
         predictions: Tensor o kształcie (batch_size, num_classes) - surowe logity z modelu
         targets: Tensor o kształcie (batch_size,) - indeksy klas rzeczywistych (0-4)
         """
+        # Upewniamy się, że w ma ten sam device i dtype co dane wejściowe
+        w = self.w.to(device=predictions.device, dtype=predictions.dtype)
+
         batch_size = predictions.size(0)
 
         # 1. Zamiana logitów na ciągłe prawdopodobieństwa (Softmax)
         preds_soft = F.softmax(predictions, dim=1)
 
         # 2. Zamiana targetów na standardowy one-hot encoding
-        targets_one_hot = F.one_hot(targets, num_classes=self.num_classes).float()
+        targets_one_hot = F.one_hot(targets, num_classes=self.num_classes).to(dtype=predictions.dtype)
 
         # 3. Obliczenie macierzy zaobserwowanej (Observed matrix)
-        # rzutowanie prawdopodobieństw batcha na klasy
         O = torch.matmul(targets_one_hot.t(), preds_soft)
 
-        # 4. Obliczenie macierzy oczekiwanej przy losowym trafnieniu (Expected matrix)
+        # 4. Obliczenie macierzy oczekiwanej (Expected matrix)
         hist_targets = targets_one_hot.sum(dim=0, keepdim=True)
         hist_preds = preds_soft.sum(dim=0, keepdim=True)
         E = torch.matmul(hist_targets.t(), hist_preds) / batch_size
@@ -44,11 +44,10 @@ class QuadraticWeightedKappaLoss(nn.Module):
         E = E / (E.sum() + self.epsilon)
 
         # 6. Wyznaczenie licznika i mianownika dla QWK
-        num = (self.w * O).sum()
-        den = (self.w * E).sum()
+        num = (w * O).sum()
+        den = (w * E).sum()
 
-        # 7. Wynik Loss: dążymy do Kappa = 1, więc minimalizujemy (1 - Kappa)
-        # Może przyjąć postać: num / (den + self.epsilon)
+        # 7. Wynik Loss
         loss = num / (den + self.epsilon)
 
         return loss
