@@ -15,6 +15,7 @@ from ml.concrete.model_provider import ModelProvider
 
 import os
 
+from ml.concrete.qwk_loss import QuadraticWeightedKappaLoss
 
 
 class RetinopathyMLEngine(MLEngine):
@@ -65,7 +66,7 @@ class RetinopathyMLEngine(MLEngine):
                 pin_memory=True
             )
 
-        criterion = FocalLoss(gamma=2.0)
+        criterion = QuadraticWeightedKappaLoss()
 
         optimizer = optim.AdamW(
             self.model.parameters(),

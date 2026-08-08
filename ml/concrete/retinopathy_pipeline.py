@@ -23,6 +23,7 @@ class RetinopathyPipeline(DataPipeline):
         ])
 
         eval_tf = T.Compose([
+            T.ToImage(),
             T.ToDtype(torch.float32, scale=True),
         ])
 
