@@ -102,7 +102,7 @@ class ModelProvider:
         for p in backbone.parameters():
             p.requires_grad = False
 
-        hidden = backbone.config.hidden_size
+        hidden = backbone.config.vision_config.hidden_size
 
         classifier = nn.Sequential(
             nn.LayerNorm(hidden),
