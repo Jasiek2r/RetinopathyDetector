@@ -1,6 +1,6 @@
 import timm
 from torch import nn
-from transformers import AutoModel
+from transformers import AutoModel, AutoModelForCausalLM
 
 
 
@@ -14,6 +14,18 @@ class DinoRetinopathyModel(nn.Module):
         outputs = self.backbone(pixel_values=x)
         cls_token = outputs.last_hidden_state[:, 0]
         return self.classifier(cls_token)
+
+
+class VLMEmbeddingClassifier(nn.Module):
+    def __init__(self, backbone, classifier):
+        super().__init__()
+        self.backbone = backbone
+        self.classifier = classifier
+
+    def forward(self, x):
+        outputs = self.backbone(x)
+        cls_features = outputs.last_hidden_state.mean(dim=1)
+        return self.classifier(cls_features)
 
 class RetFoundViT(nn.Module):
     def __init__(self, backbone, classifier):
@@ -78,3 +90,26 @@ class ModelProvider:
         )
 
         return RetFoundViT(backbone, classifier)
+
+    def create_vlm(self, num_classes=5):
+
+        model_id = "google/paligemma-3b-pt-448"
+        vlm_model = AutoModelForCausalLM.from_pretrained(model_id)
+
+        backbone = vlm_model.vision_tower
+
+        for p in backbone.parameters():
+            p.requires_grad = False
+
+        hidden = backbone.config.hidden_size
+
+        classifier = nn.Sequential(
+            nn.LayerNorm(hidden),
+            nn.Linear(hidden, 512),
+            nn.GELU(),
+            nn.Dropout(0.3),
+            nn.Linear(512, num_classes)
+        )
+
+        return VLMEmbeddingClassifier(backbone, classifier)
+
