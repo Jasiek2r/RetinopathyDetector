@@ -23,52 +23,8 @@ class VLMEmbeddingClassifier(nn.Module):
         self.classifier = classifier
 
     def forward(self, x):
-        import torch
-        import inspect
-
-        # Dynamiczne sprawdzenie wymogu grid_thw
-        forward_params = inspect.signature(self.backbone.forward).parameters
-
-        if "grid_thw" in forward_params:
-            batch_size, channels, height, width = x.shape
-
-            # Pobieramy parametry siatki z konfiguracji enkodera Qwen
-            config = getattr(self.backbone, "config", None)
-            patch_size = getattr(config, "patch_size", 14)
-            merge_size = getattr(config, "merge_size", 2)
-
-            # Oficjalna metoda matematyczna Qwen2.5-VL do wyliczania tokenów i grid_thw
-            # Uwzględnia ona wielkość patchy oraz wewnętrzne łączenie tokenów (merge_size)
-            grid_h = height // patch_size
-            grid_w = width // patch_size
-
-            # Spłaszczenie do bloków wymaganych przez NaViT w Qwen2.5-VL
-            grid_h = (grid_h // merge_size) * merge_size
-            grid_w = (grid_w // merge_size) * merge_size
-
-            # Budujemy oficjalny i bezpieczny tensor strukturalny dla całego batcha
-            grid_thw = torch.tensor([[1, grid_h, grid_w]], dtype=torch.long, device=x.device)
-            grid_thw = grid_thw.repeat(batch_size, 1)
-
-            # Przekazujemy przetestowany tensor do enkodera Qwen
-            features = self.backbone(x, grid_thw=grid_thw)
-
-            # Wyciągamy czysty tensor z osadzeniami
-            if hasattr(features, "last_hidden_state"):
-                features = features.last_hidden_state
-
-            # Dopasowanie spłaszczonej sekwencji tokenów do batcha i uśrednienie
-            if len(features.shape) == 2:
-                total_tokens, hidden_dim = features.shape
-                tokens_per_image = total_tokens // batch_size
-                features = features.view(batch_size, tokens_per_image, hidden_dim)
-
-            cls_features = features.mean(dim=1)
-        else:
-            # Ścieżka alternatywna (np. dla PaliGemma)
-            outputs = self.backbone(x)
-            cls_features = outputs.last_hidden_state.mean(dim=1)
-
+        outputs = self.backbone(pixel_values=x)
+        cls_features = outputs.last_hidden_state.mean(dim=1)
         return self.classifier(cls_features)
 
 
@@ -138,20 +94,11 @@ class ModelProvider:
         return RetFoundViT(backbone, classifier)
 
     def create_vlm(self, num_classes=5):
+        # Nowoczesny, otwarty model wizyjny bez żadnych licencjonowanych blokad
+        model_id = "google/siglip-base-patch16-224"
+        backbone = AutoModel.from_pretrained(model_id)
 
-        model_id = "Qwen/Qwen2.5-VL-3B-Instruct"
-        vlm_model = AutoModelForImageTextToText.from_pretrained(model_id, trust_remote_code=True)
-
-        # Poprawne pobieranie komponentu wizyjnego dla PaliGemma oraz Qwen2.5-VL
-        if hasattr(vlm_model, "model") and hasattr(vlm_model.model, "visual"):
-            backbone = vlm_model.model.visual  # Dla modelu Qwen2.5-VL (transformers v5)
-        elif hasattr(vlm_model, "visual"):
-            backbone = vlm_model.visual  # Alternatywna ścieżka dla Qwen
-        elif hasattr(vlm_model, "vision_tower"):
-            backbone = vlm_model.vision_tower  # Dla modelu PaliGemma
-        else:
-            raise AttributeError("Nie znaleziono komponentu wizyjnego w tym modelu!")
-
+        # Zamrożenie wag enkodera
         for p in backbone.parameters():
             p.requires_grad = False
 
