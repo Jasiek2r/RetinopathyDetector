@@ -1,6 +1,6 @@
 import timm
 from torch import nn
-from transformers import AutoModel, AutoModelForCausalLM
+from transformers import AutoModel, AutoModelForImageTextToText
 
 
 
@@ -94,7 +94,7 @@ class ModelProvider:
     def create_vlm(self, num_classes=5):
 
         model_id = "Qwen/Qwen2.5-VL-3B-Instruct"
-        vlm_model = AutoModelForCausalLM.from_pretrained(model_id)
+        vlm_model = AutoModelForImageTextToText.from_pretrained(model_id, trust_remote_code=True)
 
         backbone = vlm_model.vision_tower
 
