@@ -93,7 +93,7 @@ class ModelProvider:
 
     def create_vlm(self, num_classes=5):
 
-        model_id = "google/paligemma-3b-pt-448"
+        model_id = "Qwen/Qwen2.5-VL-3B-Instruct"
         vlm_model = AutoModelForCausalLM.from_pretrained(model_id)
 
         backbone = vlm_model.vision_tower

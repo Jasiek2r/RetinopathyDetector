@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="feat: implement vlm loading">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: use FocalLoss and VLM">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00093" summary="chore: decrease number of workers">
-      <option name="closed" value="true" />
-      <created>1782397727122</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1782397727122</updated>
     </task>
     <task id="LOCAL-00094" summary="chore: bring back the dino for another experiment">
       <option name="closed" value="true" />
@@ -566,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1791450381223</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="chore: use FocalLoss and VLM">
+      <option name="closed" value="true" />
+      <created>1791451128306</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1791451128306</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: do not use augumentation on val" />
     <MESSAGE value="chore: effnetb0" />
     <MESSAGE value="chore: convnext" />
     <MESSAGE value="chore: effnet" />
@@ -595,6 +593,7 @@
     <MESSAGE value="fix: toimage" />
     <MESSAGE value="fix: qwk loss fix" />
     <MESSAGE value="feat: implement vlm loading" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement vlm loading" />
+    <MESSAGE value="chore: use FocalLoss and VLM" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: use FocalLoss and VLM" />
   </component>
 </project>
