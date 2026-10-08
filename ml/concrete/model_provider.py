@@ -1,8 +1,6 @@
 import timm
-import torch
 from torch import nn
-from transformers import AutoModel, AutoModelForImageTextToText
-import inspect
+from transformers import AutoModel, SiglipVisionModel
 
 class DinoRetinopathyModel(nn.Module):
     def __init__(self, backbone, classifier):
@@ -94,15 +92,14 @@ class ModelProvider:
         return RetFoundViT(backbone, classifier)
 
     def create_vlm(self, num_classes=5):
-        # Nowoczesny, otwarty model wizyjny bez żadnych licencjonowanych blokad
         model_id = "google/siglip-base-patch16-224"
-        backbone = AutoModel.from_pretrained(model_id)
 
-        # Zamrożenie wag enkodera
+        backbone = SiglipVisionModel.from_pretrained(model_id)
+
         for p in backbone.parameters():
             p.requires_grad = False
 
-        hidden = backbone.config.vision_config.hidden_size
+        hidden = backbone.config.hidden_size
 
         classifier = nn.Sequential(
             nn.LayerNorm(hidden),
@@ -113,3 +110,4 @@ class ModelProvider:
         )
 
         return VLMEmbeddingClassifier(backbone, classifier)
+

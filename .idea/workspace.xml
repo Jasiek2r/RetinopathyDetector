@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: use google's siglip" />
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: config has vision_config, not hidden_size key">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00103" summary="chore: dino head-only">
-      <option name="closed" value="true" />
-      <created>1782666795027</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1782666795027</updated>
     </task>
     <task id="LOCAL-00104" summary="feat: RetFound">
       <option name="closed" value="true" />
@@ -563,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1791462072090</updated>
     </task>
-    <option name="localTasksCounter" value="152" />
+    <task id="LOCAL-00152" summary="fix: config has vision_config, not hidden_size key">
+      <option name="closed" value="true" />
+      <created>1791462383873</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1791462383873</updated>
+    </task>
+    <option name="localTasksCounter" value="153" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: use train dataset to build prototypes" />
     <MESSAGE value="fix: use agument" />
     <MESSAGE value="fix: remove crop" />
     <MESSAGE value="chore:convnext" />
@@ -592,6 +594,7 @@
     <MESSAGE value="fix: safer+ VLM version" />
     <MESSAGE value="fix: safer++ VLM version" />
     <MESSAGE value="fix: use google's siglip" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: use google's siglip" />
+    <MESSAGE value="fix: config has vision_config, not hidden_size key" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: config has vision_config, not hidden_size key" />
   </component>
 </project>
