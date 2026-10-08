@@ -3,7 +3,6 @@ from torch import nn
 from transformers import AutoModel, AutoModelForImageTextToText
 
 
-
 class DinoRetinopathyModel(nn.Module):
     def __init__(self, backbone, classifier):
         super().__init__()
@@ -27,6 +26,7 @@ class VLMEmbeddingClassifier(nn.Module):
         cls_features = outputs.last_hidden_state.mean(dim=1)
         return self.classifier(cls_features)
 
+
 class RetFoundViT(nn.Module):
     def __init__(self, backbone, classifier):
         super().__init__()
@@ -37,6 +37,7 @@ class RetFoundViT(nn.Module):
         outputs = self.backbone(pixel_values=x)
         cls = outputs.last_hidden_state.mean(dim=1)
         return self.classifier(cls)
+
 
 class ModelProvider:
     def create_conv_model(self, num_classes=5):
@@ -96,9 +97,11 @@ class ModelProvider:
         model_id = "Qwen/Qwen2.5-VL-3B-Instruct"
         vlm_model = AutoModelForImageTextToText.from_pretrained(model_id, trust_remote_code=True)
 
-        # Pobieranie komponentu wizyjnego w zależności od załadowanego modelu
-        if hasattr(vlm_model, "visual"):
-            backbone = vlm_model.visual  # Dla modelu Qwen2.5-VL
+        # Poprawne pobieranie komponentu wizyjnego dla PaliGemma oraz Qwen2.5-VL
+        if hasattr(vlm_model, "model") and hasattr(vlm_model.model, "visual"):
+            backbone = vlm_model.model.visual  # Dla modelu Qwen2.5-VL (transformers v5)
+        elif hasattr(vlm_model, "visual"):
+            backbone = vlm_model.visual  # Alternatywna ścieżka dla Qwen
         elif hasattr(vlm_model, "vision_tower"):
             backbone = vlm_model.vision_tower  # Dla modelu PaliGemma
         else:
@@ -118,4 +121,3 @@ class ModelProvider:
         )
 
         return VLMEmbeddingClassifier(backbone, classifier)
-
