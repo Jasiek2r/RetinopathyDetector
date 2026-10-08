@@ -96,7 +96,13 @@ class ModelProvider:
         model_id = "Qwen/Qwen2.5-VL-3B-Instruct"
         vlm_model = AutoModelForImageTextToText.from_pretrained(model_id, trust_remote_code=True)
 
-        backbone = vlm_model.vision_tower
+        # Pobieranie komponentu wizyjnego w zależności od załadowanego modelu
+        if hasattr(vlm_model, "visual"):
+            backbone = vlm_model.visual  # Dla modelu Qwen2.5-VL
+        elif hasattr(vlm_model, "vision_tower"):
+            backbone = vlm_model.vision_tower  # Dla modelu PaliGemma
+        else:
+            raise AttributeError("Nie znaleziono komponentu wizyjnego w tym modelu!")
 
         for p in backbone.parameters():
             p.requires_grad = False
