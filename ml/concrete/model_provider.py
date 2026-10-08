@@ -22,8 +22,29 @@ class VLMEmbeddingClassifier(nn.Module):
         self.classifier = classifier
 
     def forward(self, x):
-        outputs = self.backbone(x)
-        cls_features = outputs.last_hidden_state.mean(dim=1)
+        import torch
+
+        if "Qwen2_5_VL" in type(self.backbone).__name__:
+            batch_size, channels, height, width = x.shape
+
+            patch_size = 14
+            grid_h = height // patch_size
+            grid_w = width // patch_size
+
+            grid_thw = torch.tensor([[1, grid_h, grid_w]], dtype=torch.long, device=x.device)
+            grid_thw = grid_thw.repeat(batch_size, 1)
+
+            features = self.backbone(x, grid_thw=grid_thw)
+
+            total_tokens = features.shape[0]
+            tokens_per_image = total_tokens // batch_size
+            features = features.view(batch_size, tokens_per_image, -1)
+
+            cls_features = features.mean(dim=1)
+        else:
+            outputs = self.backbone(x)
+            cls_features = outputs.last_hidden_state.mean(dim=1)
+
         return self.classifier(cls_features)
 
 
