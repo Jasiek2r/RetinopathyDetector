@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: safer VLM version">
-      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
-    </list>
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: safer+ VLM version" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -172,14 +170,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00100" summary="chore: set up file saving">
-      <option name="closed" value="true" />
-      <created>1782559216714</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1782559216714</updated>
     </task>
     <task id="LOCAL-00101" summary="feat: more agressive augumentation">
       <option name="closed" value="true" />
@@ -565,11 +555,18 @@
       <option name="project" value="LOCAL" />
       <updated>1791461738499</updated>
     </task>
-    <option name="localTasksCounter" value="149" />
+    <task id="LOCAL-00149" summary="fix: safer+ VLM version">
+      <option name="closed" value="true" />
+      <created>1791461829753</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1791461829753</updated>
+    </task>
+    <option name="localTasksCounter" value="150" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: fix the dependency pipeline" />
     <MESSAGE value="chore: 512x512" />
     <MESSAGE value="feat: increase augumentation power" />
     <MESSAGE value="fix: use train dataset to build prototypes" />
@@ -594,6 +591,7 @@
     <MESSAGE value="chore: safe backbone extraction" />
     <MESSAGE value="fix: implement grid_thw in VLM classifier" />
     <MESSAGE value="fix: safer VLM version" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: safer VLM version" />
+    <MESSAGE value="fix: safer+ VLM version" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: safer+ VLM version" />
   </component>
 </project>

@@ -22,39 +22,42 @@ class VLMEmbeddingClassifier(nn.Module):
         self.backbone = backbone
         self.classifier = classifier
 
-        # Inicjalizujemy oficjalny procesor dedykowany dla Qwen2.5-VL
-        from transformers import AutoProcessor
-        self.processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-3B-Instruct")
-
     def forward(self, x):
         import torch
         import inspect
 
-        # Sprawdzamy dynamicznie, czy to model Qwen (wymagający grid_thw)
+        # Dynamiczne sprawdzenie wymogu grid_thw
         forward_params = inspect.signature(self.backbone.forward).parameters
 
         if "grid_thw" in forward_params:
-            # Ponieważ 'x' z DataLoadera to surowy tensor, konwertujemy go z powrotem
-            # na format akceptowany przez procesor Hugging Face.
-            # Procesor wymaga listy obrazów (np. jako tensory lub tablice numpy)
-            images_list = [img for img in x]
+            batch_size, channels, height, width = x.shape
 
-            # Oficjalne i bezbłędne przygotowanie danych przez AutoProcessor
-            inputs = self.processor(images=images_list, return_tensors="pt")
+            # Pobieramy parametry siatki z konfiguracji enkodera Qwen
+            config = getattr(self.backbone, "config", None)
+            patch_size = getattr(config, "patch_size", 14)
+            merge_size = getattr(config, "merge_size", 2)
 
-            # Przenosimy wygenerowane dane na odpowiednie GPU (takie samo jak model)
-            pixel_values = inputs["pixel_values"].to(x.device)
-            grid_thw = inputs["grid_thw"].to(x.device)
+            # Oficjalna metoda matematyczna Qwen2.5-VL do wyliczania tokenów i grid_thw
+            # Uwzględnia ona wielkość patchy oraz wewnętrzne łączenie tokenów (merge_size)
+            grid_h = height // patch_size
+            grid_w = width // patch_size
 
-            # Pobranie osadzeń wizyjnych z Qwen przy użyciu oficjalnych parametrów
-            features = self.backbone(pixel_values, grid_thw=grid_thw)
+            # Spłaszczenie do bloków wymaganych przez NaViT w Qwen2.5-VL
+            grid_h = (grid_h // merge_size) * merge_size
+            grid_w = (grid_w // merge_size) * merge_size
 
-            # Jeśli wyjście to struktura Hugging Face, wyciągamy czysty tensor
+            # Budujemy oficjalny i bezpieczny tensor strukturalny dla całego batcha
+            grid_thw = torch.tensor([[1, grid_h, grid_w]], dtype=torch.long, device=x.device)
+            grid_thw = grid_thw.repeat(batch_size, 1)
+
+            # Przekazujemy przetestowany tensor do enkodera Qwen
+            features = self.backbone(x, grid_thw=grid_thw)
+
+            # Wyciągamy czysty tensor z osadzeniami
             if hasattr(features, "last_hidden_state"):
                 features = features.last_hidden_state
 
-            # Dopasowanie spłaszczonego batcha do klasyfikatora
-            batch_size = x.shape[0]
+            # Dopasowanie spłaszczonej sekwencji tokenów do batcha i uśrednienie
             if len(features.shape) == 2:
                 total_tokens, hidden_dim = features.shape
                 tokens_per_image = total_tokens // batch_size
@@ -62,7 +65,7 @@ class VLMEmbeddingClassifier(nn.Module):
 
             cls_features = features.mean(dim=1)
         else:
-            # Ścieżka dla standardowych modeli (np. PaliGemma)
+            # Ścieżka alternatywna (np. dla PaliGemma)
             outputs = self.backbone(x)
             cls_features = outputs.last_hidden_state.mean(dim=1)
 
