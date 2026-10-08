@@ -22,27 +22,39 @@ class VLMEmbeddingClassifier(nn.Module):
         self.backbone = backbone
         self.classifier = classifier
 
-    def forward(self, x):
+        # Inicjalizujemy oficjalny procesor dedykowany dla Qwen2.5-VL
+        from transformers import AutoProcessor
+        self.processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-3B-Instruct")
 
+    def forward(self, x):
+        import torch
+        import inspect
+
+        # Sprawdzamy dynamicznie, czy to model Qwen (wymagający grid_thw)
         forward_params = inspect.signature(self.backbone.forward).parameters
 
         if "grid_thw" in forward_params:
-            batch_size, channels, height, width = x.shape
+            # Ponieważ 'x' z DataLoadera to surowy tensor, konwertujemy go z powrotem
+            # na format akceptowany przez procesor Hugging Face.
+            # Procesor wymaga listy obrazów (np. jako tensory lub tablice numpy)
+            images_list = [img for img in x]
 
-            patch_size = 14
-            grid_h = height // patch_size
-            grid_w = width // patch_size
+            # Oficjalne i bezbłędne przygotowanie danych przez AutoProcessor
+            inputs = self.processor(images=images_list, return_tensors="pt")
 
-            grid_thw = torch.tensor([[1, grid_h, grid_w]], dtype=torch.long, device=x.device)
-            grid_thw = grid_thw.repeat(batch_size, 1)
+            # Przenosimy wygenerowane dane na odpowiednie GPU (takie samo jak model)
+            pixel_values = inputs["pixel_values"].to(x.device)
+            grid_thw = inputs["grid_thw"].to(x.device)
 
-            features = self.backbone(x, grid_thw=grid_thw)
+            # Pobranie osadzeń wizyjnych z Qwen przy użyciu oficjalnych parametrów
+            features = self.backbone(pixel_values, grid_thw=grid_thw)
 
-            if isinstance(features, tuple):
-                features = features[0]
-            elif hasattr(features, "last_hidden_state"):
+            # Jeśli wyjście to struktura Hugging Face, wyciągamy czysty tensor
+            if hasattr(features, "last_hidden_state"):
                 features = features.last_hidden_state
 
+            # Dopasowanie spłaszczonego batcha do klasyfikatora
+            batch_size = x.shape[0]
             if len(features.shape) == 2:
                 total_tokens, hidden_dim = features.shape
                 tokens_per_image = total_tokens // batch_size
@@ -50,6 +62,7 @@ class VLMEmbeddingClassifier(nn.Module):
 
             cls_features = features.mean(dim=1)
         else:
+            # Ścieżka dla standardowych modeli (np. PaliGemma)
             outputs = self.backbone(x)
             cls_features = outputs.last_hidden_state.mean(dim=1)
 
