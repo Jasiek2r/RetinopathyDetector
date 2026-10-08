@@ -15,7 +15,6 @@ from ml.concrete.model_provider import ModelProvider
 
 import os
 
-from ml.concrete.qwk_loss import QuadraticWeightedKappaLoss
 
 
 class RetinopathyMLEngine(MLEngine):
@@ -24,7 +23,7 @@ class RetinopathyMLEngine(MLEngine):
     def __init__(self, provider: ModelProvider, device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         #self.model = provider.create_conv_model().to(self.device)
-        self.model = provider.create_model().to(self.device)
+        self.model = provider.create_vlm().to(self.device)
         #self.model = provider.create_retfound().to(self.device)
 
         # precompute normalization (IMPORTANT)
@@ -66,7 +65,7 @@ class RetinopathyMLEngine(MLEngine):
                 pin_memory=True
             )
 
-        criterion = QuadraticWeightedKappaLoss()
+        criterion = FocalLoss()
 
         optimizer = optim.AdamW(
             self.model.parameters(),
