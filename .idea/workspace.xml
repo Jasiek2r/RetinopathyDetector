@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: safe backbone extraction">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: implement grid_thw in VLM classifier">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
     </list>
@@ -173,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00098" summary="chore: optimize slightly loading in full eval">
-      <option name="closed" value="true" />
-      <created>1782558606687</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1782558606687</updated>
     </task>
     <task id="LOCAL-00099" summary="fix: move to gpu">
       <option name="closed" value="true" />
@@ -566,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1791461261784</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="fix: implement grid_thw in VLM classifier">
+      <option name="closed" value="true" />
+      <created>1791461599162</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1791461599162</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: dino head only" />
     <MESSAGE value="feat: zero shot on DINO" />
     <MESSAGE value="fix: fix the dependency pipeline" />
     <MESSAGE value="chore: 512x512" />
@@ -595,6 +594,7 @@
     <MESSAGE value="chore: switch to Qwen model" />
     <MESSAGE value="chore: use automodelforimagetexttotext" />
     <MESSAGE value="chore: safe backbone extraction" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: safe backbone extraction" />
+    <MESSAGE value="fix: implement grid_thw in VLM classifier" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: implement grid_thw in VLM classifier" />
   </component>
 </project>

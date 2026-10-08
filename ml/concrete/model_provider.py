@@ -1,7 +1,8 @@
 import timm
+import torch
 from torch import nn
 from transformers import AutoModel, AutoModelForImageTextToText
-
+import inspect
 
 class DinoRetinopathyModel(nn.Module):
     def __init__(self, backbone, classifier):
@@ -22,9 +23,10 @@ class VLMEmbeddingClassifier(nn.Module):
         self.classifier = classifier
 
     def forward(self, x):
-        import torch
 
-        if "Qwen2_5_VL" in type(self.backbone).__name__:
+        forward_params = inspect.signature(self.backbone.forward).parameters
+
+        if "grid_thw" in forward_params:
             batch_size, channels, height, width = x.shape
 
             patch_size = 14
@@ -36,9 +38,15 @@ class VLMEmbeddingClassifier(nn.Module):
 
             features = self.backbone(x, grid_thw=grid_thw)
 
-            total_tokens = features.shape[0]
-            tokens_per_image = total_tokens // batch_size
-            features = features.view(batch_size, tokens_per_image, -1)
+            if isinstance(features, tuple):
+                features = features[0]
+            elif hasattr(features, "last_hidden_state"):
+                features = features.last_hidden_state
+
+            if len(features.shape) == 2:
+                total_tokens, hidden_dim = features.shape
+                tokens_per_image = total_tokens // batch_size
+                features = features.view(batch_size, tokens_per_image, hidden_dim)
 
             cls_features = features.mean(dim=1)
         else:
