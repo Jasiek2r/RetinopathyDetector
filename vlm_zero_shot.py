@@ -6,15 +6,12 @@ import torch
 from openai import OpenAI
 from tqdm import tqdm
 from sklearn.metrics import accuracy_score, cohen_kappa_score, confusion_matrix
-import numpy as np
-from ml.concrete.retinopathy_dataset import RetinopathyDataset
 from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
 import torchvision.transforms as T
 
-# Inicjalizacja klienta OpenAI wskazującego na lokalny serwer vLLM (port 8000)
 client = OpenAI(
     base_url="http://localhost:8000/v1",
-    api_key="not-needed"  # vLLM tego nie wymaga
+    api_key="not-needed"
 )
 
 
@@ -58,7 +55,7 @@ def evaluate_zero_shot(test_dataset):
                         ]
                     }
                 ],
-                max_tokens=5,
+                max_tokens=3,
                 temperature=0.0
             )
 
