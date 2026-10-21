@@ -67,8 +67,6 @@ def evaluate_zero_shot(test_dataset):
             else:
                 pred = -1
 
-            print(f"Extracted Final Grade: {pred} | Raw end: {answer_text[-40:]}")
-
         except Exception as e:
             print(f"Błąd inferencji: {e}")
             pred = -1
