@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: tokens to 128">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change the model to Qwen Instruct">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vlm_zero_shot.py" beforeDir="false" afterPath="$PROJECT_DIR$/vlm_zero_shot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00119" summary="fix: fix the dependency pipeline">
-      <option name="closed" value="true" />
-      <created>1783359563373</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1783359563373</updated>
     </task>
     <task id="LOCAL-00120" summary="chore: 512x512">
       <option name="closed" value="true" />
@@ -565,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1792591487758</updated>
     </task>
-    <option name="localTasksCounter" value="168" />
+    <task id="LOCAL-00168" summary="chore: change the model to Qwen Instruct">
+      <option name="closed" value="true" />
+      <created>1792591638132</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1792591638132</updated>
+    </task>
+    <option name="localTasksCounter" value="169" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: implement vlm loading" />
     <MESSAGE value="chore: use FocalLoss and VLM" />
     <MESSAGE value="chore: switch to Qwen model" />
     <MESSAGE value="chore: use automodelforimagetexttotext" />
@@ -594,6 +594,7 @@
     <MESSAGE value="fix: try to force the model to output just a number" />
     <MESSAGE value="fix: increase the number of tokens" />
     <MESSAGE value="fix: tokens to 128" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: tokens to 128" />
+    <MESSAGE value="chore: change the model to Qwen Instruct" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: change the model to Qwen Instruct" />
   </component>
 </project>

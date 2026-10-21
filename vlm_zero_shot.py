@@ -22,7 +22,15 @@ def evaluate_zero_shot(test_dataset):
     y_true = []
     y_pred = []
 
-    prompt = "Classify this retinal image into one of the diabetic retinopathy grades from 0 to 4. Return ONLY the integer digit."
+    prompt = (
+        "Classify this retinal image into diabetic retinopathy grades:\n"
+        "0: No DR\n"
+        "1: Mild\n"
+        "2: Moderate\n"
+        "3: Severe\n"
+        "4: Proliferative\n"
+        "Return ONLY the single digit number (0, 1, 2, 3, or 4)."
+    )
 
     to_pil = T.ToPILImage()
 
@@ -46,7 +54,7 @@ def evaluate_zero_shot(test_dataset):
                         "content": [
                             {"type": "image_url", "image_url": {"url": image_url}},
                             {"type": "text",
-                             "text": "Classify this diabetic retinopathy image from 0 to 4. Output ONLY the single digit number:"}
+                             "text": prompt}
                         ]
                     }
                 ],
@@ -56,8 +64,6 @@ def evaluate_zero_shot(test_dataset):
 
             answer_text = response.choices[0].message.content.strip()
 
-            # Qwen3.5 najpierw myśli, więc wynik końcowy jest na końcu tekstu.
-            # Szukamy cyfr od 0 do 4 i bierzemy OSTATNIĄ wystąpioną w tekście.
             numbers = re.findall(r'[0-4]', answer_text)
             if numbers:
                 pred = int(numbers[-1])  # Ostatnia cyfra to zazwyczaj ostateczny werdykt
