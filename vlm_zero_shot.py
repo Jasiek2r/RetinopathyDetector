@@ -35,9 +35,6 @@ def evaluate_zero_shot(test_dataset):
         img_pil.save(buffered, format="JPEG")
         img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
         image_url = f"data:image/jpeg;base64,{img_base64}"
-
-
-
         try:
             response = client.chat.completions.create(
                 model="Qwen/Qwen3.5-4B",
@@ -49,8 +46,8 @@ def evaluate_zero_shot(test_dataset):
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": prompt},
-                            {"type": "image_url", "image_url": {"url": image_url}}
+                            {"type": "image_url", "image_url": {"url": image_url}},
+                            {"type": "text", "text": "Classify this retinopathy image. Output only the digit (0-4):"}
                         ]
                     }
                 ],
@@ -60,13 +57,10 @@ def evaluate_zero_shot(test_dataset):
 
             answer_text = response.choices[0].message.content.strip()
 
-
-
-            # Bezpieczne wyciąganie cyfry z dłuższego tekstu modelu
             import re
             numbers = re.findall(r'\d+', answer_text)
             if numbers:
-                pred = int(numbers[0])  # Bierze pierwszą napotkaną cyfrę (np. 0-4)
+                pred = int(numbers[0])
             else:
                 pred = -1
 
