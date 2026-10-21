@@ -122,7 +122,7 @@ class RetinopathyMLEngine(MLEngine):
 
                     optimizer.zero_grad()
 
-                    with torch.amp.autocast(device_type=self.device_type, dtype=self.dtype, enabled=use_amp):
+                    with torch.amp.autocast(device_type=self.device_type, dtype=self.dtype):
                         outputs = self.model(images)
                         loss = criterion(outputs, labels)
 
@@ -180,7 +180,7 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = (images - self.mean) / self.std
 
-                with torch.amp.autocast(device_type=self.device_type, dtype=self.dtype, enabled=use_amp):
+                with torch.amp.autocast(device_type=self.device_type, dtype=self.dtype):
                     outputs = self.model(images)
                 preds = torch.argmax(outputs, dim=1)
 
