@@ -23,8 +23,8 @@ class RetinopathyMLEngine(MLEngine):
 
     def __init__(self, provider: ModelProvider, device=None, precision="fp16"):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        #self.model = provider.create_conv_model().to(self.device)
-        self.model = provider.create_model().to(self.device)
+        self.model = provider.create_conv_model().to(self.device)
+        #self.model = provider.create_model().to(self.device)
         #self.model = provider.create_retfound().to(self.device)
 
         # Konfiguracja precyzji (fp16, bf16 lub None/fp32)
