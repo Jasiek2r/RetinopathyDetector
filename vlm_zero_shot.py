@@ -40,6 +40,8 @@ def evaluate_zero_shot(test_dataset):
         img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
         image_url = f"data:image/jpeg;base64,{img_base64}"
 
+        print(f"Model raw output: {answer_text} | Extracted: {pred}")
+
         try:
             response = client.chat.completions.create(
                 model="Qwen/Qwen3.5-4B",
