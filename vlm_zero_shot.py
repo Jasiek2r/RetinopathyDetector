@@ -95,7 +95,7 @@ pipeline = RetinopathyPipeline()
 
 _, _, test_dataset = pipeline.run(
     dir_path="./augmented_resized_V2",
-    max_images=100
+    max_images=None
 )
 
 evaluate_zero_shot(test_dataset)
