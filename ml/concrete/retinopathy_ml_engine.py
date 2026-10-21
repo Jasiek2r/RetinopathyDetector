@@ -21,11 +21,27 @@ from ml.concrete.qwk_loss import QuadraticWeightedKappaLoss
 class RetinopathyMLEngine(MLEngine):
 
 
-    def __init__(self, provider: ModelProvider, device=None):
+    def __init__(self, provider: ModelProvider, device=None, precision="fp16"):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         #self.model = provider.create_conv_model().to(self.device)
         self.model = provider.create_model().to(self.device)
         #self.model = provider.create_retfound().to(self.device)
+
+        # Konfiguracja precyzji (fp16, bf16 lub None/fp32)
+        self.precision = precision.lower() if precision else None
+
+        if self.precision in ["fp16", "float16"]:
+            self.dtype = torch.float16
+            self.device_type = "cuda" if "cuda" in str(self.device) else "cpu"
+            self.scaler = torch.amp.GradScaler(self.device_type)
+        elif self.precision in ["bf16", "bfloat16"]:
+            self.dtype = torch.bfloat16
+            self.device_type = "cuda" if "cuda" in str(self.device) else "cpu"
+            self.scaler = None  # bfloat16 nie wymaga skalera
+        else:
+            self.dtype = torch.float32
+            self.device_type = "cpu"
+            self.scaler = None
 
         # precompute normalization (IMPORTANT)
         self.mean = torch.tensor([0.485, 0.456, 0.406], device=self.device)[None, :, None, None]
@@ -106,11 +122,17 @@ class RetinopathyMLEngine(MLEngine):
 
                     optimizer.zero_grad()
 
-                    outputs = self.model(images)
-                    loss = criterion(outputs, labels)
+                    with torch.amp.autocast(device_type=self.device_type, dtype=self.dtype, enabled=use_amp):
+                        outputs = self.model(images)
+                        loss = criterion(outputs, labels)
 
-                    loss.backward()
-                    optimizer.step()
+                    if self.scaler is not None:
+                        self.scaler.scale(loss).backward()
+                        self.scaler.step(optimizer)
+                        self.scaler.update()
+                    else:
+                        loss.backward()
+                        optimizer.step()
 
                     running_loss += loss.item()
 
@@ -158,7 +180,8 @@ class RetinopathyMLEngine(MLEngine):
 
                 images = (images - self.mean) / self.std
 
-                outputs = self.model(images)
+                with torch.amp.autocast(device_type=self.device_type, dtype=self.dtype, enabled=use_amp):
+                    outputs = self.model(images)
                 preds = torch.argmax(outputs, dim=1)
 
                 all_preds.append(preds.cpu().numpy())
