@@ -67,8 +67,6 @@ def evaluate_zero_shot(test_dataset):
             else:
                 pred = -1
 
-            print(answer_text, pred)
-
         except Exception as e:
             print(f"Błąd inferencji: {e}")
             pred = -1
