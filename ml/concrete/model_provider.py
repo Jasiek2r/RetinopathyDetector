@@ -1,6 +1,7 @@
 import timm
 from torch import nn
-from transformers import AutoModel, SiglipVisionModel
+from transformers import AutoModel, AutoModelForConditionalGeneration
+
 
 class DinoRetinopathyModel(nn.Module):
     def __init__(self, backbone, classifier):
@@ -14,15 +15,17 @@ class DinoRetinopathyModel(nn.Module):
         return self.classifier(cls_token)
 
 
-class VLMEmbeddingClassifier(nn.Module):
+class QwenVLMEmbeddingClassifier(nn.Module):
     def __init__(self, backbone, classifier):
         super().__init__()
         self.backbone = backbone
         self.classifier = classifier
 
-    def forward(self, x):
-        outputs = self.backbone(pixel_values=x)
-        cls_features = outputs.last_hidden_state.mean(dim=1)
+    def forward(self, pixel_values):
+        outputs = self.backbone(pixel_values=pixel_values, output_hidden_states=True)
+        hidden_states = outputs.hidden_states[-1] if hasattr(outputs, "hidden_states") else outputs.last_hidden_state
+        cls_features = hidden_states.mean(dim=1)
+
         return self.classifier(cls_features)
 
 
@@ -92,14 +95,19 @@ class ModelProvider:
         return RetFoundViT(backbone, classifier)
 
     def create_vlm(self, num_classes=5):
-        model_id = "google/siglip-base-patch16-224"
+        model_id = "Qwen/Qwen3.5-4B"  # lub odpowiednik Qwen-VL
 
-        backbone = SiglipVisionModel.from_pretrained(model_id)
+        # Ładowanie modelu Qwen wspierającego wizję
+        backbone = AutoModelForConditionalGeneration.from_pretrained(
+            model_id,
+            torch_dtype="auto",
+            device_map="auto"
+        )
 
         for p in backbone.parameters():
             p.requires_grad = False
 
-        hidden = backbone.config.hidden_size
+        hidden = backbone.config.hidden_size if hasattr(backbone.config, "hidden_size") else backbone.config.text_config.hidden_size
 
         classifier = nn.Sequential(
             nn.LayerNorm(hidden),
@@ -109,5 +117,4 @@ class ModelProvider:
             nn.Linear(512, num_classes)
         )
 
-        return VLMEmbeddingClassifier(backbone, classifier)
-
+        return QwenVLMEmbeddingClassifier(backbone, classifier)
