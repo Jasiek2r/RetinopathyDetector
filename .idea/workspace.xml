@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: toimage">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: increase batch size to 64">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="szum-overfit-split1" />
+        <entry key="$PROJECT_DIR$" value="dlcv-master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -154,6 +155,7 @@
       <list>
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -172,14 +174,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00091" summary="chore: set up file path to model_weights.pth">
-      <option name="closed" value="true" />
-      <created>1782290780345</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1782290780345</updated>
     </task>
     <task id="LOCAL-00092" summary="chore: train on efficientnet-b0">
       <option name="closed" value="true" />
@@ -565,11 +559,18 @@
       <option name="project" value="LOCAL" />
       <updated>1786198442787</updated>
     </task>
-    <option name="localTasksCounter" value="140" />
+    <task id="LOCAL-00140" summary="chore: increase batch size to 64">
+      <option name="closed" value="true" />
+      <created>1792593424680</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1792593424680</updated>
+    </task>
+    <option name="localTasksCounter" value="141" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: inference for dino" />
     <MESSAGE value="chore: dino with full tuning" />
     <MESSAGE value="chore: do not use augumentation on val" />
     <MESSAGE value="chore: effnetb0" />
@@ -594,6 +595,7 @@
     <MESSAGE value="chore: dino inference" />
     <MESSAGE value="feat: qwk_loss" />
     <MESSAGE value="fix: toimage" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: toimage" />
+    <MESSAGE value="chore: increase batch size to 64" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: increase batch size to 64" />
   </component>
 </project>

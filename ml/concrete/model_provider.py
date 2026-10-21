@@ -2,8 +2,6 @@ import timm
 from torch import nn
 from transformers import AutoModel
 
-
-
 class DinoRetinopathyModel(nn.Module):
     def __init__(self, backbone, classifier):
         super().__init__()
