@@ -49,6 +49,13 @@ class ClassifierService:
             test_dataset=test_dataset
         )
 
+    def evaluate_with_uncertainty(self, dir_path: str):
+        _, _, test_dataset = self.__pipeline__.run(
+            dir_path=dir_path,
+            max_images=self.sample_limit
+        )
+        self.__engine__.evaluate_with_uncertainty(test_dataset)
+
     def zero_shot(self, dir_path: str):
         train_dataset, _, test_dataset = self.__pipeline__.run(
             dir_path=dir_path,

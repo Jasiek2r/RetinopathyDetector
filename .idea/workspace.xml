@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: edit the model provider">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: remove unnecessary flags">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/retinopathy_application.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/retinopathy_application.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/abstractions/ml_engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/retinopathy_ml_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/classifier_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/classifier_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,22 +177,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00093" summary="chore: decrease number of workers">
-      <option name="closed" value="true" />
-      <created>1782397727122</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1782397727122</updated>
-    </task>
-    <task id="LOCAL-00094" summary="chore: bring back the dino for another experiment">
-      <option name="closed" value="true" />
-      <created>1782547919477</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1782547919477</updated>
     </task>
     <task id="LOCAL-00095" summary="chore: try convnext large">
       <option name="closed" value="true" />
@@ -567,12 +554,26 @@
       <option name="project" value="LOCAL" />
       <updated>1792593589125</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="chore: fp16 training">
+      <option name="closed" value="true" />
+      <created>1792594049855</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1792594049855</updated>
+    </task>
+    <task id="LOCAL-00143" summary="fix: remove unnecessary flags">
+      <option name="closed" value="true" />
+      <created>1792594145583</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1792594145583</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: do not use augumentation on val" />
-    <MESSAGE value="chore: effnetb0" />
     <MESSAGE value="chore: convnext" />
     <MESSAGE value="chore: effnet" />
     <MESSAGE value="chore: dino head only" />
@@ -596,6 +597,8 @@
     <MESSAGE value="fix: toimage" />
     <MESSAGE value="chore: increase batch size to 64" />
     <MESSAGE value="chore: edit the model provider" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: edit the model provider" />
+    <MESSAGE value="chore: fp16 training" />
+    <MESSAGE value="fix: remove unnecessary flags" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: remove unnecessary flags" />
   </component>
 </project>

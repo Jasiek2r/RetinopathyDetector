@@ -332,3 +332,94 @@ class RetinopathyMLEngine(MLEngine):
             np.savetxt(out_path, cm, fmt="%d")
 
             print(f"[INFO] Saved confusion matrix: {out_path}")
+
+    def evaluate_with_uncertainty(self, dataset, batch_size=32, num_tta_steps=5,
+                                  coverage_steps=[1.0, 0.9, 0.8, 0.7, 0.6]):
+        """
+        Eksperyment z kwantyfikacją niepewności (Selective Classification / Risk-Coverage).
+        Odfiltrowuje najbardziej niepewne predykcje i sprawdza wzrost Accuracy.
+        """
+        loader = DataLoader(
+            dataset,
+            batch_size=batch_size,
+            shuffle=False,
+            num_workers=4,
+            pin_memory=True
+        )
+
+        self.model.eval()
+        all_preds = []
+        all_labels = []
+        all_uncertainties = []
+
+        print("\n[INFO] Rozpoczynam ewaluację z Test-Time Augmentation (TTA) i niepewnością...")
+
+        with torch.no_grad():
+            for images, labels in tqdm(loader, desc="Uncertainty Eval", ncols=120):
+                images = images.to(self.device, non_blocking=True)
+                labels = labels.to(self.device, non_blocking=True)
+                batch_size_curr = images.size(0)
+                num_classes = 5  # Liczba klas w retinopatii (0-4)
+
+                # Zbiornik na wyniki z wariantów TTA
+                all_probs = torch.zeros(num_tta_steps, batch_size_curr, num_classes, device=self.device)
+
+                for i in range(num_tta_steps):
+                    x = images.clone()
+                    if i % 2 == 1:
+                        x = torch.flip(x, dims=[-1])  # Prosta augmentacja TTA (flip)
+
+                    x = torch.nn.functional.interpolate(x, size=(224, 224), mode="bilinear", align_corners=False)
+                    x = (x - self.mean) / self.std
+
+                    with torch.amp.autocast(device_type=self.device_type, dtype=self.dtype):
+                        logits = self.model(x)
+                    all_probs[i] = torch.softmax(logits, dim=1)
+
+                # Średnie prawdopodobieństwa z TTA
+                mean_probs = all_probs.mean(dim=0)
+
+                # Obliczenie entropii predykcyjnej (miara niepewności)
+                eps = 1e-8
+                entropy = -torch.sum(mean_probs * torch.log(mean_probs + eps), dim=1)
+
+                preds = torch.argmax(mean_probs, dim=1)
+
+                all_preds.extend(preds.cpu().numpy())
+                all_labels.extend(labels.cpu().numpy())
+                all_uncertainties.extend(entropy.cpu().numpy())
+
+        # Konwersja do numpy
+        y_true = np.array(all_labels)
+        y_pred = np.array(all_preds)
+        uncertainties = np.array(all_uncertainties)
+
+        os.makedirs("evaluation_results", exist_ok=True)
+        results_path = "evaluation_results/risk_coverage_analysis.txt"
+
+        print("\n=== WYNIKI ANALIZY RYZYKA-POKRYCIA (RISK-COVERAGE) ===")
+        with open(results_path, "w") as f:
+            f.write("=== Risk-Coverage Analysis (Uncertainty Estimation) ===\n")
+
+            for coverage in coverage_steps:
+                # Wybieramy próg niepewności dla danego poziomu pokrycia
+                # np. coverage=0.9 oznacza, że bierzemy 90% najpewniejszych próbek
+                k = int(len(uncertainties) * coverage)
+                if k == 0:
+                    continue
+
+                # Sortujemy próbki rosnąco według niepewności (najpewnieje na początku)
+                sorted_idx = np.argsort(uncertainties)
+                selected_idx = sorted_idx[:k]
+
+                sub_true = y_true[selected_idx]
+                sub_pred = y_pred[selected_idx]
+
+                acc = accuracy_score(sub_true, sub_pred) * 100
+                qwk = cohen_kappa_score(sub_true, sub_pred, weights='quadratic')
+
+                line = f"Pokrycie zbioru: {int(coverage * 100)}% | Liczba próbek: {k}/{len(y_true)} | Accuracy: {acc:.2f}% | QWK: {qwk:.4f}"
+                print(line)
+                f.write(line + "\n")
+
+        print(f"\n[INFO] Zapisano raport z niepewnością do: {results_path}")
