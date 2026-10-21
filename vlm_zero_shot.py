@@ -53,7 +53,7 @@ def evaluate_zero_shot(test_dataset):
                         ]
                     }
                 ],
-                max_tokens=512,  # Dajemy modelowi przestrzeń na proces myślowy
+                max_tokens=128,  # Dajemy modelowi przestrzeń na proces myślowy
                 temperature=0.0
             )
 

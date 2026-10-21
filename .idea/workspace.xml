@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: fix the order of elements in the format">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: increase the number of tokens">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vlm_zero_shot.py" beforeDir="false" afterPath="$PROJECT_DIR$/vlm_zero_shot.py" afterDir="false" />
     </list>
@@ -173,30 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00115" summary="chore: effnet">
-      <option name="closed" value="true" />
-      <created>1783243624154</created>
-      <option name="number" value="00115" />
-      <option name="presentableId" value="LOCAL-00115" />
-      <option name="project" value="LOCAL" />
-      <updated>1783243624154</updated>
-    </task>
-    <task id="LOCAL-00116" summary="chore: effnet">
-      <option name="closed" value="true" />
-      <created>1783243967651</created>
-      <option name="number" value="00116" />
-      <option name="presentableId" value="LOCAL-00116" />
-      <option name="project" value="LOCAL" />
-      <updated>1783243967651</updated>
-    </task>
-    <task id="LOCAL-00117" summary="chore: dino head only">
-      <option name="closed" value="true" />
-      <created>1783331087853</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1783331087854</updated>
     </task>
     <task id="LOCAL-00118" summary="feat: zero shot on DINO">
       <option name="closed" value="true" />
@@ -566,12 +542,34 @@
       <option name="project" value="LOCAL" />
       <updated>1792591147152</updated>
     </task>
-    <option name="localTasksCounter" value="164" />
+    <task id="LOCAL-00164" summary="fix: try to force the model to output just a number">
+      <option name="closed" value="true" />
+      <created>1792591244140</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1792591244140</updated>
+    </task>
+    <task id="LOCAL-00165" summary="fix: increase the number of tokens">
+      <option name="closed" value="true" />
+      <created>1792591333201</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1792591333201</updated>
+    </task>
+    <task id="LOCAL-00166" summary="fix: increase the number of tokens">
+      <option name="closed" value="true" />
+      <created>1792591408387</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1792591408387</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: qwk_loss" />
-    <MESSAGE value="fix: toimage" />
     <MESSAGE value="fix: qwk loss fix" />
     <MESSAGE value="feat: implement vlm loading" />
     <MESSAGE value="chore: use FocalLoss and VLM" />
@@ -595,6 +593,8 @@
     <MESSAGE value="fix: edit the response format" />
     <MESSAGE value="fix: edit the prompt" />
     <MESSAGE value="fix: fix the order of elements in the format" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix the order of elements in the format" />
+    <MESSAGE value="fix: try to force the model to output just a number" />
+    <MESSAGE value="fix: increase the number of tokens" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: increase the number of tokens" />
   </component>
 </project>
