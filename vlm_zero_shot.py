@@ -36,39 +36,39 @@ def evaluate_zero_shot(test_dataset):
         img_pil.save(buffered, format="JPEG")
         img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
         image_url = f"data:image/jpeg;base64,{img_base64}"
+
         try:
             response = client.chat.completions.create(
                 model="Qwen/Qwen3.5-4B",
                 messages=[
                     {
-                        "role": "system",
-                        "content": "You are a medical AI classifier. Respond strictly with a single integer digit between 0 and 4."
-                    },
-                    {
                         "role": "user",
                         "content": [
                             {"type": "image_url", "image_url": {"url": image_url}},
-                            {"type": "text", "text": "Classify the diabetic retinopathy grade (0, 1, 2, 3, or 4)."}
+                            {
+                                "type": "text",
+                                "text": "Analyze this retinal image for diabetic retinopathy (grades 0-4). "
+                                        "Think step by step, and write the final single digit (0, 1, 2, 3, or 4) at the very end."
+                            }
                         ]
-                    },
-                    {
-                        "role": "assistant",
-                        "content": "Grade: "  # Model kontynuuje wpisując od razu cyfrę!
                     }
                 ],
-                max_tokens=3,
+                max_tokens=512,  # Dajemy modelowi przestrzeń na proces myślowy
                 temperature=0.0
             )
 
             answer_text = response.choices[0].message.content.strip()
 
-            numbers = re.findall(r'\d+', answer_text)
+            # Qwen3.5 najpierw myśli, więc wynik końcowy jest na końcu tekstu.
+            # Szukamy cyfr od 0 do 4 i bierzemy OSTATNIĄ wystąpioną w tekście.
+            numbers = re.findall(r'[0-4]', answer_text)
             if numbers:
-                pred = int(numbers[0])
+                pred = int(numbers[-1])  # Ostatnia cyfra to zazwyczaj ostateczny werdykt
             else:
                 pred = -1
 
-            print(f"Model raw output: {answer_text} | Extracted: {pred}")
+            print(f"Extracted Final Grade: {pred} | Raw end: {answer_text[-40:]}")
+
         except Exception as e:
             print(f"Błąd inferencji: {e}")
             pred = -1
