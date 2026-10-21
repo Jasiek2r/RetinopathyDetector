@@ -1,11 +1,14 @@
 import base64
 import io
+
+import torch
 from openai import OpenAI
 from tqdm import tqdm
 from sklearn.metrics import accuracy_score, cohen_kappa_score, confusion_matrix
 import numpy as np
 from ml.concrete.retinopathy_dataset import RetinopathyDataset
 from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
+import torchvision.transforms as T
 
 # Inicjalizacja klienta OpenAI wskazującego na lokalny serwer vLLM (port 8000)
 client = OpenAI(
@@ -24,9 +27,16 @@ def evaluate_zero_shot(test_dataset):
         "Return ONLY a single integer number (0, 1, 2, 3, or 4) representing the diagnosis."
     )
 
+    to_pil = T.ToPILImage()
+
     for image, label in tqdm(test_dataset, desc="Zero-shot Evaluation"):
+        if isinstance(image, torch.Tensor):
+            img_pil = to_pil(image)
+        else:
+            img_pil = image
+
         buffered = io.BytesIO()
-        image.save(buffered, format="JPEG")
+        img_pil.save(buffered, format="JPEG")
         img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
         image_url = f"data:image/jpeg;base64,{img_base64}"
 
