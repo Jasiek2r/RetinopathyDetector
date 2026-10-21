@@ -1,5 +1,6 @@
 import base64
 import io
+import re
 
 import torch
 from openai import OpenAI
@@ -41,14 +42,18 @@ def evaluate_zero_shot(test_dataset):
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a medical AI. Output only a single digit from 0 to 4."
+                        "content": "You are a medical AI classifier. Respond strictly with a single integer digit between 0 and 4."
                     },
                     {
                         "role": "user",
                         "content": [
                             {"type": "image_url", "image_url": {"url": image_url}},
-                            {"type": "text", "text": "Classify this retinopathy image. Output only the digit (0-4):"}
+                            {"type": "text", "text": "Classify the diabetic retinopathy grade (0, 1, 2, 3, or 4)."}
                         ]
+                    },
+                    {
+                        "role": "assistant",
+                        "content": "Grade: "  # Model kontynuuje wpisując od razu cyfrę!
                     }
                 ],
                 max_tokens=3,
@@ -57,7 +62,6 @@ def evaluate_zero_shot(test_dataset):
 
             answer_text = response.choices[0].message.content.strip()
 
-            import re
             numbers = re.findall(r'\d+', answer_text)
             if numbers:
                 pred = int(numbers[0])
@@ -65,7 +69,6 @@ def evaluate_zero_shot(test_dataset):
                 pred = -1
 
             print(f"Model raw output: {answer_text} | Extracted: {pred}")
-
         except Exception as e:
             print(f"Błąd inferencji: {e}")
             pred = -1
