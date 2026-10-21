@@ -5,7 +5,7 @@ from tqdm import tqdm
 from sklearn.metrics import accuracy_score, cohen_kappa_score, confusion_matrix
 import numpy as np
 from ml.concrete.retinopathy_dataset import RetinopathyDataset
-
+from ml.concrete.retinopathy_pipeline import RetinopathyPipeline
 
 # Inicjalizacja klienta OpenAI wskazującego na lokalny serwer vLLM (port 8000)
 client = OpenAI(
@@ -68,10 +68,11 @@ def evaluate_zero_shot(test_dataset):
     return acc, qwk, cm
 
 
-test_dataset = RetinopathyDataset(
-    dataset_dir="./augmented_resized_V2",
-    transform=None, # Przy zero-shot nie potrzebujemy transformacji PyTorcha
-    max_images=100  # Opcjonalnie: na początek możesz ograniczyć liczbę zdjęć do testów
+pipeline = RetinopathyPipeline()
+
+_, _, test_dataset = pipeline.run(
+    dir_path="./augmented_resized_V2",
+    max_images=100
 )
 
 evaluate_zero_shot(test_dataset)
