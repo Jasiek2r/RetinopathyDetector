@@ -52,16 +52,23 @@ def evaluate_zero_shot(test_dataset):
                         ]
                     }
                 ],
-                max_tokens=5,
+                max_tokens=10,
                 temperature=0.0
             )
 
             answer_text = response.choices[0].message.content.strip()
-            pred = int(answer_text)
+
+            # Bezpieczne wyciąganie cyfry z dłuższego tekstu modelu
+            import re
+            numbers = re.findall(r'\d+', answer_text)
+            if numbers:
+                pred = int(numbers[0])  # Bierze pierwszą napotkaną cyfrę (np. 0-4)
+            else:
+                pred = -1
 
         except Exception as e:
             print(f"Błąd inferencji: {e}")
-            pred = -1  #
+            pred = -1
 
         y_true.append(label)
         y_pred.append(pred)
