@@ -69,7 +69,7 @@ def evaluate_zero_shot(test_dataset):
 
 
 test_dataset = RetinopathyDataset(
-    dataset_dir="path/to/your/dataset",
+    dataset_dir="./augmented_resized_V2",
     transform=None, # Przy zero-shot nie potrzebujemy transformacji PyTorcha
     max_images=100  # Opcjonalnie: na początek możesz ograniczyć liczbę zdjęć do testów
 )
