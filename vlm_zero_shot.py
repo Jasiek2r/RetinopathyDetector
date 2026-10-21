@@ -39,21 +39,18 @@ def evaluate_zero_shot(test_dataset):
 
         try:
             response = client.chat.completions.create(
-                model="Qwen/Qwen3.5-4B",
+                model="Qwen/Qwen2.5-VL-3B-Instruct",
                 messages=[
                     {
                         "role": "user",
                         "content": [
                             {"type": "image_url", "image_url": {"url": image_url}},
-                            {
-                                "type": "text",
-                                "text": "Analyze this retinal image for diabetic retinopathy (grades 0-4). "
-                                        "Think step by step, and write the final single digit (0, 1, 2, 3, or 4) at the very end."
-                            }
+                            {"type": "text",
+                             "text": "Classify this diabetic retinopathy image from 0 to 4. Output ONLY the single digit number:"}
                         ]
                     }
                 ],
-                max_tokens=128,  # Dajemy modelowi przestrzeń na proces myślowy
+                max_tokens=5,
                 temperature=0.0
             )
 
