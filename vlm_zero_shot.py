@@ -47,14 +47,19 @@ def evaluate_zero_shot(test_dataset):
                 model="Qwen/Qwen3.5-4B",
                 messages=[
                     {
+                        "role": "system",
+                        "content": "You are a strict medical image classifier. Output ONLY a single integer digit from 0 to 4. No explanations, no text."
+                    },
+                    {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": prompt},
+                            {"type": "text",
+                             "text": "Grade this retinal image for diabetic retinopathy from 0 to 4. Output only the number:"},
                             {"type": "image_url", "image_url": {"url": image_url}}
                         ]
                     }
                 ],
-                max_tokens=10,
+                max_tokens=3,
                 temperature=0.0
             )
 
