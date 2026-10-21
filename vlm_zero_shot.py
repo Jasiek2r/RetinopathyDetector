@@ -21,11 +21,7 @@ def evaluate_zero_shot(test_dataset):
     y_true = []
     y_pred = []
 
-    prompt = (
-        "You are an expert ophthalmologist. Analyze this retinal image for Diabetic Retinopathy. "
-        "Classify the stage on a scale from 0 to 4 (0: No DR, 1: Mild, 2: Moderate, 3: Severe, 4: Proliferative). "
-        "Return ONLY a single integer number (0, 1, 2, 3, or 4) representing the diagnosis."
-    )
+    prompt = "Classify this retinal image into one of the diabetic retinopathy grades from 0 to 4. Return ONLY the integer digit."
 
     to_pil = T.ToPILImage()
 
@@ -48,13 +44,12 @@ def evaluate_zero_shot(test_dataset):
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a strict medical image classifier. Output ONLY a single integer digit from 0 to 4. No explanations, no text."
+                        "content": "You are a medical AI. Output only a single digit from 0 to 4."
                     },
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text",
-                             "text": "Grade this retinal image for diabetic retinopathy from 0 to 4. Output only the number:"},
+                            {"type": "text", "text": prompt},
                             {"type": "image_url", "image_url": {"url": image_url}}
                         ]
                     }

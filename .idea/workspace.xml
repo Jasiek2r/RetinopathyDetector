@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: print response">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="fix: edit the response format">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vlm_zero_shot.py" beforeDir="false" afterPath="$PROJECT_DIR$/vlm_zero_shot.py" afterDir="false" />
     </list>
@@ -173,22 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00111" summary="chore: dino with full tuning">
-      <option name="closed" value="true" />
-      <created>1782749669081</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1782749669081</updated>
-    </task>
-    <task id="LOCAL-00112" summary="chore: do not use augumentation on val">
-      <option name="closed" value="true" />
-      <created>1782819628476</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1782819628476</updated>
     </task>
     <task id="LOCAL-00113" summary="chore: effnetb0">
       <option name="closed" value="true" />
@@ -566,12 +550,26 @@
       <option name="project" value="LOCAL" />
       <updated>1792590858078</updated>
     </task>
-    <option name="localTasksCounter" value="160" />
+    <task id="LOCAL-00160" summary="fix: move print response down the code">
+      <option name="closed" value="true" />
+      <created>1792590923079</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1792590923079</updated>
+    </task>
+    <task id="LOCAL-00161" summary="fix: edit the response format">
+      <option name="closed" value="true" />
+      <created>1792590991260</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1792590991260</updated>
+    </task>
+    <option name="localTasksCounter" value="162" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: convnext-small" />
-    <MESSAGE value="chore: efficientnet-b0" />
     <MESSAGE value="chore: dino" />
     <MESSAGE value="chore: dino inference" />
     <MESSAGE value="feat: qwk_loss" />
@@ -595,6 +593,8 @@
     <MESSAGE value="fix: convert PIL tensor to image" />
     <MESSAGE value="fix: try to make ai less talkative" />
     <MESSAGE value="chore: print response" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: print response" />
+    <MESSAGE value="fix: move print response down the code" />
+    <MESSAGE value="fix: edit the response format" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: edit the response format" />
   </component>
 </project>
