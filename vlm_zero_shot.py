@@ -40,7 +40,7 @@ def evaluate_zero_shot(test_dataset):
         img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
         image_url = f"data:image/jpeg;base64,{img_base64}"
 
-        print(f"Model raw output: {answer_text} | Extracted: {pred}")
+
 
         try:
             response = client.chat.completions.create(
@@ -60,6 +60,8 @@ def evaluate_zero_shot(test_dataset):
 
             answer_text = response.choices[0].message.content.strip()
 
+
+
             # Bezpieczne wyciąganie cyfry z dłuższego tekstu modelu
             import re
             numbers = re.findall(r'\d+', answer_text)
@@ -67,6 +69,8 @@ def evaluate_zero_shot(test_dataset):
                 pred = int(numbers[0])  # Bierze pierwszą napotkaną cyfrę (np. 0-4)
             else:
                 pred = -1
+
+            print(f"Model raw output: {answer_text} | Extracted: {pred}")
 
         except Exception as e:
             print(f"Błąd inferencji: {e}")
