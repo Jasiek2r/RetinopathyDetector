@@ -34,7 +34,7 @@ class RetinopathyMLEngine(MLEngine):
     # -------------------------
     # TRAIN
     # -------------------------
-    def train(self, train_dataset, val_dataset=None, batch_size=8, epochs=30):
+    def train(self, train_dataset, val_dataset=None, batch_size=64, epochs=30):
 
         # imbalance (sampler only)
         labels_np = train_dataset.df["diagnosis"].values
