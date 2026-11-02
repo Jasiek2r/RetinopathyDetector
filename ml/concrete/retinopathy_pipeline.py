@@ -5,10 +5,10 @@ from torchvision.transforms import v2 as T
 from ml.abstractions.data_pipeline import DataPipeline
 from ml.concrete.retinopathy_folder_dataset import RetinopathyFolderDataset
 
+
 class RetinopathyPipeline(DataPipeline):
 
     def run(self, dir_path, max_images):
-
         train_tf = T.Compose([
             T.ToImage(),
             T.ToDtype(torch.float32, scale=True),

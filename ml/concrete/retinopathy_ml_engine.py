@@ -10,6 +10,7 @@ from tqdm import tqdm
 from sklearn.metrics import cohen_kappa_score, confusion_matrix, accuracy_score
 
 from ml.abstractions.ml_engine import MLEngine
+from ml.concrete.FocalLoss import FocalLoss
 from ml.concrete.model_provider import ModelProvider
 
 import os
@@ -83,7 +84,7 @@ class RetinopathyMLEngine(MLEngine):
                 pin_memory=True
             )
 
-        criterion = QuadraticWeightedKappaLoss()
+        criterion = FocalLoss()
 
         optimizer = optim.AdamW(
             self.model.parameters(),
