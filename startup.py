@@ -16,7 +16,7 @@ class Startup:
     def __build_application__(self) -> RetinopathyApplication:
         # configure constants here
         sample_limit = None  # use None for no limit
-        path = "./augmented_resized_V2"
+        path = "/tmp/s193315_dataset"
 
         # configure the dependencies used by application here
         provider = ModelProvider()
