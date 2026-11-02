@@ -10,7 +10,6 @@ from tqdm import tqdm
 from sklearn.metrics import cohen_kappa_score, confusion_matrix, accuracy_score
 
 from ml.abstractions.ml_engine import MLEngine
-from ml.concrete.FocalLoss import FocalLoss
 from ml.concrete.model_provider import ModelProvider
 
 import os
@@ -68,7 +67,8 @@ class RetinopathyMLEngine(MLEngine):
             train_dataset,
             batch_size=batch_size,
             sampler=sampler,
-            num_workers=8,
+            num_workers=32,
+            persistent_workers=True,
             pin_memory=True
         )
 
@@ -78,7 +78,8 @@ class RetinopathyMLEngine(MLEngine):
                 val_dataset,
                 batch_size=batch_size,
                 shuffle=False,
-                num_workers=6,
+                num_workers=32,
+                persistent_workers=True,
                 pin_memory=True
             )
 
@@ -208,7 +209,9 @@ class RetinopathyMLEngine(MLEngine):
             dataset,
             batch_size=batch_size,
             shuffle=False,
-            num_workers=2
+            num_workers=32,
+            persistent_workers=True,
+            pin_memory=True
         )
 
         self.model.eval()
