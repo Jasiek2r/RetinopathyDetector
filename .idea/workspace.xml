@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: add 0.4 and 0.2 threshold">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
