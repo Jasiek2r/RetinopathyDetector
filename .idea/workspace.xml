@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: use focal loss">
+    <list default="true" id="4df164d4-a97b-4798-88d9-59d786a6d8ec" name="Changes" comment="chore: change dataset path">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/startup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml/concrete/model_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/ml/concrete/model_provider.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,14 +174,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1772726991288</updated>
-    </task>
-    <task id="LOCAL-00102" summary="chore: set up model back to dino">
-      <option name="closed" value="true" />
-      <created>1782666678076</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1782666678077</updated>
     </task>
     <task id="LOCAL-00103" summary="chore: dino head-only">
       <option name="closed" value="true" />
@@ -567,11 +559,18 @@
       <option name="project" value="LOCAL" />
       <updated>1793621786670</updated>
     </task>
-    <option name="localTasksCounter" value="151" />
+    <task id="LOCAL-00151" summary="chore: change dataset path">
+      <option name="closed" value="true" />
+      <created>1793633080295</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1793633080295</updated>
+    </task>
+    <option name="localTasksCounter" value="152" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: use train dataset to build prototypes" />
     <MESSAGE value="fix: use agument" />
     <MESSAGE value="fix: remove crop" />
     <MESSAGE value="chore:convnext" />
@@ -596,6 +595,7 @@
     <MESSAGE value="chore: try convnext large" />
     <MESSAGE value="chore: update pipeline" />
     <MESSAGE value="chore: use focal loss" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: use focal loss" />
+    <MESSAGE value="chore: change dataset path" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: change dataset path" />
   </component>
 </project>

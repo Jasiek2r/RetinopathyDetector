@@ -26,10 +26,11 @@ class RetFoundViT(nn.Module):
 
 class ModelProvider:
     def create_conv_model(self, num_classes=5):
+        # Tworzy model ConvNeXt V2 Huge z nową głową klasyfikatora
         model = timm.create_model(
-            "convnext_large",
+            "convnextv2_huge.fcmae_ft_in1k",
             pretrained=True,
-            num_classes=num_classes
+            num_classes=num_classes,
         )
 
         return model
